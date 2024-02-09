@@ -24,7 +24,7 @@ import useTextFeedback from '@/hooks/use-text-feedback'
 
 export const RegisterForm = () => {
   const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback('', 5000)
+    useTextFeedback('')
 
   const [isPending, startTransition] = useTransition()
 
@@ -123,4 +123,3 @@ export const RegisterForm = () => {
     </CardWrapper>
   )
 }
-

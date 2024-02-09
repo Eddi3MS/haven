@@ -1,5 +1,5 @@
 {
-  "name": "auth-tutorial",
+  "name": "haven-imoveis",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -21,6 +21,8 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@react-email/components": "^0.0.14",
+    "@react-email/tailwind": "^0.0.14",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",

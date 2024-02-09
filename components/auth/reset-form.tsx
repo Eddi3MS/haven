@@ -23,7 +23,7 @@ import * as z from 'zod'
 
 export const ResetForm = () => {
   const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback('', 5000)
+    useTextFeedback('')
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof ResetSchema>>({
@@ -83,4 +83,3 @@ export const ResetForm = () => {
     </CardWrapper>
   )
 }
-

@@ -35,7 +35,7 @@ export const LoginForm = () => {
   const [showTwoFactor, setShowTwoFactor] = useState(false)
 
   const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback('', 10000)
+    useTextFeedback('')
 
   const [isPending, startTransition] = useTransition()
 
@@ -165,4 +165,3 @@ export const LoginForm = () => {
     </CardWrapper>
   )
 }
-

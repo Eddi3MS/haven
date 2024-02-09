@@ -27,7 +27,7 @@ export const NewPasswordForm = () => {
   const token = searchParams.get('token')
 
   const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback('', 5000)
+    useTextFeedback('')
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof NewPasswordSchema>>({
@@ -87,4 +87,3 @@ export const NewPasswordForm = () => {
     </CardWrapper>
   )
 }
-
