@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="pt-BR">
-        <body className={`${inter.className} min-h-svh`}>
+        <body className={`${inter.className} min-h-svh flex flex-col`}>
           <Toaster />
           <Header />
           {children}

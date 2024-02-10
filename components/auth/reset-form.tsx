@@ -45,8 +45,8 @@ export const ResetForm = () => {
 
   return (
     <AuthCard
-      headerLabel="Forgot your password?"
-      backButtonLabel="Back to login"
+      headerLabel="Esqueceu sua senha?"
+      backButtonLabel="Voltar para login"
       backButtonHref="/auth/login"
     >
       <Form {...form}>
@@ -57,13 +57,14 @@ export const ResetForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>E-mail</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.doe@example.com"
+                      placeholder="joão.silva@example.com"
                       type="email"
+                      error={!!form.formState.errors.email}
                     />
                   </FormControl>
                   <FormMessage />
@@ -76,7 +77,7 @@ export const ResetForm = () => {
           {feedbackType === 'success' && <FormSuccess message={feedback} />}
 
           <Button disabled={isPending} type="submit" className="w-full">
-            Send reset email
+            Enviar e-mail de recuperação
           </Button>
         </form>
       </Form>

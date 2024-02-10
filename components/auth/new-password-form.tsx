@@ -49,8 +49,8 @@ export const NewPasswordForm = () => {
 
   return (
     <AuthCard
-      headerLabel="Enter a new password"
-      backButtonLabel="Back to login"
+      headerLabel="Insira uma nova senha"
+      backButtonLabel="Voltar para login"
       backButtonHref="/auth/login"
     >
       <Form {...form}>
@@ -68,6 +68,7 @@ export const NewPasswordForm = () => {
                       disabled={isPending}
                       placeholder="******"
                       type="password"
+                      error={!!form.formState.errors.password}
                     />
                   </FormControl>
                   <FormMessage />
@@ -80,7 +81,7 @@ export const NewPasswordForm = () => {
           {feedbackType === 'success' && <FormSuccess message={feedback} />}
 
           <Button disabled={isPending} type="submit" className="w-full">
-            Reset password
+            Mudar senha
           </Button>
         </form>
       </Form>

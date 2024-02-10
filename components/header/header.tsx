@@ -1,11 +1,23 @@
 import React from 'react'
 import { Navbar } from './navbar'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export const Header = () => {
   return (
-    <div className="flex justify-between">
-      <p>Logo</p>
-      <Navbar />
-    </div>
+    <header className=" bg-secondary shadow-sm">
+      <div className="max-w-[min(1400px,98%)] mx-auto flex justify-between items-center px-4">
+        <Link aria-label="voltar ao inicio" href="/">
+          <Image
+            src="https://firebasestorage.googleapis.com/v0/b/haven-imoveis-74ece.appspot.com/o/nm_haven_light.png?alt=media"
+            width={368}
+            height={90}
+            alt="haven"
+            className="w-[92px] h-[22.5px]"
+          />
+        </Link>
+        <Navbar />
+      </div>
+    </header>
   )
 }

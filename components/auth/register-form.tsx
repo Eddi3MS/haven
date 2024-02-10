@@ -48,8 +48,8 @@ export const RegisterForm = () => {
 
   return (
     <AuthCard
-      headerLabel="Create an account"
-      backButtonLabel="Already have an account?"
+      headerLabel="Crie sua conta"
+      backButtonLabel="Já tem uma conta?"
       backButtonHref="/auth/login"
       showSocial
     >
@@ -61,12 +61,13 @@ export const RegisterForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="John Doe"
+                      placeholder="João da Silva"
+                      error={!!form.formState.errors.name}
                     />
                   </FormControl>
                   <FormMessage />
@@ -78,13 +79,14 @@ export const RegisterForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>E-mail</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.doe@example.com"
+                      placeholder="joão.silva@example.com"
                       type="email"
+                      error={!!form.formState.errors.email}
                     />
                   </FormControl>
                   <FormMessage />
@@ -96,13 +98,14 @@ export const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Senha</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
                       placeholder="******"
                       type="password"
+                      error={!!form.formState.errors.password}
                     />
                   </FormControl>
                   <FormMessage />
@@ -115,7 +118,7 @@ export const RegisterForm = () => {
           {feedbackType === 'success' && <FormSuccess message={feedback} />}
 
           <Button disabled={isPending} type="submit" className="w-full">
-            Create an account
+            Criar conta
           </Button>
         </form>
       </Form>

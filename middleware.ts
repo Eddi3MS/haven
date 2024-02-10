@@ -6,6 +6,7 @@ import {
   adminRoutes,
   apiAuthPrefix,
   authRoutes,
+  havensPrefix,
   publicRoutes,
 } from '@/routes'
 
@@ -17,7 +18,9 @@ export default auth((req) => {
   const isAdmin = isLoggedIn && req.auth?.user.role === 'ADMIN'
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
+  const isPublicRoute =
+    publicRoutes.includes(nextUrl.pathname) ||
+    nextUrl.pathname.startsWith(havensPrefix)
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
   const isAdminRoute = adminRoutes.includes(nextUrl.pathname)
 

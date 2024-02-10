@@ -70,14 +70,14 @@ export const LoginForm = () => {
             setShowTwoFactor(true)
           }
         })
-        .catch(() => setFeedback({ error: 'Something went wrong' }))
+        .catch(() => setFeedback({ error: 'Algo deu errado.' }))
     })
   }
 
   return (
     <AuthCard
-      headerLabel="Welcome back"
-      backButtonLabel="Don't have an account?"
+      headerLabel="Bem-vindo de volta"
+      backButtonLabel="Não tem uma conta?"
       backButtonHref="/auth/register"
       showSocial
     >
@@ -96,6 +96,7 @@ export const LoginForm = () => {
                         {...field}
                         disabled={isPending}
                         placeholder="123456"
+                        error={!!form.formState.errors.code}
                       />
                     </FormControl>
                     <FormMessage />
@@ -115,8 +116,9 @@ export const LoginForm = () => {
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="john.doe@example.com"
+                          placeholder="joão.silva@example.com"
                           type="email"
+                          error={!!form.formState.errors.email}
                         />
                       </FormControl>
                       <FormMessage />
@@ -128,13 +130,14 @@ export const LoginForm = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Senha</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           disabled={isPending}
                           placeholder="******"
                           type="password"
+                          error={!!form.formState.errors.password}
                         />
                       </FormControl>
                       <Button
@@ -143,7 +146,7 @@ export const LoginForm = () => {
                         asChild
                         className="px-0 font-normal"
                       >
-                        <Link href="/auth/reset">Forgot password?</Link>
+                        <Link href="/auth/reset">Esqueceu sua senha?</Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -157,7 +160,7 @@ export const LoginForm = () => {
           {feedbackType === 'success' && <FormSuccess message={feedback} />}
 
           <Button disabled={isPending} type="submit" className="w-full">
-            {showTwoFactor ? 'Confirm' : 'Login'}
+            {showTwoFactor ? 'Confirmar' : 'Entrar'}
           </Button>
         </form>
       </Form>

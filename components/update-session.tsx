@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react'
 
-const UpdateSession = ({ shouldUpdate }: { shouldUpdate: boolean }) => {
+export const UpdateSession = ({ shouldUpdate }: { shouldUpdate: boolean }) => {
   const { update } = useSession()
 
   if (shouldUpdate) {
@@ -10,5 +10,3 @@ const UpdateSession = ({ shouldUpdate }: { shouldUpdate: boolean }) => {
   }
   return null
 }
-
-export default UpdateSession

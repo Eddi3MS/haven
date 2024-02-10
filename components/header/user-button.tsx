@@ -1,6 +1,6 @@
 'use client'
 
-import { LogoutButton } from '@/components/auth/logout-button'
+import { LogoutButton } from '@/components/header/logout-button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -30,30 +30,31 @@ export const UserButton = ({
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
-        <LogoutButton>
-          <DropdownMenuItem className="cursor-pointer">
-            <ExitIcon className="h-4 w-4 mr-2" />
-            Logout
-          </DropdownMenuItem>
-        </LogoutButton>
         <div className="block md:hidden">
           <DropdownMenuItem>
-            <Link href="/server">💻 Server</Link>
+            <Link href="/havens">Imóveis</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/client"> 📱 Client</Link>
+            <Link href="/create">Anunciar</Link>
           </DropdownMenuItem>
 
           {isAdmin ? (
             <DropdownMenuItem>
-              <Link href="/admin">🔑 Admin</Link>
+              <Link href="/admin">Admin</Link>
             </DropdownMenuItem>
           ) : null}
 
           <DropdownMenuItem>
-            <Link href="/settings">⚙️ Settings</Link>
+            <Link href="/settings">Settings</Link>
           </DropdownMenuItem>
         </div>
+
+        <LogoutButton>
+          <DropdownMenuItem className="cursor-pointer">
+            <ExitIcon className="h-4 w-4 mr-2" />
+            Sair
+          </DropdownMenuItem>
+        </LogoutButton>
       </DropdownMenuContent>
     </DropdownMenu>
   )

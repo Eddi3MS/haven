@@ -6,13 +6,13 @@ import { redirect } from 'next/navigation'
 
 const textVariations = {
   success: {
-    title: 'Confirmation Succeeded!',
-    label: 'Back to Login',
+    title: 'Confirmação bem sucedida!',
+    label: 'Voltar para Login',
     href: '/auth/login',
   },
   error: {
-    title: 'Confirmation Failed!',
-    label: 'Back to Register',
+    title: 'Confirmação falhou!',
+    label: 'Voltar para registro',
     href: '/auth/register',
   },
 }

@@ -2,18 +2,18 @@ import { emailChange } from '@/actions/new-email'
 import { AuthCard } from '@/components/auth/AuthCard'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
+import { UpdateSession } from '@/components/update-session'
 import { redirect } from 'next/navigation'
-import UpdateSession from '../_components/update-session'
 
 const textVariations = {
   success: {
-    title: 'Confirmation Succeeded!',
-    label: 'Back to Settings',
+    title: 'Confirmação bem sucedida!',
+    label: 'Voltar para configurações',
     href: '/settings',
   },
   error: {
-    title: 'Confirmation Failed!',
-    label: 'Back to Settings',
+    title: 'Confirmação falhou!',
+    label: 'Voltar para configurações',
     href: '/settings',
   },
 }

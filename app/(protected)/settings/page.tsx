@@ -1,5 +1,5 @@
+import SettingsForm from '@/components/settings-form'
 import { currentUser } from '@/lib/auth'
-import SettingsForm from '../_components/settings-form'
 
 const SettingsPage = async () => {
   const user = await currentUser()
@@ -16,4 +16,3 @@ const SettingsPage = async () => {
 }
 
 export default SettingsPage
-

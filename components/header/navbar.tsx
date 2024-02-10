@@ -9,20 +9,20 @@ export const Navbar = async () => {
   const isAdmin = user?.role === 'ADMIN'
 
   return (
-    <nav className="bg-secondary flex justify-between items-center p-4 rounded-xl w-[min(600px,98%)] shadow-sm">
+    <nav className="flex justify-between items-center p-4 gap-8">
       <div className="hidden md:flex gap-x-2">
-        <NavButton href="/server" label="Server" />
-        <NavButton href="/client" label="Client" />
+        <NavButton href="/havens" label="Imóveis" />
+        <NavButton href="/create" label="Anunciar" />
         {isAdmin ? <NavButton href="/admin" label="Admin" /> : null}
-        <NavButton href="/settings" label="Settings" />
+        {!!user ? <NavButton href="/settings" label="Settings" /> : null}
       </div>
 
       {!!user ? (
         <UserButton image={user.image ?? ''} isAdmin={isAdmin} />
       ) : (
         <LoginButton asChild>
-          <Button variant="secondary" size="lg">
-            Sign in
+          <Button variant="default" size="lg">
+            Entrar
           </Button>
         </LoginButton>
       )}

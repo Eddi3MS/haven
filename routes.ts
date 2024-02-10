@@ -5,6 +5,8 @@
  */
 export const publicRoutes = ['/', '/auth/new-verification']
 
+export const havensPrefix = '/havens'
+
 /**
  * An array of routes that are used for authentication
  * These routes will redirect logged in users to /settings
