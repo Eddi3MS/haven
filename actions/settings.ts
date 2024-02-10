@@ -25,6 +25,10 @@ export const settings = async (
     return { error: 'Unauthorized' }
   }
 
+  if (dbUser.role === 'USER' && values.role === 'ADMIN') {
+    return { error: 'Unauthorized' }
+  }
+
   if (user.isOAuth) {
     values.email = undefined
     values.password = undefined
@@ -84,4 +88,3 @@ export const settings = async (
 
   return { success: 'Settings Updated!' }
 }
-
