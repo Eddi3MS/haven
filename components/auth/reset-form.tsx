@@ -1,7 +1,7 @@
 'use client'
 
 import { reset } from '@/actions/reset'
-import { CardWrapper } from '@/components/auth/card-wrapper'
+import { AuthCard } from '@/components/auth/AuthCard'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { Button } from '@/components/ui/button'
@@ -44,7 +44,7 @@ export const ResetForm = () => {
   }
 
   return (
-    <CardWrapper
+    <AuthCard
       headerLabel="Forgot your password?"
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
@@ -80,6 +80,6 @@ export const ResetForm = () => {
           </Button>
         </form>
       </Form>
-    </CardWrapper>
+    </AuthCard>
   )
 }

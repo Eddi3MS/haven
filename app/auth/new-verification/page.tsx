@@ -1,5 +1,5 @@
 import { newVerification } from '@/actions/new-verification'
-import { CardWrapper } from '@/components/auth/card-wrapper'
+import { AuthCard } from '@/components/auth/AuthCard'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { redirect } from 'next/navigation'
@@ -34,7 +34,7 @@ const NewVerificationPage = async ({
     'success' in verification ? textVariations.success : textVariations.error
 
   return (
-    <CardWrapper
+    <AuthCard
       headerLabel={textVariation.title}
       backButtonLabel={textVariation.label}
       backButtonHref={textVariation.href}
@@ -46,9 +46,8 @@ const NewVerificationPage = async ({
 
         {'error' in verification && <FormError message={verification.error} />}
       </div>
-    </CardWrapper>
+    </AuthCard>
   )
 }
 
 export default NewVerificationPage
-

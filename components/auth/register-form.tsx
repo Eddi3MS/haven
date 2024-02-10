@@ -1,12 +1,10 @@
 'use client'
 
-import * as z from 'zod'
-import { useState, useTransition } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-
-import { RegisterSchema } from '@/schemas'
-import { Input } from '@/components/ui/input'
+import { register } from '@/actions/register'
+import { AuthCard } from '@/components/auth/AuthCard'
+import { FormError } from '@/components/form-error'
+import { FormSuccess } from '@/components/form-success'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -15,12 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { CardWrapper } from '@/components/auth/card-wrapper'
-import { Button } from '@/components/ui/button'
-import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
-import { register } from '@/actions/register'
+import { Input } from '@/components/ui/input'
 import useTextFeedback from '@/hooks/use-text-feedback'
+import { RegisterSchema } from '@/schemas'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTransition } from 'react'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
 
 export const RegisterForm = () => {
   const { feedback, feedbackType, setFeedback, clearFeedback } =
@@ -48,7 +47,7 @@ export const RegisterForm = () => {
   }
 
   return (
-    <CardWrapper
+    <AuthCard
       headerLabel="Create an account"
       backButtonLabel="Already have an account?"
       backButtonHref="/auth/login"
@@ -120,6 +119,6 @@ export const RegisterForm = () => {
           </Button>
         </form>
       </Form>
-    </CardWrapper>
+    </AuthCard>
   )
 }

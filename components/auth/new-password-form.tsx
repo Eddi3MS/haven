@@ -1,7 +1,7 @@
 'use client'
 
 import { newPassword } from '@/actions/new-password'
-import { CardWrapper } from '@/components/auth/card-wrapper'
+import { AuthCard } from '@/components/auth/AuthCard'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { Button } from '@/components/ui/button'
@@ -48,7 +48,7 @@ export const NewPasswordForm = () => {
   }
 
   return (
-    <CardWrapper
+    <AuthCard
       headerLabel="Enter a new password"
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
@@ -84,6 +84,6 @@ export const NewPasswordForm = () => {
           </Button>
         </form>
       </Form>
-    </CardWrapper>
+    </AuthCard>
   )
 }

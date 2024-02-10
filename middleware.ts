@@ -3,6 +3,7 @@ import NextAuth from 'next-auth'
 
 import {
   DEFAULT_LOGIN_REDIRECT,
+  adminRoutes,
   apiAuthPrefix,
   authRoutes,
   publicRoutes,
@@ -13,10 +14,12 @@ const { auth } = NextAuth(authConfig)
 export default auth((req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
+  const isAdmin = isLoggedIn && req.auth?.user.role === 'ADMIN'
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+  const isAdminRoute = adminRoutes.includes(nextUrl.pathname)
 
   if (isApiAuthRoute) {
     return null
@@ -27,6 +30,10 @@ export default auth((req) => {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
     }
     return null
+  }
+
+  if (isAdminRoute && !isAdmin) {
+    return Response.redirect(new URL('/', nextUrl))
   }
 
   if (!isLoggedIn && !isPublicRoute) {
@@ -49,4 +56,3 @@ export default auth((req) => {
 export const config = {
   matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 }
-

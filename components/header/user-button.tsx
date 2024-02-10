@@ -1,8 +1,5 @@
 'use client'
 
-import { ExitIcon } from '@radix-ui/react-icons'
-import { FaUser } from 'react-icons/fa'
-
 import { LogoutButton } from '@/components/auth/logout-button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -11,17 +8,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useCurrentUser } from '@/hooks/use-current-user'
+import { ExitIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
+import { FaUser } from 'react-icons/fa'
 
-export const UserButton = () => {
-  const user = useCurrentUser()
-
+export const UserButton = ({
+  image = '',
+  isAdmin,
+}: {
+  image?: string
+  isAdmin: boolean
+}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src={user?.image || ''} />
+          <AvatarImage src={image} />
           <AvatarFallback className="bg-sky-500">
             <FaUser className="text-white" />
           </AvatarFallback>
@@ -41,9 +43,13 @@ export const UserButton = () => {
           <DropdownMenuItem>
             <Link href="/client"> 📱 Client</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/admin">🔑 Admin</Link>
-          </DropdownMenuItem>
+
+          {isAdmin ? (
+            <DropdownMenuItem>
+              <Link href="/admin">🔑 Admin</Link>
+            </DropdownMenuItem>
+          ) : null}
+
           <DropdownMenuItem>
             <Link href="/settings">⚙️ Settings</Link>
           </DropdownMenuItem>
@@ -52,4 +58,3 @@ export const UserButton = () => {
     </DropdownMenu>
   )
 }
-

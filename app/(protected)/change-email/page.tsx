@@ -1,6 +1,5 @@
 import { emailChange } from '@/actions/new-email'
-import { update } from '@/auth'
-import { CardWrapper } from '@/components/auth/card-wrapper'
+import { AuthCard } from '@/components/auth/AuthCard'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { redirect } from 'next/navigation'
@@ -36,7 +35,7 @@ const ChangeEmailVerification = async ({
     'success' in verification ? textVariations.success : textVariations.error
 
   return (
-    <CardWrapper
+    <AuthCard
       headerLabel={textVariation.title}
       backButtonLabel={textVariation.label}
       backButtonHref={textVariation.href}
@@ -49,9 +48,8 @@ const ChangeEmailVerification = async ({
         {'error' in verification && <FormError message={verification.error} />}
       </div>
       <UpdateSession shouldUpdate={'success' in verification} />
-    </CardWrapper>
+    </AuthCard>
   )
 }
 
 export default ChangeEmailVerification
-
