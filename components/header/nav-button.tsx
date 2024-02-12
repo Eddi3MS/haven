@@ -7,8 +7,10 @@ const NavButton = ({ href, label }: { href: string; label: string }) => {
   const pathname = usePathname()
 
   return (
-    <Button asChild variant={pathname === href ? 'default' : 'outline'}>
-      <Link href={href}>{label}</Link>
+    <Button asChild variant={pathname === href ? 'activeLink' : 'link'}>
+      <Link href={href} className="uppercase font-semibold">
+        {label}
+      </Link>
     </Button>
   )
 }
