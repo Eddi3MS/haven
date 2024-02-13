@@ -1,32 +1,33 @@
-'use server'
+"use server"
 
-import { update } from '@/auth'
-import { getUserByEmail, getUserById } from '@/data/user'
-import { currentUser } from '@/lib/auth'
-import { db } from '@/lib/db'
-import { sendEmailChangeEmail } from '@/lib/mail'
-import { generateEmailChangeToken } from '@/lib/tokens'
-import { SettingsSchema } from '@/schemas'
-import bcrypt from 'bcryptjs'
-import * as z from 'zod'
+import { ActionReturnType } from "@/actions/types"
+import { update } from "@/auth"
+import { getUserByEmail, getUserById } from "@/data/user"
+import { currentUser } from "@/lib/auth"
+import { db } from "@/lib/db"
+import { sendEmailChangeEmail } from "@/lib/mail"
+import { generateEmailChangeToken } from "@/lib/tokens"
+import { SettingsSchema } from "@/schemas"
+import bcrypt from "bcryptjs"
+import * as z from "zod"
 
 export const settings = async (
   values: z.infer<typeof SettingsSchema>
-): Promise<{ success: string } | { error: string }> => {
+): Promise<ActionReturnType> => {
   const user = await currentUser()
 
   if (!user) {
-    return { error: 'Unauthorized' }
+    return { error: "Unauthorized" }
   }
 
   const dbUser = await getUserById(user.id)
 
   if (!dbUser) {
-    return { error: 'Unauthorized' }
+    return { error: "Unauthorized" }
   }
 
-  if (dbUser.role === 'USER' && values.role === 'ADMIN') {
-    return { error: 'Unauthorized' }
+  if (dbUser.role === "USER" && values.role === "ADMIN") {
+    return { error: "Unauthorized" }
   }
 
   if (user.isOAuth) {
@@ -40,7 +41,7 @@ export const settings = async (
     const existingUser = await getUserByEmail(values.email)
 
     if (existingUser && existingUser.id !== user.id) {
-      return { error: 'Email already in use!' }
+      return { error: "Email already in use!" }
     }
 
     const emailChangeToken = await generateEmailChangeToken(
@@ -52,7 +53,7 @@ export const settings = async (
       emailChangeToken.token
     )
 
-    return { success: 'Verification email sent!' }
+    return { success: "Verification email sent!" }
   }
 
   if (values.password && values.newPassword && dbUser.password) {
@@ -62,7 +63,7 @@ export const settings = async (
     )
 
     if (!passwordsMatch) {
-      return { error: 'Incorrect password!' }
+      return { error: "Incorrect password!" }
     }
 
     const hashedPassword = await bcrypt.hash(values.newPassword, 10)
@@ -86,5 +87,5 @@ export const settings = async (
     },
   })
 
-  return { success: 'Settings Updated!' }
+  return { success: "Settings Updated!" }
 }

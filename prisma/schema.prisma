@@ -98,7 +98,7 @@ model Post {
   id                      String @id @default(cuid())
   title                   String
   description             String
-  images                  String[]
+  imageId                 String
   createdAt               DateTime @default(now())
   category                PostCategory
   bedroomCount            Int
