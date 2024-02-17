@@ -34,19 +34,18 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
       <Carousel setApi={setApi} className="w-full max-w-sm">
         <CarouselContent>
           {images.map((image, index) => (
-            <CarouselItem key={index}>
-              <Image
-                width={300}
-                height={200}
-                src={image}
-                alt="imagem"
-                className="w-full"
+            <CarouselItem key={index} className="py-10">
+              <div
+                className="m-2 min-w-[300px] min-h-[200px] bg-cover bg-center"
+                style={{ backgroundImage: `URL(${image})` }}
               />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        {api?.canScrollPrev() && (
+          <CarouselPrevious className="hidden md:flex" />
+        )}
+        {api?.canScrollNext() && <CarouselNext className="hidden md:flex" />}
       </Carousel>
       <div className="py-2 text-center text-sm text-muted-foreground">
         Imagem {current} de {count}.

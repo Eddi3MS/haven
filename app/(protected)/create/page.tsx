@@ -6,6 +6,7 @@ import { FormSuccess } from "@/components/form-success"
 import ImageCarousel from "@/components/images-carousel"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import {
   Form,
   FormControl,
@@ -38,18 +39,18 @@ const CreatePost = () => {
   const { feedback, feedbackType, setFeedback, clearFeedback } =
     useTextFeedback("", 5000)
 
-  /* teste */
-  const [imageArr, setImageArr] = useState<string[]>([])
-  console.log("🚀 ~ CreatePost ~ imageArr:", imageArr)
+  const [imagePreviewArr, setImagePreviewArr] = useState<string[]>([])
 
   const form = useForm<z.infer<typeof PostHavenSchema>>({
     resolver: zodResolver(PostHavenSchema),
     defaultValues: {
       images: undefined,
+      category: "SELL",
     },
   })
 
   const imagesWatch = form.watch("images")
+  const categoryWatch = form.watch("category")
 
   const handlePreview = useCallback(async () => {
     if (!Array.isArray(imagesWatch) || imagesWatch.length <= 0) return
@@ -59,7 +60,7 @@ const CreatePost = () => {
       imagesBase64.push(URL.createObjectURL(image))
     }
 
-    setImageArr(imagesBase64)
+    setImagePreviewArr(imagesBase64)
   }, [imagesWatch])
 
   useEffect(() => {
@@ -88,8 +89,8 @@ const CreatePost = () => {
               })
             }
 
-            console.log("🚀 ~ .then ~ res:", res)
             // fazer upload do post completo pro db com a id da imagem
+            form.reset()
           }
         })
         .catch((err) => console.error(err))
@@ -113,6 +114,7 @@ const CreatePost = () => {
                         {...field}
                         placeholder="Casa de veraneio no.."
                         disabled={isPending}
+                        error={!!form.formState.errors.title}
                       />
                     </FormControl>
                     <FormMessage />
@@ -130,6 +132,7 @@ const CreatePost = () => {
                         {...field}
                         placeholder="Av. Magalhães Pinto 1201, centro"
                         disabled={isPending}
+                        error={!!form.formState.errors.address}
                       />
                     </FormControl>
                     <FormMessage />
@@ -177,7 +180,11 @@ const CreatePost = () => {
                   name="price"
                   render={({ field: { onChange, value, ...rest } }) => (
                     <FormItem className="md:w-1/2">
-                      <FormLabel>Valor</FormLabel>
+                      <FormLabel>
+                        {categoryWatch === "SELL"
+                          ? "Valor do imóvel"
+                          : "Valor do aluguel"}
+                      </FormLabel>
                       <FormControl>
                         <Input
                           {...rest}
@@ -186,7 +193,11 @@ const CreatePost = () => {
                             onChange(target.value)
                           }}
                           value={formatToCurrency(value)}
-                          placeholder="R$250.000.00"
+                          placeholder={
+                            categoryWatch === "SELL"
+                              ? "R$250.000.00"
+                              : "R$2.000.00"
+                          }
                           disabled={isPending}
                           error={!!form.formState.errors.price}
                         />
@@ -322,7 +333,7 @@ const CreatePost = () => {
             {Array.isArray(imagesWatch) && imagesWatch.length > 0 ? (
               <div className="grid gap-2">
                 <h2>imagens selecionadas:</h2>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   {imagesWatch.map((image, i) => (
                     <Badge key={i} variant="outline">
                       {image.name}
@@ -335,17 +346,23 @@ const CreatePost = () => {
                   >
                     limpar imagens
                   </Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button type="button" variant="secondary">
+                        visualizar imagens
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="p-0 w-auto border-none">
+                      <ImageCarousel images={imagePreviewArr} />
+                    </DialogContent>
+                  </Dialog>
                 </div>
-
-                {imageArr.length > 0 ? (
-                  <ImageCarousel images={imageArr} />
-                ) : null}
               </div>
             ) : (
               <FormField
                 control={form.control}
                 name="images"
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange } }) => (
                   <FormItem className="h-full">
                     <FormLabel asChild>
                       <label
@@ -384,6 +401,11 @@ const CreatePost = () => {
                         onChange={({ target }) => {
                           if (target.files) {
                             const filesToArr = Array.from(target.files)
+                            if (filesToArr.length > 5) {
+                              return form.setError("images", {
+                                message: "Número máximo de 5 imagens.",
+                              })
+                            }
                             onChange(filesToArr)
                           }
                         }}

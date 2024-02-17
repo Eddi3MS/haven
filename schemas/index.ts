@@ -98,10 +98,10 @@ export const PostHavenSchema = z.object({
         .refine(
           (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
           "Formato não suportado"
-        )
+        ),
+      { required_error: "Faça upload de 1 imagem." }
     )
-    .refine((arr) => arr.length >= 1, "Faça upload de 1 foto.")
-    .refine((arr) => arr.length <= 5, "Upload máximo de 5."),
+    .refine((arr) => arr.length <= 5, "Upload máximo de 5 imagens."),
 
   title: z
     .string({ required_error: "Campo Obrigatório" })
@@ -110,12 +110,12 @@ export const PostHavenSchema = z.object({
     .string({ required_error: "Campo Obrigatório" })
     .min(30, "Descrição deve conter 30 caracteres ou mais."),
   category: z.literal("SELL").or(z.literal("RENT")),
-  bedroomCount: z.string().min(1),
-  bathroomCount: z.string().min(1),
-  address: z.string().min(1),
-  area: z.string().min(1),
-  builtArea: z.string().min(1),
-  price: z.string().min(1),
+  bedroomCount: z.string({ required_error: "Campo Obrigatório" }).min(1),
+  bathroomCount: z.string({ required_error: "Campo Obrigatório" }).min(1),
+  address: z.string({ required_error: "Campo Obrigatório" }).min(1),
+  area: z.string({ required_error: "Campo Obrigatório" }).min(1),
+  builtArea: z.string({ required_error: "Campo Obrigatório" }).min(1),
+  price: z.string({ required_error: "Campo Obrigatório" }).min(1),
 })
 
 export const FilterPostSchema = z.object({

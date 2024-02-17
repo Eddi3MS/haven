@@ -1,17 +1,22 @@
+import { deleteFromCloudinaryWithDeleteToken } from "./deleteFromCloudinaryWithDeleteToken"
+
 type UploadToCloudinaryProps = {
   signature: string
   images: File[]
   timestamp: number
 }
 
-const baseURL = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}`
+type ImagesReturn = {
+  public_id: string
+  delete_token: string
+}
 
 export async function uploadToCloudinary({
   signature,
   images,
   timestamp,
 }: UploadToCloudinaryProps) {
-  let imageData = []
+  let imageData: ImagesReturn[] = []
 
   try {
     for (const image of images) {
@@ -21,38 +26,38 @@ export async function uploadToCloudinary({
       formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY!)
       formData.append("timestamp", String(timestamp))
       formData.append("signature", signature)
-      // formData.append("eager", "c_pad,h_300,w_400|c_crop,h_200,w_260");
 
-      const res = await fetch(`${baseURL}/upload`, {
-        method: "POST",
-        body: formData,
-      })
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      )
 
       if (!res.ok) {
         throw new Error("Upload Failed.")
       }
 
-      const { delete_token, url } = (await res.json()) as {
-        url: string
-        delete_token: string
-      }
+      const { delete_token, public_id } = (await res.json()) as ImagesReturn
 
-      imageData.push({ delete_token, url })
+      imageData.push({ delete_token, public_id })
     }
+
+    throw new Error("algo")
   } catch (error) {
     if (imageData.length > 0) {
       Promise.all(
         imageData.map((data) =>
-          fetch(`${baseURL}/delete_by_token`, {
-            method: "POST",
-            body: JSON.stringify({ token: data.delete_token }),
-          })
+          deleteFromCloudinaryWithDeleteToken(data.delete_token)
         )
       )
     }
 
     imageData = []
+  } finally {
+    return imageData.length > 0
+      ? imageData.map((image) => image.public_id)
+      : null
   }
-
-  return imageData.length > 0 ? imageData.map((image) => image.url) : null
 }
