@@ -23,12 +23,12 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="pt-BR" className="bg-slate-50">
-        <body
-          className={`${inter.className} min-h-svh flex flex-col max-w-[min(1600px,100%)] mx-auto drop-shadow-md`}
-        >
+        <body className={`${inter.className} min-h-svh flex flex-col`}>
           <Toaster />
           <Header />
-          {children}
+          <main className="flex h-full flex-col items-center justify-center">
+            {children}
+          </main>
         </body>
       </html>
     </SessionProvider>

@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { login } from '@/actions/login'
-import { AuthCard } from '@/components/auth/AuthCard'
-import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
-import { Button } from '@/components/ui/button'
+import { login } from "@/actions/login"
+import { AuthCard } from "@/components/auth/AuthCard"
+import { FormError } from "@/components/form-error"
+import { FormSuccess } from "@/components/form-success"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -12,38 +12,38 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import useTextFeedback from '@/hooks/use-text-feedback'
-import { LoginSchema } from '@/schemas'
-import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import { useEffect, useState, useTransition } from 'react'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import useTextFeedback from "@/hooks/use-text-feedback"
+import { LoginSchema } from "@/schemas"
+import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useState, useTransition } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 export const LoginForm = () => {
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl')
+  const callbackUrl = searchParams.get("callbackUrl")
   const urlError =
-    searchParams.get('error') === 'OAuthAccountNotLinked'
-      ? 'Email already in use with different provider!'
-      : ''
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with different provider!"
+      : ""
 
   const [showTwoFactor, setShowTwoFactor] = useState(false)
 
   const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback('')
+    useTextFeedback("")
 
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: '',
-      password: '',
-      code: '',
+      email: "",
+      password: "",
+      code: "",
     },
   })
 
@@ -61,16 +61,16 @@ export const LoginForm = () => {
         .then((data) => {
           if (!data) return
 
-          if ('error' in data || 'success' in data) {
+          if ("error" in data || "success" in data) {
             setFeedback(data)
             form.reset()
           }
 
-          if ('twoFactor' in data) {
+          if ("twoFactor" in data) {
             setShowTwoFactor(true)
           }
         })
-        .catch(() => setFeedback({ error: 'Algo deu errado.' }))
+        .catch(() => setFeedback({ error: "Algo deu errado." }))
     })
   }
 
@@ -129,17 +129,20 @@ export const LoginForm = () => {
                   control={form.control}
                   name="password"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Senha</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          disabled={isPending}
-                          placeholder="******"
-                          type="password"
-                          error={!!form.formState.errors.password}
-                        />
-                      </FormControl>
+                    <>
+                      <FormItem>
+                        <FormLabel>Senha</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            disabled={isPending}
+                            placeholder="******"
+                            type="password"
+                            error={!!form.formState.errors.password}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>{" "}
                       <Button
                         size="sm"
                         variant="link"
@@ -148,19 +151,18 @@ export const LoginForm = () => {
                       >
                         <Link href="/auth/reset">Esqueceu sua senha?</Link>
                       </Button>
-                      <FormMessage />
-                    </FormItem>
+                    </>
                   )}
                 />
               </>
             )}
           </div>
 
-          {feedbackType === 'error' && <FormError message={feedback} />}
-          {feedbackType === 'success' && <FormSuccess message={feedback} />}
+          {feedbackType === "error" && <FormError message={feedback} />}
+          {feedbackType === "success" && <FormSuccess message={feedback} />}
 
           <Button disabled={isPending} type="submit" className="w-full">
-            {showTwoFactor ? 'Confirmar' : 'Entrar'}
+            {showTwoFactor ? "Confirmar" : "Entrar"}
           </Button>
         </form>
       </Form>

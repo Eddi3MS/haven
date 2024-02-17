@@ -1,19 +1,19 @@
-'use client'
+"use client"
 
-import { LogoutButton } from '@/components/header/logout-button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { LogoutButton } from "@/components/header/logout-button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { ExitIcon } from '@radix-ui/react-icons'
-import Link from 'next/link'
-import { FaUser } from 'react-icons/fa'
+} from "@/components/ui/dropdown-menu"
+import { ExitIcon } from "@radix-ui/react-icons"
+import Link from "next/link"
+import { FaUser } from "react-icons/fa"
 
 export const UserButton = ({
-  image = '',
+  image = "",
   isAdmin,
 }: {
   image?: string
@@ -21,7 +21,7 @@ export const UserButton = ({
 }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger aria-label="abrir menu">
         <Avatar>
           <AvatarImage src={image} />
           <AvatarFallback className="bg-sky-500">

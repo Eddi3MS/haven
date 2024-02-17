@@ -1,11 +1,11 @@
-import React from 'react'
-import { Navbar } from './navbar'
-import Image from 'next/image'
-import Link from 'next/link'
+import React from "react"
+import { Navbar } from "./navbar"
+import Image from "next/image"
+import Link from "next/link"
 
 export const Header = () => {
   return (
-    <header className=" bg-secondary shadow-sm">
+    <header className="bg-gradient-to-r from-violet-300 to-pink-400 shadow-md">
       <div className="max-w-[min(1400px,98%)] mx-auto flex justify-between items-center px-4">
         <Link aria-label="voltar ao inicio" href="/">
           <Image

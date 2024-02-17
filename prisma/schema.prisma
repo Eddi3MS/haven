@@ -93,12 +93,21 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
+enum PostStatus {
+  APPROVED
+  REJECTED
+  PENDING
+}
+enum PostCategory {
+  RENT
+  SELL
+}
 
 model Post {
   id                      String @id @default(cuid())
   title                   String
   description             String
-  imageId                 String
+  images                  Image[]
   createdAt               DateTime @default(now())
   category                PostCategory
   bedroomCount            Int
@@ -114,12 +123,9 @@ model Post {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-enum PostStatus {
-  APPROVED
-  REJECTED
-  PENDING
-}
-enum PostCategory {
-  RENT
-  SELL
+model Image {
+  id                      String @id @default(cuid())
+  postId                  String
+  url                     String
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
