@@ -1,15 +1,14 @@
-import { db } from "@/lib/db";
+import { db } from "@/lib/db"
+import "server-only"
 
-export const getTwoFactorConfirmationByUserId = async (
-  userId: string
-) => {
+export const getTwoFactorConfirmationByUserId = async (userId: string) => {
   try {
     const twoFactorConfirmation = await db.twoFactorConfirmation.findUnique({
-      where: { userId }
-    });
+      where: { userId },
+    })
 
-    return twoFactorConfirmation;
+    return twoFactorConfirmation
   } catch {
-    return null;
+    return null
   }
-};
+}

@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary"
+import "server-only"
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

@@ -1,4 +1,5 @@
-import { db } from '@/lib/db'
+import { db } from "@/lib/db"
+import "server-only"
 
 export const getEmailChangeTokenByToken = async (token: string) => {
   try {
@@ -12,10 +13,10 @@ export const getEmailChangeTokenByToken = async (token: string) => {
   }
 }
 
-export const getEmailChangeTokenByEmail = async (email: string) => {
+export const getEmailChangeTokenByEmail = async (old_email: string) => {
   try {
     const verificationToken = await db.emailChangeToken.findFirst({
-      where: { old_email: email },
+      where: { old_email },
     })
 
     return verificationToken
@@ -23,4 +24,3 @@ export const getEmailChangeTokenByEmail = async (email: string) => {
     return null
   }
 }
-

@@ -1,4 +1,5 @@
 import { db } from "@/lib/db"
+import "server-only"
 
 export const getAllApprovedPosts = async () => {
   try {

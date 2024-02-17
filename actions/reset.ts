@@ -3,7 +3,7 @@
 import { ActionReturnType } from "@/actions/types"
 import { getUserByEmail } from "@/data/user"
 import { sendPasswordResetEmail } from "@/lib/mail"
-import { generatePasswordResetToken } from "@/lib/tokens"
+import { generatePasswordResetToken } from "@/data/tokens"
 import { ResetSchema } from "@/schemas"
 import * as z from "zod"
 

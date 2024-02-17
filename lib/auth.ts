@@ -1,4 +1,5 @@
-import { auth } from '@/auth'
+import { auth } from "@/auth"
+import "server-only"
 
 export const currentUser = async () => {
   const session = await auth()
@@ -11,4 +12,3 @@ export const currentRole = async () => {
 
   return session?.user?.role
 }
-
