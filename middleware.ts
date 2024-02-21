@@ -1,5 +1,5 @@
-import authConfig from '@/auth.config'
-import NextAuth from 'next-auth'
+import authConfig from "@/auth.config"
+import NextAuth from "next-auth"
 
 import {
   DEFAULT_LOGIN_REDIRECT,
@@ -8,20 +8,20 @@ import {
   authRoutes,
   havensPrefix,
   publicRoutes,
-} from '@/routes'
+} from "@/routes"
 
 const { auth } = NextAuth(authConfig)
 
 export default auth((req) => {
   const { nextUrl } = req
-  const isLoggedIn = !!req.auth
-  const isAdmin = isLoggedIn && req.auth?.user.role === 'ADMIN'
+  const { pathname, search } = nextUrl
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
+  const isLoggedIn = !!req.auth
+  const isAdmin = isLoggedIn && req.auth?.user.role === "ADMIN"
+  const isApiAuthRoute = pathname.startsWith(apiAuthPrefix)
   const isPublicRoute =
-    publicRoutes.includes(nextUrl.pathname) ||
-    nextUrl.pathname.startsWith(havensPrefix)
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+    publicRoutes.includes(pathname) || pathname.startsWith(havensPrefix)
+  const isAuthRoute = authRoutes.includes(pathname)
   const isAdminRoute = adminRoutes.includes(nextUrl.pathname)
 
   if (isApiAuthRoute) {
@@ -36,13 +36,13 @@ export default auth((req) => {
   }
 
   if (isAdminRoute && !isAdmin) {
-    return Response.redirect(new URL('/', nextUrl))
+    return Response.redirect(new URL("/", nextUrl))
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    let callbackUrl = nextUrl.pathname
-    if (nextUrl.search) {
-      callbackUrl += nextUrl.search
+    let callbackUrl = pathname
+    if (search) {
+      callbackUrl += search
     }
 
     const encodedCallbackUrl = encodeURIComponent(callbackUrl)
@@ -55,7 +55,6 @@ export default auth((req) => {
   return null
 })
 
-// Optionally, don't invoke Middleware on some paths
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 }

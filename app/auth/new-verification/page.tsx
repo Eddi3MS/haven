@@ -1,19 +1,19 @@
-import { newVerification } from '@/actions/new-verification'
-import { AuthCard } from '@/components/auth/AuthCard'
-import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
-import { redirect } from 'next/navigation'
+import { newVerification } from "@/actions/auth/new-verification"
+import { AuthCard } from "@/components/auth/AuthCard"
+import { FormError } from "@/components/form-error"
+import { FormSuccess } from "@/components/form-success"
+import { redirect } from "next/navigation"
 
 const textVariations = {
   success: {
-    title: 'Confirmação bem sucedida!',
-    label: 'Voltar para Login',
-    href: '/auth/login',
+    title: "Confirmação bem sucedida!",
+    label: "Voltar para Login",
+    href: "/auth/login",
   },
   error: {
-    title: 'Confirmação falhou!',
-    label: 'Voltar para registro',
-    href: '/auth/register',
+    title: "Confirmação falhou!",
+    label: "Voltar para registro",
+    href: "/auth/register",
   },
 }
 
@@ -25,13 +25,13 @@ const NewVerificationPage = async ({
   const { token } = searchParams
 
   if (!token) {
-    redirect('/auth/register')
+    redirect("/auth/register")
   }
 
   const verification = await newVerification(token)
 
   const textVariation =
-    'success' in verification ? textVariations.success : textVariations.error
+    "success" in verification ? textVariations.success : textVariations.error
 
   return (
     <AuthCard
@@ -40,11 +40,11 @@ const NewVerificationPage = async ({
       backButtonHref={textVariation.href}
     >
       <div className="flex items-center w-full justify-center">
-        {'success' in verification && (
+        {"success" in verification && (
           <FormSuccess message={verification.success} />
         )}
 
-        {'error' in verification && <FormError message={verification.error} />}
+        {"error" in verification && <FormError message={verification.error} />}
       </div>
     </AuthCard>
   )

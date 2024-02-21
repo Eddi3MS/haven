@@ -1,6 +1,6 @@
 "use client"
 
-import { login } from "@/actions/login"
+import { login } from "@/actions/auth/login"
 import { AuthCard } from "@/components/auth/AuthCard"
 import { FormError } from "@/components/form-error"
 import { FormSuccess } from "@/components/form-success"

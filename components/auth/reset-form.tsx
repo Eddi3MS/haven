@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { reset } from '@/actions/reset'
-import { AuthCard } from '@/components/auth/AuthCard'
-import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
-import { Button } from '@/components/ui/button'
+import { reset } from "@/actions/auth/reset"
+import { AuthCard } from "@/components/auth/AuthCard"
+import { FormError } from "@/components/form-error"
+import { FormSuccess } from "@/components/form-success"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -12,24 +12,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import useTextFeedback from '@/hooks/use-text-feedback'
-import { ResetSchema } from '@/schemas'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTransition } from 'react'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import useTextFeedback from "@/hooks/use-text-feedback"
+import { ResetSchema } from "@/schemas"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useTransition } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 export const ResetForm = () => {
   const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback('')
+    useTextFeedback("")
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof ResetSchema>>({
     resolver: zodResolver(ResetSchema),
     defaultValues: {
-      email: '',
+      email: "",
     },
   })
 
@@ -73,8 +73,8 @@ export const ResetForm = () => {
             />
           </div>
 
-          {feedbackType === 'error' && <FormError message={feedback} />}
-          {feedbackType === 'success' && <FormSuccess message={feedback} />}
+          {feedbackType === "error" && <FormError message={feedback} />}
+          {feedbackType === "success" && <FormSuccess message={feedback} />}
 
           <Button disabled={isPending} type="submit" className="w-full">
             Enviar e-mail de recuperação

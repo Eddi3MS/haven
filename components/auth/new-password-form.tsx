@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { newPassword } from '@/actions/new-password'
-import { AuthCard } from '@/components/auth/AuthCard'
-import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
-import { Button } from '@/components/ui/button'
+import { newPassword } from "@/actions/auth/new-password"
+import { AuthCard } from "@/components/auth/AuthCard"
+import { FormError } from "@/components/form-error"
+import { FormSuccess } from "@/components/form-success"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -12,28 +12,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import useTextFeedback from '@/hooks/use-text-feedback'
-import { NewPasswordSchema } from '@/schemas'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useSearchParams } from 'next/navigation'
-import { useTransition } from 'react'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import useTextFeedback from "@/hooks/use-text-feedback"
+import { NewPasswordSchema } from "@/schemas"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useSearchParams } from "next/navigation"
+import { useTransition } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 export const NewPasswordForm = () => {
   const searchParams = useSearchParams()
-  const token = searchParams.get('token')
+  const token = searchParams.get("token")
 
   const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback('')
+    useTextFeedback("")
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof NewPasswordSchema>>({
     resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
-      password: '',
+      password: "",
     },
   })
 
@@ -77,8 +77,8 @@ export const NewPasswordForm = () => {
             />
           </div>
 
-          {feedbackType === 'error' && <FormError message={feedback} />}
-          {feedbackType === 'success' && <FormSuccess message={feedback} />}
+          {feedbackType === "error" && <FormError message={feedback} />}
+          {feedbackType === "success" && <FormSuccess message={feedback} />}
 
           <Button disabled={isPending} type="submit" className="w-full">
             Mudar senha
