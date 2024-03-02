@@ -1,57 +1,33 @@
-import * as React from "react"
+"use client"
 
-import { Card, CardContent } from "@/components/ui/card"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
 } from "@/components/ui/carousel"
 import Image from "next/image"
 
-const ImageCarousel = ({ images }: { images: string[] }) => {
-  const [api, setApi] = React.useState<CarouselApi>()
-  const [current, setCurrent] = React.useState(0)
-  const [count, setCount] = React.useState(0)
-
-  React.useEffect(() => {
-    if (!api) {
-      return
-    }
-
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap() + 1)
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1)
-    })
-  }, [api])
-
+export const ImageCarousel = ({ images }: { images: string[] }) => {
   return (
-    <div>
-      <Carousel setApi={setApi} className="w-full max-w-sm">
-        <CarouselContent>
-          {images.map((image, index) => (
-            <CarouselItem key={index} className="py-10">
-              <div
-                className="m-2 min-w-[300px] min-h-[200px] bg-cover bg-center"
-                style={{ backgroundImage: `URL(${image})` }}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        {api?.canScrollPrev() && (
-          <CarouselPrevious className="hidden md:flex" />
-        )}
-        {api?.canScrollNext() && <CarouselNext className="hidden md:flex" />}
-      </Carousel>
-      <div className="py-2 text-center text-sm text-muted-foreground">
-        Imagem {current} de {count}.
-      </div>
-    </div>
+    <Carousel opts={{ slidesToScroll: "auto" }}>
+      <CarouselPrevious />
+      <CarouselContent className="">
+        {images.map((image, index) => (
+          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+            <Image
+              src={image}
+              width={300}
+              height={200}
+              alt="image"
+              className="aspect-video w-full max-w-full"
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+
+      <CarouselNext />
+    </Carousel>
   )
 }
-
-export default ImageCarousel

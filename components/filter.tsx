@@ -22,7 +22,9 @@ import { PostCategory } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import { useTransition } from "react"
 import { useForm } from "react-hook-form"
-import { SearchParamsType } from "../page"
+import { z } from "zod"
+
+export type SearchParamsType = z.infer<typeof FilterPostSchema>
 
 export const Filters = ({
   searchParams,
@@ -59,10 +61,7 @@ export const Filters = ({
 
   return (
     <Form {...form}>
-      <form
-        className="flex w-full gap-4"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
+      <form className="space-y-4 p-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="category"

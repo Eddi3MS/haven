@@ -43,8 +43,6 @@ export async function uploadToCloudinary({
 
       imageData.push({ delete_token, public_id })
     }
-
-    throw new Error("algo")
   } catch (error) {
     if (imageData.length > 0) {
       Promise.all(
@@ -56,8 +54,6 @@ export async function uploadToCloudinary({
 
     imageData = []
   } finally {
-    return imageData.length > 0
-      ? imageData.map((image) => image.public_id)
-      : null
+    return imageData.length > 0 ? imageData : null
   }
 }

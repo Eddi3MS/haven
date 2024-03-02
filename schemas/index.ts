@@ -86,23 +86,7 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ]
 
-export const PostHavenSchema = z.object({
-  images: z
-    .array(
-      z
-        .instanceof(File, { message: "Faça upload de uma foto." })
-        .refine(
-          (file) => file.size <= 5 * 1024 * 1024,
-          "A foto deve ter no máximo 5MB"
-        )
-        .refine(
-          (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
-          "Formato não suportado"
-        ),
-      { required_error: "Faça upload de 1 imagem." }
-    )
-    .refine((arr) => arr.length <= 5, "Upload máximo de 5 imagens."),
-
+export const PostHavenBaseSchema = z.object({
   title: z
     .string({ required_error: "Campo Obrigatório" })
     .min(8, "Titulo deve conter 8 caracteres ou mais."),
@@ -117,6 +101,30 @@ export const PostHavenSchema = z.object({
   builtArea: z.string({ required_error: "Campo Obrigatório" }).min(1),
   price: z.string({ required_error: "Campo Obrigatório" }).min(1),
 })
+
+export const PostHavenSchema = z
+  .object({
+    images: z
+      .array(z.instanceof(File, { message: "Faça upload de 1 imagem." }))
+      .min(1, "Faça upload de 1 imagem.")
+      .refine((arr) => arr.length <= 5, "Upload máximo de 5 imagens.")
+      .refine((arr) => arr.some((file) => file.size <= 5 * 1024 * 1024), {
+        message: "Tamanho máximo por imagem: 5MB.",
+      })
+      .refine(
+        (arr) => arr.some((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
+        {
+          message: "Formatos suportados: .JPEG, .JPG, .PNG, .WEBP",
+        }
+      ),
+  })
+  .and(PostHavenBaseSchema)
+
+export const PostHavenServerSchema = z
+  .object({
+    images: z.array(z.string().min(1)),
+  })
+  .and(PostHavenBaseSchema)
 
 export const FilterPostSchema = z.object({
   category: z.string().optional(),

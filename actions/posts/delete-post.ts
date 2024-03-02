@@ -1,6 +1,6 @@
 "use server"
 
-import { deleteCloudinaryImage } from "@/actions/delete-cloudinary-image"
+import { deleteCloudinaryImage } from "@/actions/posts/delete-cloudinary-image"
 import { ActionReturnType } from "@/actions/types"
 import { getPostById } from "@/data/posts"
 import { currentUser } from "@/lib/auth"
@@ -38,7 +38,7 @@ export async function deletePost(postId: string): Promise<ActionReturnType> {
       console.log(result)
     })
 
-  await deleteCloudinaryImage(post.imageId)
+  // await deleteCloudinaryImage(post.imageId)
 
   return { success: "Post deleted." }
 }

@@ -5,13 +5,7 @@ import img1 from "@/assets/1.jpg"
 import img2 from "@/assets/2.jpg"
 import img3 from "@/assets/3.jpg"
 import img4 from "@/assets/4.jpg"
-import { Poppins } from "next/font/google"
-
-const poppins = Poppins({
-  preload: true,
-  weight: ["600", "700", "800", "900"],
-  subsets: ["latin"],
-})
+import { poppins } from "@/app/fonts/fonts"
 
 export default function Home() {
   return (

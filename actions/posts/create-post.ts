@@ -1,10 +1,10 @@
 "use server"
 
+import { currentUser } from "@/lib/auth"
+import { db } from "@/lib/db"
 import { PostHavenServerSchema } from "@/schemas"
 import { z } from "zod"
 import { ActionReturnType } from "../types"
-import { db } from "@/lib/db"
-import { currentUser } from "@/lib/auth"
 
 export const createPost = async (
   values: z.infer<typeof PostHavenServerSchema>
@@ -33,7 +33,7 @@ export const createPost = async (
     title,
   } = values
 
-  const res = await db.post.create({
+  await db.post.create({
     data: {
       address,
       area: +area,
@@ -55,7 +55,5 @@ export const createPost = async (
     },
   })
 
-  console.log(res)
-
-  return { success: "Anuncio bem sucedido!! " }
+  return { success: "Anuncio bem sucedido!!" }
 }

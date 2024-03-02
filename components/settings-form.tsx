@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { settings } from '@/actions/settings'
-import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { settings } from "@/actions/settings"
+import { FormError } from "@/components/form-error"
+import { FormSuccess } from "@/components/form-success"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -13,25 +13,25 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
-import useTextFeedback from '@/hooks/use-text-feedback'
-import { SettingsSchema } from '@/schemas'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { UserRole } from '@prisma/client'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useTransition } from 'react'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+} from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
+import useTextFeedback from "@/hooks/use-text-feedback"
+import { SettingsSchema } from "@/schemas"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { UserRole } from "@prisma/client"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { useTransition } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
 const SettingsForm = ({
   name,
@@ -42,14 +42,14 @@ const SettingsForm = ({
 }: {
   name?: string | null
   email?: string | null
-  role?: 'ADMIN' | 'USER'
+  role?: "ADMIN" | "USER"
   isTwoFactorEnabled?: boolean
   isOAuth?: boolean
 }) => {
   const router = useRouter()
   const { update } = useSession()
   const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback('', 5000)
+    useTextFeedback("", 5000)
 
   const [isPending, startTransition] = useTransition()
 
@@ -73,19 +73,19 @@ const SettingsForm = ({
       settings(values)
         .then((data) => {
           setFeedback(data)
-          if ('success' in data) {
+          if ("success" in data) {
             update()
             router.refresh()
           }
         })
-        .catch(() => setFeedback({ error: 'Something went wrong!' }))
+        .catch(() => setFeedback({ error: "Something went wrong!" }))
     })
   }
 
   return (
     <Card className="w-[min(600px,98%)]">
       <CardHeader>
-        <p className="text-2xl font-semibold text-center">⚙️ Settings</p>
+        <h2 className="text-2xl font-semibold text-center">Settings</h2>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -137,7 +137,7 @@ const SettingsForm = ({
                         <FormControl>
                           <Input
                             {...rest}
-                            value={value || ''}
+                            value={value || ""}
                             onChange={(e) => {
                               let value = e.target.value
                               if (!value) {
@@ -164,7 +164,7 @@ const SettingsForm = ({
                         <FormControl>
                           <Input
                             {...rest}
-                            value={value || ''}
+                            value={value || ""}
                             onChange={(e) => {
                               let value = e.target.value
                               if (!value) {
@@ -234,8 +234,8 @@ const SettingsForm = ({
               )}
             </div>
 
-            {feedbackType === 'error' && <FormError message={feedback} />}
-            {feedbackType === 'success' && <FormSuccess message={feedback} />}
+            {feedbackType === "error" && <FormError message={feedback} />}
+            {feedbackType === "success" && <FormSuccess message={feedback} />}
 
             <Button
               disabled={isPending || !form.formState.isDirty}

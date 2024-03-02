@@ -98,6 +98,7 @@ enum PostStatus {
   REJECTED
   PENDING
 }
+
 enum PostCategory {
   RENT
   SELL
@@ -126,6 +127,6 @@ model Post {
 model Image {
   id                      String @id @default(cuid())
   postId                  String
-  url                     String
+  publicId                   String
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
