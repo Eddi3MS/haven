@@ -14,32 +14,19 @@ export function formatToCurrency(str?: string) {
   return formattedValue
 }
 
-export function formatPhoneNumber(str?: string): string {
+export function formatPhoneNumber(str?: string | null): string {
   if (!str) return ""
 
   const numStr = str.replace(/\D/g, "")
 
   if (!numStr) return ""
 
-  let areaCode = numStr.substring(0, 2)
-  let prefix = numStr.substring(2, 7)
-  let suffix = numStr.substring(7)
-
-  if (numStr.length === 11) {
-    return `(${areaCode}) ${prefix}-${suffix}`
-  }
-
-  let formatted = `(${areaCode}`
-
-  if (prefix) {
-    formatted += `) ${prefix}`
-  }
-
-  if (suffix) {
-    formatted += `-${suffix}`
-  }
-
-  return formatted
+  return numStr
+    .replace(/\D/g, "")
+    .replace(/(\d{2})(\d)/, "($1) $2")
+    .replace(/(\d{4})(\d)/, "$1-$2")
+    .replace(/(\d{4})-(\d)(\d{4})/, "$1$2-$3")
+    .replace(/(\d{4})\d+?$/, "$1")
 }
 
 export function removeNumbers(str?: string): string {

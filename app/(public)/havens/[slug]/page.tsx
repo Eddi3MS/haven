@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { categoriesTranslated } from "@/utils/categoryTranslation"
-import { formatToCurrency } from "@/utils/format-inputs"
+import { formatPhoneNumber, formatToCurrency } from "@/utils/format-inputs"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
 import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
 
@@ -45,7 +45,7 @@ const SingleHaven = async ({
             />
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-2">
           <h2 className="text-lg font-semibold">{post.title}</h2>
 
           <p>{post.description}</p>
@@ -70,7 +70,12 @@ const SingleHaven = async ({
           </div>
         </CardContent>
 
-        <CardFooter>contatoss</CardFooter>
+        <CardFooter className="">
+          <div>
+            <p>Anunciante: {post.user.name}</p>
+            <p>Contato: {formatPhoneNumber(post.user.phone)}</p>
+          </div>
+        </CardFooter>
       </Card>
     </>
   )

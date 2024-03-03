@@ -15,18 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import useTextFeedback from "@/hooks/use-text-feedback"
 import { SettingsSchema } from "@/schemas"
+import { formatPhoneNumber, removeNotNumbers } from "@/utils/format-inputs"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { UserRole } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useTransition } from "react"
@@ -101,6 +94,35 @@ const SettingsForm = ({
                       <Input
                         {...field}
                         placeholder="John Doe"
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field: { onChange, value, ...rest } }) => (
+                  <FormItem>
+                    <FormLabel>Telefone</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...rest}
+                        onChange={({ target }) => {
+                          const value = removeNotNumbers(target.value)
+
+                          if (value.length > 11) {
+                            return
+                          }
+
+                          onChange(value)
+                        }}
+                        value={formatPhoneNumber(value)}
+                        placeholder="(37) 99999-9999"
+                        type="text"
                         disabled={isPending}
                       />
                     </FormControl>
@@ -184,31 +206,7 @@ const SettingsForm = ({
                   />
                 </>
               )}
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Role</FormLabel>
-                    <Select
-                      disabled={isPending}
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
-                        <SelectItem value={UserRole.USER}>User</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
               {isOAuth === false && (
                 <FormField
                   control={form.control}
@@ -216,9 +214,9 @@ const SettingsForm = ({
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                       <div className="space-y-0.5">
-                        <FormLabel>Two Factor Authentication</FormLabel>
+                        <FormLabel>Two Factor Auth</FormLabel>
                         <FormDescription>
-                          Enable two factor authentication for your account
+                          Habilitar autenticação de duas etapas?
                         </FormDescription>
                       </div>
                       <FormControl>

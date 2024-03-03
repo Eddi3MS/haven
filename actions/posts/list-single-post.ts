@@ -9,6 +9,12 @@ export async function listSinglePost(postId: string) {
     },
     include: {
       images: true,
+      user: {
+        select: {
+          phone: true,
+          name: true,
+        },
+      },
     },
   })
 

@@ -1,7 +1,7 @@
 // prisma/schema.prisma
 datasource db {
   provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -15,80 +15,79 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole @default(USER)
-  accounts      Account[]
-  isTwoFactorEnabled Boolean @default(false)
+  id                    String                 @id @default(cuid())
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  UserRole               @default(USER)
+  accounts              Account[]
+  isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
-  posts      Post[]
+  phone                 String?
+  posts                 Post[]
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model VerificationToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
   expires DateTime
 
   @@unique([email, token])
 }
 
 model EmailChangeToken {
-  id String @id @default(cuid())
+  id        String   @id @default(cuid())
   new_email String
   old_email String
-  token String @unique
-  expires DateTime
+  token     String   @unique
+  expires   DateTime
 
   @@unique([old_email, token])
 }
 
 model PasswordResetToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
   expires DateTime
 
   @@unique([email, token])
 }
 
 model TwoFactorToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
   expires DateTime
 
   @@unique([email, token])
 }
 
 model TwoFactorConfirmation {
-  id String @id @default(cuid())
-
+  id     String @id @default(cuid())
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
 }
@@ -105,28 +104,27 @@ enum PostCategory {
 }
 
 model Post {
-  id                      String @id @default(cuid())
-  title                   String
-  description             String
-  images                  Image[]
-  createdAt               DateTime @default(now())
-  category                PostCategory
-  bedroomCount            Int
-  bathroomCount           Int
-  address                 String
-  area                    Int
-  builtArea               Int
-  userId                  String
-  price                   Int
-  isFeatured              Boolean @default(false)
-  status                  PostStatus @default(PENDING)
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            String       @id @default(cuid())
+  title         String
+  description   String
+  images        Image[]
+  createdAt     DateTime     @default(now())
+  category      PostCategory
+  bedroomCount  Int
+  bathroomCount Int
+  address       String
+  area          Int
+  builtArea     Int
+  userId        String
+  price         Int
+  isFeatured    Boolean      @default(false)
+  status        PostStatus   @default(PENDING)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Image {
-  id                      String @id @default(cuid())
-  postId                  String
-  publicId                   String
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  id       String @id @default(cuid())
+  postId   String
+  publicId String
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
