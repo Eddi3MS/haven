@@ -7,7 +7,7 @@
     - filtrar pela quantidade de quartos, banheiros
 - Anunciar os seus imoveis
     - formulario captando informações relevantes como:
-        - localização, area total, area construida, quartos, banheiros, garagem
+        - localização, area total, area construida, quartos, banheiros
         - fotos do imovel: até 5.
 - Anuncio deve passar por aprovação do administrador para evitar problemas
 - Anuncio incluirá contato direto do vendedor (telefone)
