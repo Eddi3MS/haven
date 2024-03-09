@@ -26,8 +26,8 @@ export const NoPhoneWarning = () => {
               acrescentando um telefone para contato.
             </p>
             <p>
-              A Haven não exerce nenhum intermédio e é através ele que possíveis
-              interessados entrarão em contato.
+              A Haven não exerce nenhum intermédio e é através dele que
+              possíveis interessados entrarão em contato.
             </p>
           </CardContent>
           <CardFooter className="justify-end">

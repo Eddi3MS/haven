@@ -4,6 +4,7 @@ import { ImageCarousel } from "@/components/images-carousel"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 import { categoriesTranslated } from "@/utils/categoryTranslation"
 import { formatPhoneNumber, formatToCurrency } from "@/utils/format-inputs"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
@@ -24,7 +25,9 @@ const SingleHaven = async ({
     <>
       <div className="flex justify-between w-full py-4">
         <div className="flex gap-2 items-center ">
-          <Badge variant="success">{categoriesTranslated[post.category]}</Badge>
+          <Badge className="bg-gray-900 hover:bg-gray-800">
+            {categoriesTranslated[post.category]}
+          </Badge>
           <h1 className="text-2xl font-semibold  line-clamp-1 text-left">
             {post.title}
           </h1>

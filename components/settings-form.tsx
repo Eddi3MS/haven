@@ -29,13 +29,11 @@ import * as z from "zod"
 const SettingsForm = ({
   name,
   email,
-  role,
   isTwoFactorEnabled = false,
   isOAuth,
 }: {
   name?: string | null
   email?: string | null
-  role?: "ADMIN" | "USER"
   isTwoFactorEnabled?: boolean
   isOAuth?: boolean
 }) => {
@@ -53,7 +51,6 @@ const SettingsForm = ({
       newPassword: undefined,
       name: name || undefined,
       email: email || undefined,
-      role: role || undefined,
       isTwoFactorEnabled: isTwoFactorEnabled,
     },
   })
@@ -76,7 +73,7 @@ const SettingsForm = ({
   }
 
   return (
-    <Card className="w-[min(600px,98%)]">
+    <Card className="w-[min(600px,98%)] mt-8 mx-auto">
       <CardHeader>
         <h2 className="text-2xl font-semibold text-center">Settings</h2>
       </CardHeader>
@@ -130,7 +127,7 @@ const SettingsForm = ({
                   </FormItem>
                 )}
               />
-              {isOAuth === false && (
+              {!isOAuth && (
                 <>
                   <FormField
                     control={form.control}
@@ -204,31 +201,29 @@ const SettingsForm = ({
                       </FormItem>
                     )}
                   />
-                </>
-              )}
 
-              {isOAuth === false && (
-                <FormField
-                  control={form.control}
-                  name="isTwoFactorEnabled"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                      <div className="space-y-0.5">
-                        <FormLabel>Two Factor Auth</FormLabel>
-                        <FormDescription>
-                          Habilitar autenticação de duas etapas?
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          disabled={isPending}
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="isTwoFactorEnabled"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                        <div className="space-y-0.5">
+                          <FormLabel>Two Factor Auth</FormLabel>
+                          <FormDescription>
+                            Habilitar autenticação de duas etapas?
+                          </FormDescription>
+                        </div>
+                        <FormControl>
+                          <Switch
+                            disabled={isPending}
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </>
               )}
             </div>
 

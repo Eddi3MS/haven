@@ -9,15 +9,18 @@ import {
   havensPrefix,
   publicRoutes,
 } from "@/routes"
+import { currentUser } from "./lib/auth"
 
 const { auth } = NextAuth(authConfig)
 
-export default auth((req) => {
+export default auth(async (req) => {
   const { nextUrl } = req
   const { pathname, search } = nextUrl
+  const user = await currentUser()
 
-  const isLoggedIn = !!req.auth
-  const isAdmin = isLoggedIn && req.auth?.user.role === "ADMIN"
+  const isLoggedIn = !!user
+
+  const isAdmin = isLoggedIn && user?.role === "ADMIN"
   const isApiAuthRoute = pathname.startsWith(apiAuthPrefix)
   const isPublicRoute =
     publicRoutes.includes(pathname) || pathname.startsWith(havensPrefix)

@@ -16,15 +16,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { FilterPostSchema } from "@/schemas"
+import { FilterPostSchema, SearchParamsType } from "@/schemas"
+import { objEntries } from "@/utils/objectTypedMethods"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PostCategory } from "@prisma/client"
-import { useRouter } from "next/navigation"
-import { useTransition } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-
-export type SearchParamsType = z.infer<typeof FilterPostSchema>
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu"
 
 export const Filters = ({
   searchParams,
@@ -32,8 +35,8 @@ export const Filters = ({
   searchParams: SearchParamsType
 }) => {
   const router = useRouter()
-
-  const [isPending, startTransition] = useTransition()
+  const params = useSearchParams()
+  const [open, setOpen] = useState(false)
 
   const form = useForm<SearchParamsType>({
     resolver: zodResolver(FilterPostSchema),
@@ -45,113 +48,147 @@ export const Filters = ({
   })
 
   const onSubmit = (values: SearchParamsType) => {
-    if (!form.formState.isDirty) return
+    let query = {
+      ...searchParams,
+    }
 
-    startTransition(() => {
-      const params = new URLSearchParams()
-      Object.entries(values).forEach(([key, value]) => {
-        if (!!value) {
-          params.set(key, value)
-        }
-      })
+    for (const [key, value] of objEntries(values)) {
+      if (!!value?.trim()) {
+        query[key] = value
+      } else if (params?.get(key)) {
+        delete query[key]
+      }
+    }
 
-      router.push("/havens" + "?" + params.toString())
-    })
+    const queryParams = new URLSearchParams(query)
+
+    router.push("/havens?" + queryParams.toString())
+    setOpen(false)
   }
 
+  const handleClear = () => {
+    form.setValue("category", "")
+    form.setValue("bathroomCount", "")
+    form.setValue("bedroomCount", "")
+    router.push("/havens")
+    setOpen(false)
+  }
+
+  console.log(form.watch("category"))
+
   return (
-    <Form {...form}>
-      <form className="space-y-4 p-4" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="category"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Categoria</FormLabel>
-              <FormControl>
-                <Select
-                  disabled={isPending}
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger aria-label="abrir menu" asChild>
+        <Button variant="outline">Filtros</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-[320px]" align="end">
+        <Form {...form}>
+          <form
+            className="space-y-4 p-4"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Categoria</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecionar" />
-                    </SelectTrigger>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      key={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecionar" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="min-w-full">
+                        <SelectItem value=" ">Qualquer</SelectItem>
+                        <SelectItem value={PostCategory.SELL}>Venda</SelectItem>
+                        <SelectItem value={PostCategory.RENT}>
+                          Aluguel
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
-                  <SelectContent className="min-w-full">
-                    <SelectItem value={PostCategory.SELL}>Venda</SelectItem>
-                    <SelectItem value={PostCategory.RENT}>Aluguel</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="bedroomCount"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Quartos</FormLabel>
-              <FormControl>
-                <Select
-                  disabled={isPending}
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+            <FormField
+              control={form.control}
+              name="bedroomCount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Quartos</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecionar" />
-                    </SelectTrigger>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      key={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecionar" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="min-w-full">
+                        <SelectItem value=" ">Qualquer</SelectItem>
+                        <SelectItem value={"1"}>1+</SelectItem>
+                        <SelectItem value={"2"}>2+</SelectItem>
+                        <SelectItem value={"3"}>3+</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
-                  <SelectContent className="min-w-full">
-                    <SelectItem value={"1"}>1+</SelectItem>
-                    <SelectItem value={"2"}>2+</SelectItem>
-                    <SelectItem value={"3"}>3+</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="bathroomCount"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Banheiros</FormLabel>
-              <FormControl>
-                <Select
-                  disabled={isPending}
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+            <FormField
+              control={form.control}
+              name="bathroomCount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Banheiros</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecionar" />
-                    </SelectTrigger>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      key={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecionar" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="min-w-full">
+                        <SelectItem value=" ">Qualquer</SelectItem>
+                        <SelectItem value={"1"}>1+</SelectItem>
+                        <SelectItem value={"2"}>2+</SelectItem>
+                        <SelectItem value={"3"}>3+</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
-                  <SelectContent className="min-w-full">
-                    <SelectItem value={"1"}>1+</SelectItem>
-                    <SelectItem value={"2"}>2+</SelectItem>
-                    <SelectItem value={"3"}>3+</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex justify-between">
+              <Button variant="secondary" onClick={handleClear} type="button">
+                Limpar
+              </Button>
 
-        <Button disabled={isPending} className="self-end mb-2">
-          Filtrar
-        </Button>
-      </form>
-    </Form>
+              <Button className="self-end mb-2" type="submit">
+                Filtrar
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

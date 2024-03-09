@@ -4,7 +4,7 @@ interface ProtectedLayoutProps {
 
 const ProtectedLayout = ({ children }: ProtectedLayoutProps) => {
   return (
-    <div className="max-w-[min(1400px,98%)] mx-auto w-full flex-1 flex flex-col gap-y-10 justify-start items-center pt-8">
+    <div className="flex-1 w-full max-w-[min(1400px,98%)] mx-auto">
       {children}
     </div>
   )

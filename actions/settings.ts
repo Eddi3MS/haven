@@ -14,6 +14,14 @@ import * as z from "zod"
 export const settings = async (
   values: z.infer<typeof SettingsSchema>
 ): Promise<ActionReturnType> => {
+  const parsedData = SettingsSchema.safeParse(values)
+
+  if (!parsedData.success) {
+    return { error: "Wrong data format." }
+  }
+
+  const parsedValues = parsedData.data
+
   const user = await currentUser()
 
   if (!user) {
@@ -26,26 +34,22 @@ export const settings = async (
     return { error: "Unauthorized" }
   }
 
-  if (dbUser.role === "USER" && values.role === "ADMIN") {
-    return { error: "Unauthorized" }
-  }
-
   if (user.isOAuth) {
-    values.email = undefined
-    values.password = undefined
-    values.newPassword = undefined
-    values.isTwoFactorEnabled = undefined
+    parsedValues.email = undefined
+    parsedValues.password = undefined
+    parsedValues.newPassword = undefined
+    parsedValues.isTwoFactorEnabled = undefined
   }
 
-  if (values.email && values.email !== user.email) {
-    const existingUser = await getUserByEmail(values.email)
+  if (parsedValues.email && parsedValues.email !== user.email) {
+    const existingUser = await getUserByEmail(parsedValues.email)
 
     if (existingUser && existingUser.id !== user.id) {
       return { error: "Email already in use!" }
     }
 
     const emailChangeToken = await generateEmailChangeToken(
-      values.email,
+      parsedValues.email,
       user.email!
     )
     await sendEmailChangeEmail(
@@ -56,9 +60,9 @@ export const settings = async (
     return { success: "Verification email sent!" }
   }
 
-  if (values.password && values.newPassword && dbUser.password) {
+  if (parsedValues.password && parsedValues.newPassword && dbUser.password) {
     const passwordsMatch = await bcrypt.compare(
-      values.password,
+      parsedValues.password,
       dbUser.password
     )
 
@@ -66,15 +70,15 @@ export const settings = async (
       return { error: "Incorrect password!" }
     }
 
-    const hashedPassword = await bcrypt.hash(values.newPassword, 10)
-    values.password = hashedPassword
-    values.newPassword = undefined
+    const hashedPassword = await bcrypt.hash(parsedValues.newPassword, 10)
+    parsedValues.password = hashedPassword
+    parsedValues.newPassword = undefined
   }
 
   const updatedUser = await db.user.update({
     where: { id: dbUser.id },
     data: {
-      ...values,
+      ...parsedValues,
     },
   })
 
@@ -83,7 +87,6 @@ export const settings = async (
       name: updatedUser.name,
       email: updatedUser.email,
       isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
-      role: updatedUser.role,
     },
   })
 

@@ -1,5 +1,5 @@
-import SettingsForm from '@/components/settings-form'
-import { currentUser } from '@/lib/auth'
+import SettingsForm from "@/components/settings-form"
+import { currentUser } from "@/lib/auth"
 
 const SettingsPage = async () => {
   const user = await currentUser()
@@ -10,7 +10,6 @@ const SettingsPage = async () => {
       email={user?.email}
       isOAuth={user?.isOAuth}
       isTwoFactorEnabled={user?.isTwoFactorEnabled}
-      role={user?.role}
     />
   )
 }

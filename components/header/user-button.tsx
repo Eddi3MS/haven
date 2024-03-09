@@ -49,6 +49,10 @@ export const UserButton = ({
           </DropdownMenuItem>
         </div>
 
+        <DropdownMenuItem>
+          <Link href="/published">Publicados</Link>
+        </DropdownMenuItem>
+
         <LogoutButton>
           <DropdownMenuItem className="cursor-pointer">
             <ExitIcon className="h-4 w-4 mr-2" />

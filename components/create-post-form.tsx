@@ -110,7 +110,7 @@ const CreatePostForm = () => {
   return (
     <>
       <NoPhoneWarning />
-      <Card>
+      <Card className="mt-8">
         <CardHeader>
           <h2 className="text-2xl font-semibold text-center">
             Anuncie seu imóvel

@@ -6,7 +6,6 @@ export const SettingsSchema = z
     name: z.optional(z.string()),
     phone: z.optional(z.string()),
     isTwoFactorEnabled: z.optional(z.boolean()),
-    role: z.enum([UserRole.ADMIN, UserRole.USER]),
     email: z.optional(z.string().email()),
     password: z.optional(
       z.string().min(6, {
@@ -132,3 +131,5 @@ export const FilterPostSchema = z.object({
   bathroomCount: z.string().optional(),
   bedroomCount: z.string().optional(),
 })
+
+export type SearchParamsType = z.infer<typeof FilterPostSchema>
