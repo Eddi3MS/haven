@@ -24,7 +24,7 @@ export default async function RootLayout({
         <body className={`${inter.className} min-h-svh flex flex-col`}>
           <Toaster />
           <Header />
-          <main className="flex h-full flex-col items-center justify-center">
+          <main className="flex flex-col items-center justify-center pb-4">
             {children}
           </main>
         </body>

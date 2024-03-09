@@ -1,6 +1,6 @@
 import { listPosts } from "@/actions/posts/list-posts"
 import { Filters } from "@/components/filter"
-import PostsList from "@/components/posts-list"
+import PostsList from "@/components/post/posts-list"
 import { SearchParamsType } from "@/schemas"
 
 const Havens = async ({ searchParams }: { searchParams: SearchParamsType }) => {

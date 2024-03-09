@@ -2,7 +2,27 @@
 
 import { createPost } from "@/actions/posts/create-post"
 import { generateSignedUrl } from "@/actions/posts/generate-signed-url"
-import useTextFeedback from "@/hooks/use-text-feedback"
+import { NoPhoneWarning } from "@/components/no-phone-warning"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { PostHavenSchema } from "@/schemas"
 import { categoriesTranslated } from "@/utils/categoryTranslation"
@@ -13,98 +33,78 @@ import { shortName } from "@/utils/shortName"
 import { uploadToCloudinary } from "@/utils/uploadToCloudinary"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PostCategory } from "@prisma/client"
-import { useTransition } from "react"
+import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
+import { BiLoader } from "react-icons/bi"
+import { toast } from "sonner"
 import { z } from "zod"
-import { FormError } from "./form-error"
-import { FormSuccess } from "./form-success"
-import { NoPhoneWarning } from "./no-phone-warning"
-import { Badge } from "./ui/badge"
-import { Button } from "./ui/button"
-import { Card, CardContent, CardHeader } from "./ui/card"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form"
-import { Input } from "./ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select"
-import { Textarea } from "./ui/textarea"
 
 const CreatePostForm = () => {
-  const [isPending, startTransition] = useTransition()
-  const { feedback, feedbackType, setFeedback, clearFeedback } =
-    useTextFeedback("", 5000)
+  const [loading, setLoading] = useState(false)
 
   const form = useForm<z.infer<typeof PostHavenSchema>>({
     resolver: zodResolver(PostHavenSchema),
     defaultValues: {
       images: undefined,
       category: "SELL",
+      title: "",
+      address: "",
+      area: "",
+      bathroomCount: "",
+      bedroomCount: "",
+      builtArea: "",
+      description: "",
+      price: "",
     },
   })
 
   const imagesWatch = form.watch("images")
   const categoryWatch = form.watch("category")
 
-  const onSubmit = (values: z.infer<typeof PostHavenSchema>) => {
+  const onSubmit = async (values: z.infer<typeof PostHavenSchema>) => {
+    setLoading(true)
     const timestamp = Math.round(new Date().getTime() / 1000)
 
-    startTransition(() => {
-      generateSignedUrl(timestamp)
-        .then(async (signatureResponse) => {
-          if ("signature" in signatureResponse) {
-            const { signature } = signatureResponse
+    const signatureResponse = await generateSignedUrl(timestamp)
 
-            const uploadResponse = await uploadToCloudinary({
-              signature,
-              timestamp,
-              images: values.images,
-            })
+    if ("error" in signatureResponse) {
+      return toast.error("Erro ao conectar com o servidor.")
+    }
 
-            if (!uploadResponse) {
-              return setFeedback({
-                error:
-                  "Erro ao fazer upload das imagens, tente novamente mais tarde.",
-              })
-            }
+    const { signature } = signatureResponse
 
-            const { images, ...data } = values
-
-            const createResponse = await createPost({
-              ...data,
-              images: uploadResponse.map((image) => image.public_id),
-            })
-
-            if ("error" in createResponse) {
-              Promise.all(
-                uploadResponse.map((data) =>
-                  deleteFromCloudinaryWithDeleteToken(data.delete_token)
-                )
-              )
-
-              return setFeedback(createResponse)
-            }
-
-            setFeedback(createResponse)
-            form.reset()
-          }
-        })
-        .catch((err) => console.error(err))
+    const uploadResponse = await uploadToCloudinary({
+      signature,
+      timestamp,
+      images: values.images,
     })
-  }
 
-  if (feedbackType === "success") {
-    return <FormSuccess message={feedback} />
+    if (!uploadResponse) {
+      return toast.error(
+        "Erro ao fazer upload das imagens, tente novamente mais tarde."
+      )
+    }
+
+    const { images, ...data } = values
+
+    const createResponse = await createPost({
+      ...data,
+      images: uploadResponse.map((image) => image.public_id),
+    })
+
+    if ("error" in createResponse) {
+      Promise.all(
+        uploadResponse.map((data) =>
+          deleteFromCloudinaryWithDeleteToken(data.delete_token)
+        )
+      )
+
+      return toast.error(createResponse.error)
+    }
+
+    toast.success(createResponse.success)
+    setLoading(false)
+    form.reset()
   }
 
   return (
@@ -134,7 +134,7 @@ const CreatePostForm = () => {
                           <Input
                             {...field}
                             placeholder="Casa de veraneio no.."
-                            disabled={isPending}
+                            disabled={loading}
                             error={!!form.formState.errors.title}
                           />
                         </FormControl>
@@ -152,7 +152,7 @@ const CreatePostForm = () => {
                           <Input
                             {...field}
                             placeholder="Av. Magalhães Pinto 1201, centro"
-                            disabled={isPending}
+                            disabled={loading}
                             error={!!form.formState.errors.address}
                           />
                         </FormControl>
@@ -172,7 +172,7 @@ const CreatePostForm = () => {
                           <FormLabel>Categoria</FormLabel>
                           <FormControl>
                             <Select
-                              disabled={isPending}
+                              disabled={loading}
                               onValueChange={field.onChange}
                               defaultValue={field.value}
                             >
@@ -218,7 +218,7 @@ const CreatePostForm = () => {
                                   ? "R$250.000.00"
                                   : "R$2.000.00"
                               }
-                              disabled={isPending}
+                              disabled={loading}
                               error={!!form.formState.errors.price}
                             />
                           </FormControl>
@@ -244,7 +244,7 @@ const CreatePostForm = () => {
                               }}
                               value={value}
                               placeholder="2"
-                              disabled={isPending}
+                              disabled={loading}
                               error={!!form.formState.errors.bedroomCount}
                             />
                           </FormControl>
@@ -268,7 +268,7 @@ const CreatePostForm = () => {
                               }}
                               value={value}
                               placeholder="2"
-                              disabled={isPending}
+                              disabled={loading}
                               error={!!form.formState.errors.bathroomCount}
                             />
                           </FormControl>
@@ -293,7 +293,7 @@ const CreatePostForm = () => {
                               }}
                               value={value}
                               placeholder="120m²"
-                              disabled={isPending}
+                              disabled={loading}
                               error={!!form.formState.errors.area}
                             />
                           </FormControl>
@@ -322,7 +322,7 @@ const CreatePostForm = () => {
                               }}
                               value={value}
                               placeholder="100m²"
-                              disabled={isPending}
+                              disabled={loading}
                               error={!!form.formState.errors.builtArea}
                             />
                           </FormControl>
@@ -343,7 +343,7 @@ const CreatePostForm = () => {
                         <Textarea
                           {...field}
                           placeholder="casa proximo a.. com suite X Y Z.."
-                          disabled={isPending}
+                          disabled={loading}
                           className="resize-none"
                           error={!!form.formState.errors.description}
                         />
@@ -366,6 +366,7 @@ const CreatePostForm = () => {
                         type="button"
                         variant="secondary"
                         onClick={() => form.setValue("images", [])}
+                        disabled={loading}
                       >
                         Limpar
                       </Button>
@@ -428,7 +429,7 @@ const CreatePostForm = () => {
                                 onChange(filesToArr)
                               }
                             }}
-                            disabled={isPending}
+                            disabled={loading}
                             className="hidden"
                           />
                         </FormControl>
@@ -439,9 +440,12 @@ const CreatePostForm = () => {
                 )}
               </div>
 
-              {feedbackType === "error" && <FormError message={feedback} />}
-              <Button className="w-full md:w-auto md:ml-auto" variant="cta">
-                Anunciar
+              <Button
+                className="w-full md:w-auto md:ml-auto min-w-[110px]"
+                variant="cta"
+                disabled={loading}
+              >
+                {loading ? <BiLoader className="animate-spin" /> : "Anunciar"}
               </Button>
             </form>
           </Form>

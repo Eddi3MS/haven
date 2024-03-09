@@ -1,6 +1,15 @@
+import { cn } from "@/lib/utils"
 import { SafePost } from "@/types"
-import Link from "next/link"
-import React, { ReactNode } from "react"
+import {
+  categoriesTranslated,
+  statusTranslated,
+} from "@/utils/categoryTranslation"
+import { formatToCurrency } from "@/utils/format-inputs"
+import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
+import Image from "next/image"
+import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
+import { DetailTooltip } from "./detail-tooltip"
+import { Badge } from "../ui/badge"
 import {
   Card,
   CardContent,
@@ -8,17 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
-import Image from "next/image"
-import { Badge } from "../ui/badge"
-import { formatToCurrency } from "@/utils/format-inputs"
-import { DetailTooltip } from "../detail-tooltip"
-import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
-import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
-import {
-  categoriesTranslated,
-  statusTranslated,
-} from "@/utils/categoryTranslation"
-import { cn } from "@/lib/utils"
 
 export const PostCard = ({
   post,
@@ -63,7 +61,7 @@ export const PostCard = ({
       ) : null}
 
       <CardContent className="flex justify-between items-center p-4 pt-0">
-        <CardTitle>{post.title}</CardTitle>
+        <CardTitle className="line-clamp-1">{post.title}</CardTitle>
         <span className="text-muted-foreground">
           {formatToCurrency(String(post.price))}
         </span>

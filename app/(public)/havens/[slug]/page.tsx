@@ -1,5 +1,5 @@
 import { listSinglePost } from "@/actions/posts/list-single-post"
-import { DetailTooltip } from "@/components/detail-tooltip"
+import { DetailTooltip } from "@/components/post/detail-tooltip"
 import { ImageCarousel } from "@/components/images-carousel"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"

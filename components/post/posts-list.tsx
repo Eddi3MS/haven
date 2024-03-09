@@ -1,11 +1,19 @@
 import { SafePost } from "@/types"
 import Link from "next/link"
-import { PostCard } from "./post/PostCard"
+import { PostCard } from "./PostCard"
 
-const PostsList = ({ posts }: { posts: SafePost[] }) => {
+const PostsList = ({
+  posts,
+  showStatus = false,
+}: {
+  posts: SafePost[]
+  showStatus?: boolean
+}) => {
   if (!Array.isArray(posts) || posts.length <= 0) {
     return <p className="text-center">Nenhum imóvel encontrado.</p>
   }
+
+  console.log("🚀 ~ Published ~ data:", posts)
 
   return (
     <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
@@ -16,7 +24,7 @@ const PostsList = ({ posts }: { posts: SafePost[] }) => {
 
         return (
           <Link key={item.id} href={`/havens/${item.id}`} passHref>
-            <PostCard post={item} showStatus />
+            <PostCard post={item} showStatus={showStatus} />
           </Link>
         )
       })}

@@ -1,14 +1,18 @@
 "use server"
 import { cloudinary } from "@/lib/cloudinary"
+import { ActionReturnType } from "../types"
 
-export async function deleteCloudinaryImage(imageId: string) {
-  const res = await cloudinary.uploader.destroy(imageId)
+export async function deleteCloudinaryImage(
+  imagesId: string[]
+): Promise<ActionReturnType> {
+  try {
+    await cloudinary.api.delete_resources(imagesId, {
+      type: "upload",
+      resource_type: "image",
+    })
 
-  console.log(res)
-
-  /* checar resposta, tratar possivel erro */
-  return
-  return { success: "Image deleted." }
-
-  return { error: "Failed to delete image." }
+    return { success: "Images deleted." }
+  } catch (error) {
+    return { error: "Error trying to delete images from cloudinary" }
+  }
 }

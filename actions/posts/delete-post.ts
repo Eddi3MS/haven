@@ -2,7 +2,6 @@
 
 import { deleteCloudinaryImage } from "@/actions/posts/delete-cloudinary-image"
 import { ActionReturnType } from "@/actions/types"
-import { getPostById } from "@/data/posts"
 import { currentUser } from "@/lib/auth"
 import { db } from "@/lib/db"
 
@@ -17,28 +16,35 @@ export async function deletePost(postId: string): Promise<ActionReturnType> {
     return { error: "Invalid post ID." }
   }
 
-  const post = await getPostById(postId)
+  const post = await db.post.findUnique({
+    where: { id: postId },
+    include: {
+      images: true,
+    },
+  })
 
   if (!post) {
     return { error: "Post not found." }
   }
 
-  if (post.userId !== user.id && user.role !== "ADMIN") {
+  if (post.userId !== user.id || user.role !== "ADMIN") {
     return { error: "Not Authorized." }
   }
 
-  await db.post
-    .deleteMany({
-      where: {
-        id: postId,
-        userId: user.id,
-      },
-    })
-    .then((result) => {
-      console.log(result)
-    })
+  const imagesResp = await deleteCloudinaryImage(
+    post.images.map((image) => image.publicId)
+  )
 
-  // await deleteCloudinaryImage(post.imageId)
+  if ("error" in imagesResp) {
+    return { error: "Falha ao deletar imagens do bucket." }
+  }
+
+  await db.post.deleteMany({
+    where: {
+      id: postId,
+      userId: user.id,
+    },
+  })
 
   return { success: "Post deleted." }
 }

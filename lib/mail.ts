@@ -1,4 +1,6 @@
 import ConfirmEmail from "@/emails/confirm-email"
+import havenApproved from "@/emails/haven-approved"
+import havenRejected from "@/emails/haven-rejected"
 import ResetPassword from "@/emails/reset-password"
 import Token from "@/emails/token"
 import { Resend } from "resend"
@@ -47,5 +49,28 @@ export const sendEmailChangeEmail = async (email: string, token: string) => {
     to: email,
     subject: "Confirme seu e-mail - Haven",
     react: ConfirmEmail({ confirmLink }),
+  })
+}
+
+export const sendApprovedEmail = async (email: string, postID: string) => {
+  const viewLink = `${domain}/havens/${postID}`
+
+  await resend.emails.send({
+    from: "haven@edsonmarcelo.com.br",
+    to: email,
+    subject: "Imóvel Aprovado - Haven",
+    react: havenApproved({ viewLink }),
+  })
+}
+
+export const sendRejectedEmail = async (
+  email: string,
+  rejectReason: string
+) => {
+  await resend.emails.send({
+    from: "haven@edsonmarcelo.com.br",
+    to: email,
+    subject: "Imóvel Rejeitado - Haven",
+    react: havenRejected({ rejectReason }),
   })
 }

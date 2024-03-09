@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export const Header = () => {
   return (
-    <header className="bg-gradient-to-r from-violet-300 to-pink-400 shadow-md">
+    <header className="bg-gradient-to-r from-violet-300 to-pink-400 shadow-md sticky top-0 z-20">
       <div className="max-w-[min(1400px,98%)] mx-auto flex justify-between items-center">
         <Link aria-label="voltar ao inicio" href="/">
           <Image
