@@ -74,7 +74,7 @@ export const PostsPendingList = ({
               </div>
             </CardContent>
 
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex justify-between flex-col md:flex-row gap-4">
               <div>
                 <p>Anunciante: {post.user.name}</p>
                 <p>Email: {post.user.email}</p>

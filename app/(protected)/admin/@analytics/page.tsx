@@ -6,12 +6,12 @@ import React from "react"
 const Analytics = async () => {
   const data = await getHavenData()
   return (
-    <div className="my-4 flex gap-4">
+    <div className="my-4 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       <Card>
         <CardHeader>
-          <CardTitle>Anúncios por status</CardTitle>
+          <CardTitle className="text-center">Anúncios por status</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex justify-center">
           <PieChart
             data={{
               labels: ["Aprovados", "Reprovados", "Pendentes"],
@@ -32,9 +32,9 @@ const Analytics = async () => {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>Anúncios por categoria</CardTitle>
+          <CardTitle className="text-center">Anúncios por categoria</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex justify-center">
           <PieChart
             data={{
               labels: ["Venda", "Aluguel"],
@@ -49,6 +49,7 @@ const Analytics = async () => {
           />
         </CardContent>
       </Card>
+      <Card></Card>
     </div>
   )
 }
