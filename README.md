@@ -27,7 +27,7 @@
 
 # Após aprovados, anuncios sao dispostos em uma lista, podendo ser aplicados filtros para uma busca mais assertiva
 
-![image](https://github.com/Eddi3MS/haven/assets/75024157/b43723b2-3478-4666-af46-758932932c85)
+![image](https://github.com/Eddi3MS/haven/assets/75024157/2ebfbd7d-7f97-43f5-b132-c4374a3cdbb1)
 ![image](https://github.com/Eddi3MS/haven/assets/75024157/6f691afe-66c6-48c8-aa32-1f426c091a5e)
 
 # Entrando em um anuncio especifico, será disposto todos os dados e o telefone de contato do anunciante
