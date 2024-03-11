@@ -10,7 +10,7 @@ import { ImageCarousel } from "@/components/images-carousel"
 
 export default function Home() {
   return (
-    <div className="w-full min-h-[calc(100vh-90px)] flex-1 flex flex-col gap-4 max-w-[min(1400px,98%)] px-4">
+    <div className="w-full flex-1 flex flex-col gap-4 container px-4">
       <div className="flex flex-col items-center justify-center flex-grow-[.5] md:flex-grow-[2]">
         <h1
           className={`text-[clamp(2.2rem,5vw,80px)] leading-[clamp(3rem,5vw,80px)]
@@ -31,7 +31,7 @@ export default function Home() {
           <Link href="/havens">Ver Imóveis</Link>
         </Button>
       </div>
-      <div className="grid-cols-1 md:grid-cols-4 gap-4 max-w-[min(1400px,98%)] mx-auto pb-4 flex-grow-[1] hidden md:grid">
+      <div className="grid-cols-1 md:grid-cols-4 gap-4 pb-4 flex-grow-[1] hidden md:grid">
         <Image
           src={img1.src}
           alt="illustration 1"

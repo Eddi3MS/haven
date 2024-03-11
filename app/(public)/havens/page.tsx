@@ -1,4 +1,5 @@
 import { listPosts } from "@/actions/posts/list-posts"
+import { Pagination } from "@/components/pagination"
 import { Filters } from "@/components/post/filter"
 import PostsList from "@/components/post/posts-list"
 import { SearchParamsType } from "@/schemas"
@@ -12,8 +13,8 @@ const Havens = async ({ searchParams }: { searchParams: SearchParamsType }) => {
 
         <Filters searchParams={searchParams} />
       </div>
-
-      <PostsList posts={data} />
+      <PostsList posts={data.data} />
+      <Pagination searchParams={searchParams} hasNextPage={data.hasNextPage} />
     </>
   )
 }

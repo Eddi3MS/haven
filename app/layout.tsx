@@ -20,11 +20,11 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session}>
-      <html lang="pt-BR" className="bg-slate-50">
-        <body className={`${inter.className} min-h-svh flex flex-col`}>
+      <html lang="pt-BR" className="bg-slate-50 antialiased">
+        <body className={`${inter.className} min-h-screen flex flex-col`}>
           <Toaster />
           <Header />
-          <main className="flex flex-col items-center justify-center pb-4">
+          <main className="flex-1 flex flex-col items-center justify-center pb-4 min-h-[calc(100svh-90px)]">
             {children}
           </main>
         </body>

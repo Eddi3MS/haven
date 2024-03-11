@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ExitIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
+import { useState } from "react"
 import { FaUser } from "react-icons/fa"
 
 export const UserButton = ({
@@ -19,8 +20,9 @@ export const UserButton = ({
   image?: string
   isAdmin: boolean
 }) => {
+  const [open, setOpen] = useState(false)
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger aria-label="abrir menu">
         <Avatar>
           <AvatarImage src={image} />
@@ -29,32 +31,45 @@ export const UserButton = ({
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align="end">
+      <DropdownMenuContent className="w-20" align="end">
         <div className="block md:hidden">
-          <DropdownMenuItem>
-            <Link href="/havens">Imóveis</Link>
+          <DropdownMenuItem onClick={() => setOpen(false)}>
+            <Link href="/havens" className="w-full">
+              Imóveis
+            </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link href="/create">Anunciar</Link>
+          <DropdownMenuItem onClick={() => setOpen(false)}>
+            <Link href="/create" className="w-full">
+              Anunciar
+            </Link>
           </DropdownMenuItem>
 
           {isAdmin ? (
-            <DropdownMenuItem>
-              <Link href="/admin">Admin</Link>
+            <DropdownMenuItem onClick={() => setOpen(false)}>
+              <Link href="/admin" className="w-full">
+                Admin
+              </Link>
             </DropdownMenuItem>
           ) : null}
 
-          <DropdownMenuItem>
-            <Link href="/settings">Settings</Link>
+          <DropdownMenuItem onClick={() => setOpen(false)}>
+            <Link href="/settings" className="w-full">
+              Settings
+            </Link>
           </DropdownMenuItem>
         </div>
 
-        <DropdownMenuItem>
-          <Link href="/published">Publicados</Link>
+        <DropdownMenuItem onClick={() => setOpen(false)}>
+          <Link href="/published" className="w-full">
+            Publicados
+          </Link>
         </DropdownMenuItem>
 
         <LogoutButton>
-          <DropdownMenuItem className="cursor-pointer">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => setOpen(false)}
+          >
             <ExitIcon className="h-4 w-4 mr-2" />
             Sair
           </DropdownMenuItem>

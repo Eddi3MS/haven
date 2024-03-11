@@ -126,10 +126,48 @@ export const PostHavenServerSchema = z
   })
   .and(PostHavenBaseSchema)
 
-export const FilterPostSchema = z.object({
+export const SearchPostSchema = z.object({
   category: z.string().optional(),
   bathroomCount: z.string().optional(),
   bedroomCount: z.string().optional(),
+  page: z.string().optional(),
 })
 
-export type SearchParamsType = z.infer<typeof FilterPostSchema>
+export type SearchParamsType = z.infer<typeof SearchPostSchema>
+
+export const PaginationSchema = z
+  .string()
+  .min(1)
+  .refine((value) => {
+    if (!value) return true
+    const parsedValue = parseFloat(value)
+    return !isNaN(parsedValue)
+  })
+
+export const SearchPostServerSchema = z.object({
+  category: z.literal("SELL").or(z.literal("RENT")).optional(),
+  bathroomCount: z
+    .string()
+    .optional()
+    .refine((value) => {
+      if (!value) return true
+      const parsedValue = parseFloat(value)
+      return !isNaN(parsedValue)
+    }),
+  bedroomCount: z
+    .string()
+    .optional()
+    .refine((value) => {
+      if (!value) return true
+      const parsedValue = parseFloat(value)
+      return !isNaN(parsedValue)
+    }),
+  page: z
+    .string()
+    .optional()
+    .refine((value) => {
+      if (!value) return true
+      const parsedValue = parseFloat(value)
+      return !isNaN(parsedValue)
+    }),
+})

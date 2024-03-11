@@ -21,11 +21,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { FilterPostSchema, SearchParamsType } from "@/schemas"
+import { SearchPostSchema, SearchParamsType } from "@/schemas"
 import { objEntries } from "@/utils/objectTypedMethods"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PostCategory } from "@prisma/client"
-import { useRouter, useSearchParams } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 
@@ -36,10 +36,12 @@ export const Filters = ({
 }) => {
   const router = useRouter()
   const params = useSearchParams()
+  const pathname = usePathname()
+
   const [open, setOpen] = useState(false)
 
   const form = useForm<SearchParamsType>({
-    resolver: zodResolver(FilterPostSchema),
+    resolver: zodResolver(SearchPostSchema),
     defaultValues: {
       category: searchParams.category ?? "",
       bathroomCount: searchParams.bathroomCount ?? "",
@@ -62,7 +64,7 @@ export const Filters = ({
 
     const queryParams = new URLSearchParams(query)
 
-    router.push("/havens?" + queryParams.toString())
+    router.push(pathname + "?" + queryParams.toString())
     setOpen(false)
   }
 
@@ -73,8 +75,6 @@ export const Filters = ({
     router.push("/havens")
     setOpen(false)
   }
-
-  console.log(form.watch("category"))
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>

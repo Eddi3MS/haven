@@ -1,6 +1,6 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <section className="flex-1 w-full max-w-[min(1400px,98%)] mx-auto">
+    <section className="flex-1 w-full container mx-auto flex flex-col">
       {children}
     </section>
   )
