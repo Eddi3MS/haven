@@ -34,6 +34,10 @@
 
 ![image](https://github.com/Eddi3MS/haven/assets/75024157/337e4700-2ae2-487c-802a-d3d1d098dec3)
 
+# Charts para o admin controlar dados dos anuncios
+
+![image](https://github.com/Eddi3MS/haven/assets/75024157/4768e705-13b2-4da2-9598-5d172cf27735)
+
 
 ### Setup .env file
 
