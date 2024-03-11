@@ -8,12 +8,14 @@ const Havens = async ({ searchParams }: { searchParams: SearchParamsType }) => {
   const data = await listPosts(searchParams)
   return (
     <>
-      <div className="flex justify-between w-full py-4">
+      <div className="flex justify-between w-full py-4 fade-in">
         <h1 className="text-2xl font-semibold text-center">Imóveis</h1>
 
         <Filters searchParams={searchParams} />
       </div>
+
       <PostsList posts={data.data} />
+
       <Pagination searchParams={searchParams} hasNextPage={data.hasNextPage} />
     </>
   )

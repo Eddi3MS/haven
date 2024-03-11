@@ -25,7 +25,7 @@ export const login = async (
   const validatedFields = LoginSchema.safeParse(values)
 
   if (!validatedFields.success) {
-    return { error: "Invalid fields!" }
+    return { error: "Parâmetro invalido!" }
   }
 
   const { email, password, code } = validatedFields.data
@@ -33,15 +33,15 @@ export const login = async (
   const existingUser = await getUserByEmail(email)
 
   if (!existingUser) {
-    return { error: "User does not exist!" }
+    return { error: "Usuário não existe!" }
   }
 
   if (!existingUser.email) {
-    return { error: "Email does not exist!" }
+    return { error: "E-mail não existe!" }
   }
 
   if (!existingUser.password) {
-    return { error: "Login with your previous provider!" }
+    return { error: "Faça login com o seu provider!" }
   }
 
   if (!existingUser.emailVerified) {
@@ -54,7 +54,7 @@ export const login = async (
       verificationToken.token
     )
 
-    return { success: "Confirmation email sent!" }
+    return { success: "E-mail com código de confirmação enviado!" }
   }
 
   if (existingUser.isTwoFactorEnabled && existingUser.email) {
@@ -62,17 +62,17 @@ export const login = async (
       const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email)
 
       if (!twoFactorToken) {
-        return { error: "Invalid code!" }
+        return { error: "Código inválido!" }
       }
 
       if (twoFactorToken.token !== code) {
-        return { error: "Invalid code!" }
+        return { error: "Código inválido!" }
       }
 
       const hasExpired = new Date(twoFactorToken.expires) < new Date()
 
       if (hasExpired) {
-        return { error: "Code expired!" }
+        return { error: "Código expirado!" }
       }
 
       await db.twoFactorToken.delete({
@@ -112,9 +112,9 @@ export const login = async (
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { error: "Invalid credentials!" }
+          return { error: "Credenciais inválidas!" }
         default:
-          return { error: "Something went wrong!" }
+          return { error: "Algo deu errado! Tente novamente mais tarde." }
       }
     }
 

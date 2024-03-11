@@ -15,7 +15,7 @@ export const register = async (
   const validatedFields = RegisterSchema.safeParse(values)
 
   if (!validatedFields.success) {
-    return { error: "Invalid fields!" }
+    return { error: "Parâmetro invalido!" }
   }
 
   const { email, password, name } = validatedFields.data
@@ -24,7 +24,7 @@ export const register = async (
   const existingUser = await getUserByEmail(email)
 
   if (existingUser) {
-    return { error: "Email already in use!" }
+    return { error: "E-mail já cadastrado!" }
   }
 
   await db.user.create({
@@ -38,5 +38,5 @@ export const register = async (
   const verificationToken = await generateVerificationToken(email)
   await sendVerificationEmail(verificationToken.email, verificationToken.token)
 
-  return { success: "Confirmation email sent!" }
+  return { success: "E-mail de confirmação enviado!" }
 }

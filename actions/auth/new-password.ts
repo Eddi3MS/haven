@@ -13,13 +13,13 @@ export const newPassword = async (
   token?: string | null
 ): Promise<ActionReturnType> => {
   if (!token) {
-    return { error: "Missing token!" }
+    return { error: "Parâmetro invalido!" }
   }
 
   const validatedFields = NewPasswordSchema.safeParse(values)
 
   if (!validatedFields.success) {
-    return { error: "Invalid fields!" }
+    return { error: "Parâmetro invalido!" }
   }
 
   const { password } = validatedFields.data
@@ -27,19 +27,19 @@ export const newPassword = async (
   const existingToken = await getPasswordResetTokenByToken(token)
 
   if (!existingToken) {
-    return { error: "Invalid token!" }
+    return { error: "Token invalido!" }
   }
 
   const hasExpired = new Date(existingToken.expires) < new Date()
 
   if (hasExpired) {
-    return { error: "Token has expired!" }
+    return { error: "Token expirado!" }
   }
 
   const existingUser = await getUserByEmail(existingToken.email)
 
   if (!existingUser) {
-    return { error: "Email does not exist!" }
+    return { error: "Usuário não existe!" }
   }
 
   const hashedPassword = await bcrypt.hash(password, 10)
@@ -53,5 +53,5 @@ export const newPassword = async (
     where: { id: existingToken.id },
   })
 
-  return { success: "Password updated!" }
+  return { success: "Senha atualizada!" }
 }

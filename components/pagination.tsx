@@ -45,7 +45,7 @@ export const Pagination = ({
   }
 
   return (
-    <div className="flex gap-2 justify-center py-4">
+    <div className="flex gap-2 justify-center py-4 fade-in">
       <Button
         disabled={currentPage === 1}
         onClick={handlePageChange.bind(null, currentPage - 1)}

@@ -23,7 +23,7 @@ const SingleHaven = async ({
 
   return (
     <>
-      <div className="flex justify-between w-full py-4">
+      <div className="flex justify-between w-full py-4 fade-in">
         <div className="flex gap-2 items-center ">
           <Badge className="bg-gray-900 hover:bg-gray-800">
             {categoriesTranslated[post.category]}
@@ -38,7 +38,7 @@ const SingleHaven = async ({
         </Button>
       </div>
 
-      <Card className="w-full flex-1">
+      <Card className="w-full fade-in">
         <CardHeader>
           <div className="w-full mx-auto rounded-t-md overflow-hidden">
             <ImageCarousel
@@ -49,8 +49,10 @@ const SingleHaven = async ({
           </div>
         </CardHeader>
         <CardContent className="space-y-2">
-          <h2 className="text-lg font-semibold">{post.title}</h2>
-
+          <div>
+            <h2 className="text-lg font-semibold">{post.title}</h2>
+            <p className="text-muted-foreground text-sm">{post.address}</p>
+          </div>
           <p>{post.description}</p>
 
           <div className="flex w-full justify-between">

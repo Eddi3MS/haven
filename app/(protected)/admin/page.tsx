@@ -9,7 +9,7 @@ const AdminPage = async () => {
 
   return (
     <>
-      <div className="flex justify-between w-full py-4">
+      <div className="flex justify-between w-full py-4 fade-in">
         <h1 className="text-2xl font-semibold text-center">
           Pendentes de Aprovação:
         </h1>

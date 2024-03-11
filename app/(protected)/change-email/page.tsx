@@ -35,20 +35,24 @@ const ChangeEmailVerification = async ({
     "success" in verification ? textVariations.success : textVariations.error
 
   return (
-    <AuthCard
-      headerLabel={textVariation.title}
-      backButtonLabel={textVariation.label}
-      backButtonHref={textVariation.href}
-    >
-      <div className="flex items-center w-full justify-center">
-        {"success" in verification && (
-          <FormSuccess message={verification.success} />
-        )}
+    <section className="flex flex-1 justify-center items-center">
+      <AuthCard
+        headerLabel={textVariation.title}
+        backButtonLabel={textVariation.label}
+        backButtonHref={textVariation.href}
+      >
+        <div className="flex items-center w-full justify-center">
+          {"success" in verification && (
+            <FormSuccess message={verification.success} />
+          )}
 
-        {"error" in verification && <FormError message={verification.error} />}
-      </div>
-      <UpdateSession shouldUpdate={"success" in verification} />
-    </AuthCard>
+          {"error" in verification && (
+            <FormError message={verification.error} />
+          )}
+        </div>
+        <UpdateSession shouldUpdate={"success" in verification} />
+      </AuthCard>
+    </section>
   )
 }
 

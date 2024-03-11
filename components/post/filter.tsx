@@ -62,6 +62,11 @@ export const Filters = ({
       }
     }
 
+    /* reset page */
+    if (params?.get("page")) {
+      delete query["page"]
+    }
+
     const queryParams = new URLSearchParams(query)
 
     router.push(pathname + "?" + queryParams.toString())

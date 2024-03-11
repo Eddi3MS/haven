@@ -13,7 +13,7 @@ export const reset = async (
   const validatedFields = ResetSchema.safeParse(values)
 
   if (!validatedFields.success) {
-    return { error: "Invalid emaiL!" }
+    return { error: "E-mail inválido!" }
   }
 
   const { email } = validatedFields.data
@@ -21,7 +21,7 @@ export const reset = async (
   const existingUser = await getUserByEmail(email)
 
   if (!existingUser) {
-    return { error: "Email not found!" }
+    return { error: "Usuário não encontrado!" }
   }
 
   const passwordResetToken = await generatePasswordResetToken(email)
@@ -30,5 +30,5 @@ export const reset = async (
     passwordResetToken.token
   )
 
-  return { success: "Reset email sent!" }
+  return { success: "E-mail para mudar senha enviado!" }
 }
