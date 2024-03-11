@@ -5,6 +5,7 @@ import { db } from "@/lib/db"
 import { PostHavenServerSchema } from "@/schemas"
 import { z } from "zod"
 import { ActionReturnType } from "../types"
+import { revalidatePath } from "next/cache"
 
 export const createPost = async (
   values: z.infer<typeof PostHavenServerSchema>
@@ -59,5 +60,6 @@ export const createPost = async (
     },
   })
 
+  revalidatePath("/admin")
   return { success: "Anuncio bem sucedido!!" }
 }
