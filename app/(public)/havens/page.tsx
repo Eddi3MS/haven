@@ -1,5 +1,5 @@
 import { listPosts } from "@/actions/posts/list-posts"
-import { Filters } from "@/components/filter"
+import { Filters } from "@/components/post/filter"
 import PostsList from "@/components/post/posts-list"
 import { SearchParamsType } from "@/schemas"
 

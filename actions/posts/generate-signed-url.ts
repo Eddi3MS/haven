@@ -14,7 +14,7 @@ export const generateSignedUrl = async (
   const user = currentUser()
 
   if (!user) {
-    return { error: "Not Authorized" }
+    return { error: "Não autorizado" }
   }
 
   const signature = cloudinary.utils.api_sign_request(
@@ -23,7 +23,7 @@ export const generateSignedUrl = async (
   )
 
   if (!signature) {
-    return { error: "Error generating the sign url" }
+    return { error: "Erro ao gerar sign-url" }
   }
 
   return {

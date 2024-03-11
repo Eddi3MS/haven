@@ -18,5 +18,14 @@ export async function listSinglePost(postId: string) {
     },
   })
 
-  return data
+  if (!data) {
+    return null
+  }
+
+  const safeData = {
+    ...data,
+    createdAt: data?.createdAt.toISOString(),
+  }
+
+  return safeData
 }

@@ -1,6 +1,6 @@
 import { SafePost } from "@/types"
 import Link from "next/link"
-import { PostCard } from "./PostCard"
+import { PostCard } from "./post-card"
 
 const PostsList = ({
   posts,
@@ -12,8 +12,6 @@ const PostsList = ({
   if (!Array.isArray(posts) || posts.length <= 0) {
     return <p className="text-center">Nenhum imóvel encontrado.</p>
   }
-
-  console.log("🚀 ~ Published ~ data:", posts)
 
   return (
     <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">

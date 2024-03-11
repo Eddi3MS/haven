@@ -2,7 +2,7 @@
 
 import { createPost } from "@/actions/posts/create-post"
 import { generateSignedUrl } from "@/actions/posts/generate-signed-url"
-import { NoPhoneWarning } from "@/components/no-phone-warning"
+import { NoPhoneWarning } from "@/components/post/no-phone-warning"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -33,7 +33,7 @@ import { shortName } from "@/utils/shortName"
 import { uploadToCloudinary } from "@/utils/uploadToCloudinary"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PostCategory } from "@prisma/client"
-import { useState, useTransition } from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { BiLoader } from "react-icons/bi"
 import { toast } from "sonner"
@@ -45,8 +45,8 @@ const CreatePostForm = () => {
   const form = useForm<z.infer<typeof PostHavenSchema>>({
     resolver: zodResolver(PostHavenSchema),
     defaultValues: {
-      images: undefined,
       category: "SELL",
+      images: undefined,
       title: "",
       address: "",
       area: "",
@@ -103,9 +103,11 @@ const CreatePostForm = () => {
     }
 
     toast.success(createResponse.success)
-    setLoading(false)
     form.reset()
+    setLoading(false)
   }
+
+  console.log("cat", form.watch("category"))
 
   return (
     <>
@@ -175,6 +177,7 @@ const CreatePostForm = () => {
                               disabled={loading}
                               onValueChange={field.onChange}
                               defaultValue={field.value}
+                              key={field.value}
                             >
                               <FormControl>
                                 <SelectTrigger>
@@ -353,7 +356,7 @@ const CreatePostForm = () => {
                   )}
                 />
 
-                {Array.isArray(imagesWatch) && imagesWatch.length > 0 ? (
+                {Array.isArray(imagesWatch) && imagesWatch.length >= 3 ? (
                   <div className="space-y-2">
                     <p>imagens selecionadas:</p>
                     <div className="flex gap-2 flex-wrap">

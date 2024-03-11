@@ -11,8 +11,8 @@ export async function deleteCloudinaryImage(
       resource_type: "image",
     })
 
-    return { success: "Images deleted." }
+    return { success: "Imagens deletadas." }
   } catch (error) {
-    return { error: "Error trying to delete images from cloudinary" }
+    return { error: "Erro ao deletar imagens." }
   }
 }

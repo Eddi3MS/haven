@@ -106,7 +106,7 @@ export const PostHavenSchema = z
   .object({
     images: z
       .array(z.instanceof(File, { message: "Faça upload de 1 imagem." }))
-      .min(1, "Faça upload de 1 imagem.")
+      .min(3, "Faça upload de pelo menos 3 imagens.")
       .refine((arr) => arr.length <= 5, "Upload máximo de 5 imagens.")
       .refine((arr) => arr.some((file) => file.size <= 5 * 1024 * 1024), {
         message: "Tamanho máximo por imagem: 5MB.",

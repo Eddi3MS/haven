@@ -20,6 +20,10 @@ export const createPost = async (
     return { error: "Faça login!" }
   }
 
+  if (!user?.phone) {
+    return { error: "Cadastre um telefone de contato!" }
+  }
+
   const {
     images,
     price,

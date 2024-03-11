@@ -4,16 +4,17 @@ import { deleteCloudinaryImage } from "@/actions/posts/delete-cloudinary-image"
 import { ActionReturnType } from "@/actions/types"
 import { currentUser } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { revalidatePath } from "next/cache"
 
 export async function deletePost(postId: string): Promise<ActionReturnType> {
   const user = await currentUser()
 
   if (!user) {
-    return { error: "Not Authorized." }
+    return { error: "Não autorizado." }
   }
 
   if (!postId || typeof postId !== "string") {
-    return { error: "Invalid post ID." }
+    return { error: "Id inválido." }
   }
 
   const post = await db.post.findUnique({
@@ -24,11 +25,11 @@ export async function deletePost(postId: string): Promise<ActionReturnType> {
   })
 
   if (!post) {
-    return { error: "Post not found." }
+    return { error: "Anuncio não encontrado." }
   }
 
   if (post.userId !== user.id || user.role !== "ADMIN") {
-    return { error: "Not Authorized." }
+    return { error: "Não autorizado." }
   }
 
   const imagesResp = await deleteCloudinaryImage(
@@ -46,5 +47,6 @@ export async function deletePost(postId: string): Promise<ActionReturnType> {
     },
   })
 
-  return { success: "Post deleted." }
+  revalidatePath("/havens")
+  return { success: "Anuncio deletado." }
 }

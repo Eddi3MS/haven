@@ -56,12 +56,9 @@ export const updatePostStatus = async (
 
   if (data.status === "APPROVED") {
     sendApprovedEmail(dbPost.user.email!, dbPost.id)
-  }
-
-  if (data.status === "REJECTED") {
+  } else if (data.status === "REJECTED") {
     sendRejectedEmail(dbPost.user.email!, data.rejectReason)
   }
 
-  revalidatePath("/admin")
   return { success: "Anuncio atualizado com sucesso!!" }
 }

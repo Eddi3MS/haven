@@ -3,9 +3,15 @@
 import { useCurrentUser } from "@/hooks/use-current-user"
 import { returnGreetings } from "@/utils/greetings"
 import Link from "next/link"
-import { Button } from "./ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import { Dialog, DialogContent } from "./ui/dialog"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 export const NoPhoneWarning = () => {
   const user = useCurrentUser()
