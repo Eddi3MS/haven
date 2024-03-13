@@ -31,8 +31,10 @@ const SettingsForm = ({
   email,
   isTwoFactorEnabled = false,
   isOAuth,
+  phone,
 }: {
   name?: string | null
+  phone?: string | null
   email?: string | null
   isTwoFactorEnabled?: boolean
   isOAuth?: boolean
@@ -47,10 +49,11 @@ const SettingsForm = ({
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      password: undefined,
-      newPassword: undefined,
-      name: name || undefined,
-      email: email || undefined,
+      password: "",
+      newPassword: "",
+      name: name ?? "",
+      email: email ?? "",
+      phone: phone ?? "",
       isTwoFactorEnabled: isTwoFactorEnabled,
     },
   })

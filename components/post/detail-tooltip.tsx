@@ -16,7 +16,7 @@ export const DetailTooltip = ({
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <span className="inline-flex items-center gap-2 text-sm cursor-pointer text-accent-foreground font-semibold">
             {children}
           </span>

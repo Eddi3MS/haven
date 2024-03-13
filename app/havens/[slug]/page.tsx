@@ -1,10 +1,9 @@
 import { listSinglePost } from "@/actions/posts/list-single-post"
-import { DetailTooltip } from "@/components/post/detail-tooltip"
 import { ImageCarousel } from "@/components/images-carousel"
+import { DetailTooltip } from "@/components/post/detail-tooltip"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
 import { categoriesTranslated } from "@/utils/categoryTranslation"
 import { formatPhoneNumber, formatToCurrency } from "@/utils/format-inputs"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
@@ -25,7 +24,7 @@ const SingleHaven = async ({
     <>
       <div className="flex justify-between w-full py-4 fade-in">
         <div className="flex gap-2 items-center ">
-          <Badge className="bg-gray-900 hover:bg-gray-800">
+          <Badge variant={post.category}>
             {categoriesTranslated[post.category]}
           </Badge>
           <h1 className="text-2xl font-semibold  line-clamp-1 text-left">

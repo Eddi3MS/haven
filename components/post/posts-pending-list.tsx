@@ -39,7 +39,7 @@ export const PostsPendingList = ({
             <CardContent className="space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
-                  <Badge className="bg-gray-900 hover:bg-gray-800">
+                  <Badge variant={post.category}>
                     {categoriesTranslated[post.category]}
                   </Badge>
                   <h2 className="text-lg font-semibold flex gap-2 items-center">
@@ -81,11 +81,6 @@ export const PostsPendingList = ({
                 <p>Contato: {formatPhoneNumber(post.user.phone)}</p>
               </div>
               <div className="flex gap-4">
-                <ActionButton
-                  onActionSuccess={onActionSuccess}
-                  postId={post.id}
-                  type="DELETE"
-                />
                 <ActionButton
                   onActionSuccess={onActionSuccess}
                   postId={post.id}

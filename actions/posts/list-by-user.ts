@@ -5,7 +5,7 @@ import { db } from "@/lib/db"
 import { PaginationSchema } from "@/schemas"
 import { redirect } from "next/navigation"
 
-export async function listPostsByUser({ page }: { page?: string }) {
+export async function listPostsByUser(params: { page?: string }) {
   const user = await currentUser()
 
   if (!user?.id) {
@@ -15,7 +15,7 @@ export async function listPostsByUser({ page }: { page?: string }) {
   let currentPage = 1
   const pageSize = 6
 
-  const parsedPage = PaginationSchema.safeParse(page)
+  const parsedPage = PaginationSchema.safeParse(params?.page)
 
   if (parsedPage.success) {
     currentPage = +parsedPage.data
@@ -29,6 +29,13 @@ export async function listPostsByUser({ page }: { page?: string }) {
     },
     include: {
       images: true,
+      user: {
+        select: {
+          email: true,
+          name: true,
+          phone: true,
+        },
+      },
     },
   })
 
@@ -43,6 +50,11 @@ export async function listPostsByUser({ page }: { page?: string }) {
   const safeData = data.map((listing) => ({
     ...listing,
     createdAt: listing.createdAt.toISOString(),
+    user: {
+      name: listing.user.name!,
+      email: listing.user.email!,
+      phone: listing.user.phone!,
+    },
   }))
 
   return { data: safeData, hasNextPage }

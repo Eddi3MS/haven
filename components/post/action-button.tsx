@@ -85,6 +85,7 @@ export const ActionButton = ({
         onClick={handleDelete}
         aria-label={loading ? "deletando anúncio..." : "deletar anúncio?"}
         size="icon"
+        className="bg-red-500 hover:bg-red-600"
       >
         {loading ? (
           <BiLoader className="animate-spin" />

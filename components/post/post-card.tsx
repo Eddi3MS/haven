@@ -48,14 +48,18 @@ export const PostCard = ({
         />
         {showActions && (
           <div className="absolute bottom-5 right-5 flex flex-col gap-2">
-            <Button size="icon" variant="outline" asChild>
+            <Button
+              size="icon"
+              className="bg-blue-400 hover:bg-blue-500"
+              asChild
+            >
               <Link href={`/update/${post.id}`}>
                 <BiEdit />
               </Link>
             </Button>
 
             <Button size="icon" variant="outline" asChild>
-              <Link href={`/havens/${post.id}`}>
+              <Link href={`/havens/${post.id}`} scroll={false}>
                 <EyeOpenIcon />
               </Link>
             </Button>
@@ -66,11 +70,8 @@ export const PostCard = ({
       </CardHeader>
 
       <Badge
-        className={cn(
-          "absolute top-5 left-5 z-10",
-          post.category === "SELL" && "bg-blue-600 hover:bg-blue-700",
-          post.category === "RENT" && "bg-green-600 hover:bg-green-700"
-        )}
+        className={cn("absolute top-5 left-5 z-10")}
+        variant={post.category}
       >
         {categoriesTranslated[post.category]}
       </Badge>

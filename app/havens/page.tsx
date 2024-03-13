@@ -2,9 +2,13 @@ import { listPosts } from "@/actions/posts/list-posts"
 import { Pagination } from "@/components/pagination"
 import { Filters } from "@/components/post/filter"
 import PostsList from "@/components/post/posts-list"
-import { SearchParamsType } from "@/schemas"
+import { UrlSearchParamsType } from "@/schemas"
 
-const Havens = async ({ searchParams }: { searchParams: SearchParamsType }) => {
+const Havens = async ({
+  searchParams,
+}: {
+  searchParams: UrlSearchParamsType
+}) => {
   const data = await listPosts(searchParams)
   return (
     <>

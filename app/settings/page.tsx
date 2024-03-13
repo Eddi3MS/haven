@@ -10,6 +10,7 @@ const SettingsPage = async () => {
       email={user?.email}
       isOAuth={user?.isOAuth}
       isTwoFactorEnabled={user?.isTwoFactorEnabled}
+      phone={user?.phone}
     />
   )
 }
