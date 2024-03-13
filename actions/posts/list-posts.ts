@@ -1,10 +1,10 @@
 "use server"
 
 import { db } from "@/lib/db"
-import { SearchParamsType, SearchPostServerSchema } from "@/schemas"
+import { UrlSearchParamsType, SearchServerSchema } from "@/schemas"
 
-export async function listPosts(search: SearchParamsType) {
-  const parsedData = SearchPostServerSchema.safeParse(search)
+export async function listPosts(search: UrlSearchParamsType) {
+  const parsedData = SearchServerSchema.safeParse(search)
 
   let parsed: any = {}
 

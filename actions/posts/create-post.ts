@@ -2,20 +2,23 @@
 
 import { currentUser } from "@/lib/auth"
 import { db } from "@/lib/db"
-import { PostHavenServerSchema } from "@/schemas"
-import { z } from "zod"
-import { ActionReturnType } from "../types"
+import {
+  ServerValidationCreatePost,
+  ServerValidationPostCreateType,
+} from "@/schemas"
 import { revalidatePath } from "next/cache"
+import { ActionReturnType } from "../types"
 
 export const createPost = async (
-  values: z.infer<typeof PostHavenServerSchema>
+  values: ServerValidationPostCreateType
 ): Promise<ActionReturnType> => {
-  const validatedFields = PostHavenServerSchema.safeParse(values)
-  const user = await currentUser()
+  const validatedFields = ServerValidationCreatePost.safeParse(values)
 
   if (!validatedFields.success) {
     return { error: "Parâmetros inválidos!" }
   }
+
+  const user = await currentUser()
 
   if (!user) {
     return { error: "Faça login!" }
@@ -26,7 +29,6 @@ export const createPost = async (
   }
 
   const {
-    images,
     price,
     address,
     area,
@@ -36,7 +38,8 @@ export const createPost = async (
     category,
     description,
     title,
-  } = values
+    images,
+  } = validatedFields.data
 
   await db.post.create({
     data: {
@@ -52,8 +55,9 @@ export const createPost = async (
       userId: user.id,
       images: {
         createMany: {
-          data: images.map((publicId) => ({
-            publicId,
+          data: images.map((image) => ({
+            publicId: image.public_id,
+            name: image.name,
           })),
         },
       },

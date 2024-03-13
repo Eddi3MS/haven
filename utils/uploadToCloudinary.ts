@@ -6,9 +6,17 @@ type UploadToCloudinaryProps = {
   timestamp: number
 }
 
-type ImagesReturn = {
+type CloudinaryReturn = {
   public_id: string
   delete_token: string
+  format: string
+  original_filename: string
+}
+
+export type UploadToCloudinaryReturn = {
+  public_id: string
+  delete_token: string
+  name: string
 }
 
 export async function uploadToCloudinary({
@@ -16,7 +24,7 @@ export async function uploadToCloudinary({
   images,
   timestamp,
 }: UploadToCloudinaryProps) {
-  let imageData: ImagesReturn[] = []
+  let imageData: UploadToCloudinaryReturn[] = []
 
   try {
     for (const image of images) {
@@ -39,9 +47,14 @@ export async function uploadToCloudinary({
         throw new Error("Upload Failed.")
       }
 
-      const { delete_token, public_id } = (await res.json()) as ImagesReturn
+      const { delete_token, public_id, format, original_filename } =
+        (await res.json()) as CloudinaryReturn
 
-      imageData.push({ delete_token, public_id })
+      imageData.push({
+        delete_token,
+        public_id,
+        name: original_filename + "." + format,
+      })
     }
   } catch (error) {
     if (imageData.length > 0) {

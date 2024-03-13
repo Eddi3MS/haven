@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { SearchPostSchema, SearchParamsType } from "@/schemas"
+import { UrlSearchParamsSchema, UrlSearchParamsType } from "@/schemas"
 import { objEntries } from "@/utils/objectTypedMethods"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PostCategory } from "@prisma/client"
@@ -32,7 +32,7 @@ import { useForm } from "react-hook-form"
 export const Filters = ({
   searchParams,
 }: {
-  searchParams: SearchParamsType
+  searchParams: UrlSearchParamsType
 }) => {
   const router = useRouter()
   const params = useSearchParams()
@@ -40,8 +40,8 @@ export const Filters = ({
 
   const [open, setOpen] = useState(false)
 
-  const form = useForm<SearchParamsType>({
-    resolver: zodResolver(SearchPostSchema),
+  const form = useForm<UrlSearchParamsType>({
+    resolver: zodResolver(UrlSearchParamsSchema),
     defaultValues: {
       category: searchParams.category ?? "",
       bathroomCount: searchParams.bathroomCount ?? "",
@@ -49,7 +49,7 @@ export const Filters = ({
     },
   })
 
-  const onSubmit = (values: SearchParamsType) => {
+  const onSubmit = (values: UrlSearchParamsType) => {
     let query = {
       ...searchParams,
     }

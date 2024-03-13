@@ -7,9 +7,17 @@ import {
 import { formatToCurrency } from "@/utils/format-inputs"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
 import Image from "next/image"
-import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
-import { DetailTooltip } from "./detail-tooltip"
+import Link from "next/link"
+import {
+  BiArea,
+  BiBath,
+  BiBed,
+  BiEdit,
+  BiHome,
+  BiSolidEyedropper,
+} from "react-icons/bi"
 import { Badge } from "../ui/badge"
+import { Button } from "../ui/button"
 import {
   Card,
   CardContent,
@@ -17,17 +25,20 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
+import { ActionButton } from "./action-button"
+import { DetailTooltip } from "./detail-tooltip"
+import { EyeOpenIcon } from "@radix-ui/react-icons"
 
 export const PostCard = ({
   post,
-  showStatus = false,
+  showActions = false,
 }: {
   post: SafePost
-  showStatus?: boolean
+  showActions?: boolean
 }) => {
   return (
     <Card className="shadow-md overflow-hidden relative">
-      <CardHeader className="p-4">
+      <CardHeader className="p-4 relative">
         <Image
           src={generateCloudinaryImageURL(post.images?.[0].publicId)}
           alt={post.title}
@@ -35,6 +46,23 @@ export const PostCard = ({
           height={200}
           className="w-full rounded-t-md"
         />
+        {showActions && (
+          <div className="absolute bottom-5 right-5 flex flex-col gap-2">
+            <Button size="icon" variant="outline" asChild>
+              <Link href={`/update/${post.id}`}>
+                <BiEdit />
+              </Link>
+            </Button>
+
+            <Button size="icon" variant="outline" asChild>
+              <Link href={`/havens/${post.id}`}>
+                <EyeOpenIcon />
+              </Link>
+            </Button>
+
+            <ActionButton type="DELETE" postId={post.id} />
+          </div>
+        )}
       </CardHeader>
 
       <Badge
@@ -47,7 +75,7 @@ export const PostCard = ({
         {categoriesTranslated[post.category]}
       </Badge>
 
-      {showStatus ? (
+      {showActions ? (
         <Badge
           className={cn(
             "absolute top-5 right-5 z-10",

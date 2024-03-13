@@ -1,7 +1,7 @@
 "use client"
 import { SafePost } from "@/types"
 import { categoriesTranslated } from "@/utils/categoryTranslation"
-import { formatToCurrency } from "@/utils/format-inputs"
+import { formatPhoneNumber, formatToCurrency } from "@/utils/format-inputs"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
 import { useState } from "react"
 import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
@@ -78,7 +78,7 @@ export const PostsPendingList = ({
               <div>
                 <p>Anunciante: {post.user.name}</p>
                 <p>Email: {post.user.email}</p>
-                <p>Contato: {post.user.phone}</p>
+                <p>Contato: {formatPhoneNumber(post.user.phone)}</p>
               </div>
               <div className="flex gap-4">
                 <ActionButton

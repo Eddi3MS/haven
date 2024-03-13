@@ -1,7 +1,7 @@
 "use client"
 
-import { createPost } from "@/actions/posts/create-post"
 import { generateSignedUrl } from "@/actions/posts/generate-signed-url"
+import { updatePost } from "@/actions/posts/update-post"
 import { PostType } from "@/schemas"
 import { deleteFromCloudinaryWithDeleteToken } from "@/utils/deleteFromCloudinaryWithDeleteToken"
 import { uploadToCloudinary } from "@/utils/uploadToCloudinary"
@@ -9,15 +9,30 @@ import { useRef, useState } from "react"
 import { toast } from "sonner"
 import PostForm from "./post-form"
 
-const CreatePostForm = () => {
+const UpdatePostForm = ({ post }: { post: { data: PostType; id: string } }) => {
   const [loading, setLoading] = useState(false)
   const keyRef = useRef(1)
+  const [data, setData] = useState<PostType>(post.data)
 
   const onSubmit = async (values: PostType) => {
-    if (values.variation !== "files") return
-
     try {
       setLoading(true)
+
+      /* atualizou outros campos que nao as imagens */
+      if (values.variation !== "files") {
+        const updateResponse = await updatePost(post.id, values)
+
+        if ("error" in updateResponse) {
+          toast.error(updateResponse.error)
+          return
+        }
+
+        if (keyRef.current) keyRef.current++
+
+        setData(values)
+        toast.success(updateResponse.success)
+        return
+      }
 
       const timestamp = Math.round(new Date().getTime() / 1000)
 
@@ -43,29 +58,29 @@ const CreatePostForm = () => {
         return
       }
 
-      const { images, variation, ...data } = values
-
-      const createResponse = await createPost({
+      const updatedData = {
         ...data,
         images: uploadResponse.map((image) => ({
           public_id: image.public_id,
           name: image.name,
         })),
-      })
+      }
 
-      if ("error" in createResponse) {
+      const updateResponse = await updatePost(post.id, updatedData, true)
+
+      if ("error" in updateResponse) {
         Promise.all(
           uploadResponse.map((data) =>
             deleteFromCloudinaryWithDeleteToken(data.delete_token)
           )
         )
-
-        toast.error(createResponse.error)
+        toast.error(updateResponse.error)
         return
       }
 
       if (keyRef.current) keyRef.current++
-      toast.success(createResponse.success)
+      setData({ ...updatedData, variation: "ids" })
+      toast.success(updateResponse.success)
       return
     } catch (error: any) {
       toast.error(
@@ -78,7 +93,14 @@ const CreatePostForm = () => {
     }
   }
 
-  return <PostForm loading={loading} onSubmit={onSubmit} key={keyRef.current} />
+  return (
+    <PostForm
+      loading={loading}
+      onSubmit={onSubmit}
+      defaultValues={data}
+      key={keyRef.current}
+    />
+  )
 }
 
-export default CreatePostForm
+export default UpdatePostForm

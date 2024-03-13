@@ -48,5 +48,8 @@ export async function deletePost(postId: string): Promise<ActionReturnType> {
   })
 
   revalidatePath("/havens")
+  revalidatePath("/admin")
+  revalidatePath("/published")
+  revalidatePath(`/havens/${postId}`)
   return { success: "Anuncio deletado." }
 }

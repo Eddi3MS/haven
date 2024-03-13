@@ -126,5 +126,6 @@ model Image {
   id       String @id @default(cuid())
   postId   String
   publicId String
+  name     String
   post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
