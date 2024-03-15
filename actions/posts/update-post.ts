@@ -104,5 +104,5 @@ export const updatePost = async (
   })
 
   revalidatePath("/admin")
-  return { success: "Anuncio bem sucedido!!" }
+  return { success: "Anuncio atualizado!!" }
 }

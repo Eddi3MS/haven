@@ -29,6 +29,7 @@ import { objKeys } from "@/utils/objectTypedMethods"
 import { shortName } from "@/utils/shortName"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PostCategory } from "@prisma/client"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { BiLoader } from "react-icons/bi"
 
@@ -50,11 +51,14 @@ const PostForm = ({
   defaultValues = initValues,
   loading,
   onSubmit,
+  isEditing = false,
 }: {
   defaultValues?: PostType
   onSubmit: (values: PostType) => Promise<void>
   loading: boolean
+  isEditing?: boolean
 }) => {
+  const router = useRouter()
   const form = useForm<PostType>({
     resolver: zodResolver(PostSchema),
     defaultValues,
@@ -63,20 +67,24 @@ const PostForm = ({
   const imagesWatch = form.watch("images")
   const categoryWatch = form.watch("category")
 
+  const handleBack = () => {
+    router.back()
+  }
+
   return (
     <>
       <NoPhoneWarning />
       <Card className="mt-8 fade-in">
         <CardHeader>
           <h2 className="text-2xl font-semibold text-center">
-            Anuncie seu imóvel
+            {isEditing ? "Editar seu anúncio" : "Anuncie seu imóvel"}
           </h2>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-6 pb-6"
+              className="flex flex-col gap-6"
             >
               <div className="col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-4">
@@ -408,13 +416,33 @@ const PostForm = ({
                 />
               </div>
 
-              <Button
-                className="w-full md:w-auto md:ml-auto min-w-[110px]"
-                variant="cta"
-                disabled={loading}
-              >
-                {loading ? <BiLoader className="animate-spin" /> : "Anunciar"}
-              </Button>
+              <div className="flex gap-4 justify-end">
+                {isEditing ? (
+                  <Button
+                    className="w-full md:w-auto min-w-[110px] uppercase"
+                    variant="secondary"
+                    disabled={loading}
+                    onClick={handleBack}
+                    type="button"
+                  >
+                    Cancelar
+                  </Button>
+                ) : null}
+
+                <Button
+                  className="w-full md:w-auto min-w-[110px]"
+                  variant="cta"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <BiLoader className="animate-spin" />
+                  ) : isEditing ? (
+                    "Atualizar"
+                  ) : (
+                    "Anunciar"
+                  )}
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>

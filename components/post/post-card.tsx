@@ -6,16 +6,10 @@ import {
 } from "@/utils/categoryTranslation"
 import { formatToCurrency } from "@/utils/format-inputs"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
+import { EyeOpenIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import Link from "next/link"
-import {
-  BiArea,
-  BiBath,
-  BiBed,
-  BiEdit,
-  BiHome,
-  BiSolidEyedropper,
-} from "react-icons/bi"
+import { BiArea, BiBath, BiBed, BiEdit, BiHome } from "react-icons/bi"
 import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
 import {
@@ -27,7 +21,6 @@ import {
 } from "../ui/card"
 import { ActionButton } from "./action-button"
 import { DetailTooltip } from "./detail-tooltip"
-import { EyeOpenIcon } from "@radix-ui/react-icons"
 
 export const PostCard = ({
   post,

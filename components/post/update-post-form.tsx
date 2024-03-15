@@ -99,6 +99,7 @@ const UpdatePostForm = ({ post }: { post: { data: PostType; id: string } }) => {
       onSubmit={onSubmit}
       defaultValues={data}
       key={keyRef.current}
+      isEditing
     />
   )
 }
