@@ -35,6 +35,8 @@ import { BiLoader } from "react-icons/bi"
 
 const initValues: PostType = {
   address: "",
+  number: "",
+  district: "",
   area: "",
   bathroomCount: "",
   bedroomCount: "",
@@ -106,24 +108,64 @@ const PostForm = ({
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="address"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Endereço</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="Av. Magalhães Pinto 1201, centro"
-                            disabled={loading}
-                            error={!!form.formState.errors.address}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="address"
+                      render={({ field }) => (
+                        <FormItem className="md:col-span-2">
+                          <FormLabel>Endereço</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="Av. Magalhães Pinto"
+                              disabled={loading}
+                              error={!!form.formState.errors.address}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="number"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Número</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="1201"
+                              disabled={loading}
+                              error={!!form.formState.errors.address}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="district"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Bairro</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="Centro"
+                              disabled={loading}
+                              error={!!form.formState.errors.address}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-4">

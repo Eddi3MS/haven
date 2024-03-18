@@ -18,9 +18,7 @@ const Havens = async ({
         <Filters searchParams={searchParams} />
       </div>
 
-      <PostsList posts={data.data} />
-
-      <Pagination searchParams={searchParams} hasNextPage={data.hasNextPage} />
+      <PostsList posts={data.data} hasNextPage={data.hasNextPage} />
     </>
   )
 }

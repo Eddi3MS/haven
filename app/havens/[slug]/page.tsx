@@ -66,7 +66,9 @@ const SingleHaven = async ({
         <CardContent className="space-y-2">
           <div>
             <h2 className="text-lg font-semibold">{post.title}</h2>
-            <p className="text-muted-foreground text-sm">{post.address}</p>
+            <p className="text-muted-foreground text-sm">
+              {post.address}, {post.number} - {post.district}
+            </p>
           </div>
           <p>{post.description}</p>
 

@@ -28,29 +28,14 @@ export const createPost = async (
     return { error: "Cadastre um telefone de contato!" }
   }
 
-  const {
-    price,
-    address,
-    area,
-    bathroomCount,
-    bedroomCount,
-    builtArea,
-    category,
-    description,
-    title,
-    images,
-  } = validatedFields.data
+  const { price, bathroomCount, bedroomCount, images, ...rest } =
+    validatedFields.data
 
   await db.post.create({
     data: {
-      address,
-      area: +area,
-      builtArea: +builtArea,
+      ...rest,
       bathroomCount: +bathroomCount,
       bedroomCount: +bedroomCount,
-      category,
-      description,
-      title,
       price: +price,
       userId: user.id,
       images: {

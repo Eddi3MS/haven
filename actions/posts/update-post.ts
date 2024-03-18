@@ -44,15 +44,8 @@ export const updatePost = async (
     return { error: "Não autorizado!" }
   }
 
-  const {
-    bathroomCount,
-    bedroomCount,
-    area,
-    builtArea,
-    price,
-    images,
-    ...rest
-  } = validatedFields.data
+  const { bathroomCount, bedroomCount, price, images, ...rest } =
+    validatedFields.data
 
   if (updateImages) {
     const oldImages = dbPost.images.reduce<{
@@ -87,7 +80,6 @@ export const updatePost = async (
       ...rest,
       bathroomCount: +bathroomCount,
       bedroomCount: +bedroomCount,
-      area: +area,
       price: +price,
       ...(updateImages && {
         images: {

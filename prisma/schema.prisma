@@ -112,12 +112,14 @@ model Post {
   category      PostCategory
   bedroomCount  Int
   bathroomCount Int
-  address       String
-  area          Int
-  builtArea     Int
+  area          String
+  builtArea     String
   userId        String
   price         Int
   isFeatured    Boolean      @default(false)
+  address       String
+  district      String
+  number        String
   status        PostStatus   @default(PENDING)
   user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

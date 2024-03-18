@@ -50,26 +50,23 @@ export const Filters = ({
   })
 
   const onSubmit = (values: UrlSearchParamsType) => {
-    let query = {
-      ...searchParams,
-    }
+    const updatedSearchParams = new URLSearchParams(params.toString())
 
     for (const [key, value] of objEntries(values)) {
       if (!!value?.trim()) {
-        query[key] = value
+        updatedSearchParams.set(key, value)
       } else if (params?.get(key)) {
-        delete query[key]
+        updatedSearchParams.delete(key)
       }
     }
 
     /* reset page */
     if (params?.get("page")) {
-      delete query["page"]
+      updatedSearchParams.delete("page")
     }
 
-    const queryParams = new URLSearchParams(query)
+    router.push(pathname + "?" + updatedSearchParams.toString())
 
-    router.push(pathname + "?" + queryParams.toString())
     setOpen(false)
   }
 

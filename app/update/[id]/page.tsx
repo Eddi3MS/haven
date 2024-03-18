@@ -14,10 +14,10 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
       post={{
         data: {
           address: post.address,
-          area: String(post.area),
+          area: post.area,
           bathroomCount: String(post.bathroomCount),
           bedroomCount: String(post.bedroomCount),
-          builtArea: String(post.builtArea),
+          builtArea: post.builtArea,
           price: String(post.price),
           category: post.category,
           description: post.description,
@@ -27,6 +27,8 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
           })),
           title: post.title,
           variation: "ids",
+          district: post.district,
+          number: post.number,
         },
         id,
       }}

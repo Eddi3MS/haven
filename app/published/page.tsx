@@ -8,7 +8,7 @@ const Published = async ({
 }: {
   searchParams: { page?: string }
 }) => {
-  const data = await listPostsByUser(searchParams)
+  const { data, hasNextPage } = await listPostsByUser(searchParams)
 
   return (
     <>
@@ -16,8 +16,7 @@ const Published = async ({
         <h1 className="text-2xl font-semibold text-center">Seus Imóveis</h1>
       </div>
 
-      <PostsList posts={data.data} showActions />
-      <Pagination searchParams={searchParams} hasNextPage={data.hasNextPage} />
+      <PostsList posts={data} showActions hasNextPage={hasNextPage} />
     </>
   )
 }

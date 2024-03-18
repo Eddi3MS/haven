@@ -121,6 +121,12 @@ const baseSchema = z.object({
   address: z
     .string({ required_error: "Campo Obrigatório" })
     .min(1, "Campo Obrigatório"),
+  number: z
+    .string({ required_error: "Campo Obrigatório" })
+    .min(1, "Campo Obrigatório"),
+  district: z
+    .string({ required_error: "Campo Obrigatório" })
+    .min(1, "Campo Obrigatório"),
   area: z
     .string({ required_error: "Campo Obrigatório" })
     .min(1, "Campo Obrigatório"),

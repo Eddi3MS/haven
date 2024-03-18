@@ -1,18 +1,11 @@
 "use client"
 
-import React from "react"
-import { Button } from "./ui/button"
+import { PaginationSchema } from "@/schemas"
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { PaginationSchema, SearchParamsType } from "@/schemas"
+import { Button } from "./ui/button"
 
-export const Pagination = ({
-  searchParams,
-  hasNextPage,
-}: {
-  searchParams?: SearchParamsType
-  hasNextPage: boolean
-}) => {
+export const Pagination = ({ hasNextPage }: { hasNextPage: boolean }) => {
   const params = useSearchParams()
 
   const page = params.get("page")
@@ -29,19 +22,15 @@ export const Pagination = ({
   const pathname = usePathname()
 
   const handlePageChange = (page: number) => {
-    let query: SearchParamsType = {
-      ...(searchParams && searchParams),
-    }
+    const updatedSearchParams = new URLSearchParams(params.toString())
 
     if (page > 1) {
-      query["page"] = String(page)
+      updatedSearchParams.set("page", String(page))
     } else {
-      delete query["page"]
+      updatedSearchParams.delete("page")
     }
 
-    const queryParams = new URLSearchParams(query)
-
-    router.push(pathname + "?" + queryParams.toString())
+    router.push(pathname + "?" + updatedSearchParams.toString())
   }
 
   return (
