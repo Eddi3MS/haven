@@ -1,7 +1,16 @@
 import { SafePost } from "@/types"
 import Link from "next/link"
-import { PostCard } from "./post-card"
 import { Pagination } from "../pagination"
+import { Button } from "../ui/button"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card"
+import { PostCard } from "./post-card"
+import PostsListEmpty from "./posts-list-empty"
 
 const PostsList = ({
   posts,
@@ -13,7 +22,7 @@ const PostsList = ({
   hasNextPage?: boolean
 }) => {
   if (!Array.isArray(posts) || posts.length <= 0) {
-    return <p className="text-center">Nenhum imóvel encontrado.</p>
+    return <PostsListEmpty isPublished={showActions} />
   }
 
   return (

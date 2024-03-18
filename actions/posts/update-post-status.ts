@@ -56,6 +56,7 @@ export const updatePostStatus = async (
 
   if (data.status === "APPROVED") {
     sendApprovedEmail(dbPost.user.email!, dbPost.id)
+    revalidatePath("/havens")
   } else if (data.status === "REJECTED") {
     sendRejectedEmail(dbPost.user.email!, data.rejectReason)
   }

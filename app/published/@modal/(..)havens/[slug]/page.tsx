@@ -1,6 +1,6 @@
 "use client"
-import { ImageCarousel } from "@/components/post/images-carousel"
 import { DetailTooltip } from "@/components/post/detail-tooltip"
+import { ImageCarousel } from "@/components/post/images-carousel"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -12,12 +12,11 @@ import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
-import { useShallow } from "zustand/react/shallow"
 
 const Page = ({ params: { slug } }: { params: { slug: string } }) => {
   const [open, setOpen] = useState(true)
   const router = useRouter()
-  const data = usePublished(useShallow((state) => state.published))
+  const data = usePublished((state) => state.published)
 
   const post = data?.find((post) => post.id === slug)
 

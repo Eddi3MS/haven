@@ -82,6 +82,8 @@ export const RegisterSchema = z.object({
 /* Auth & User */
 
 /* Posts */
+export const parseNum = z.coerce.number()
+
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
@@ -114,16 +116,40 @@ const baseSchema = z.object({
   category: z.literal("SELL").or(z.literal("RENT")),
   bedroomCount: z
     .string({ required_error: "Campo Obrigatório" })
-    .min(1, "Campo Obrigatório"),
+    .min(1, "Campo Obrigatório")
+    .refine(
+      (value) => {
+        if (!value) return false
+        const parse = parseNum.safeParse(value)
+        return parse.success
+      },
+      { message: "Apenas Dígitos [0-9]" }
+    ),
   bathroomCount: z
     .string({ required_error: "Campo Obrigatório" })
-    .min(1, "Campo Obrigatório"),
+    .min(1, "Campo Obrigatório")
+    .refine(
+      (value) => {
+        if (!value) return false
+        const parse = parseNum.safeParse(value)
+        return parse.success
+      },
+      { message: "Apenas Dígitos [0-9]" }
+    ),
   address: z
     .string({ required_error: "Campo Obrigatório" })
     .min(1, "Campo Obrigatório"),
   number: z
     .string({ required_error: "Campo Obrigatório" })
-    .min(1, "Campo Obrigatório"),
+    .min(1, "Campo Obrigatório")
+    .refine(
+      (value) => {
+        if (!value) return false
+        const parse = parseNum.safeParse(value)
+        return parse.success
+      },
+      { message: "Apenas Dígitos [0-9]" }
+    ),
   district: z
     .string({ required_error: "Campo Obrigatório" })
     .min(1, "Campo Obrigatório"),
@@ -135,7 +161,15 @@ const baseSchema = z.object({
     .min(1, "Campo Obrigatório"),
   price: z
     .string({ required_error: "Campo Obrigatório" })
-    .min(1, "Campo Obrigatório"),
+    .min(1, "Campo Obrigatório")
+    .refine(
+      (value) => {
+        if (!value) return false
+        const parse = parseNum.safeParse(value)
+        return parse.success
+      },
+      { message: "Apenas Dígitos [0-9]" }
+    ),
 })
 
 export const PostSchema = z.discriminatedUnion("variation", [
@@ -190,24 +224,24 @@ export const SearchServerSchema = z.object({
     .optional()
     .refine((value) => {
       if (!value) return true
-      const parsedValue = parseFloat(value)
-      return !isNaN(parsedValue)
+      const parse = parseNum.safeParse(value)
+      return parse.success
     }),
   bedroomCount: z
     .string()
     .optional()
     .refine((value) => {
       if (!value) return true
-      const parsedValue = parseFloat(value)
-      return !isNaN(parsedValue)
+      const parse = parseNum.safeParse(value)
+      return parse.success
     }),
   page: z
     .string()
     .optional()
     .refine((value) => {
       if (!value) return true
-      const parsedValue = parseFloat(value)
-      return !isNaN(parsedValue)
+      const parse = parseNum.safeParse(value)
+      return parse.success
     }),
 })
 

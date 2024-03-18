@@ -139,7 +139,7 @@ const PostForm = ({
                               {...field}
                               placeholder="1201"
                               disabled={loading}
-                              error={!!form.formState.errors.address}
+                              error={!!form.formState.errors.number}
                             />
                           </FormControl>
                           <FormMessage />
@@ -158,7 +158,7 @@ const PostForm = ({
                               {...field}
                               placeholder="Centro"
                               disabled={loading}
-                              error={!!form.formState.errors.address}
+                              error={!!form.formState.errors.district}
                             />
                           </FormControl>
                           <FormMessage />

@@ -51,7 +51,9 @@ export const PostsPendingList = ({
                 </span>
               </div>
 
-              <p className="text-muted-foreground text-sm">{post.address}</p>
+              <p className="text-muted-foreground text-sm">
+                {post.address}, {post.number} - {post.district}
+              </p>
               <p>{post.description}</p>
 
               <div className="flex w-full justify-between">
