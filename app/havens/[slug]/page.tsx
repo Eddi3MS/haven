@@ -1,13 +1,29 @@
 import { listSinglePost } from "@/actions/posts/list-single-post"
-import { ImageCarousel } from "@/components/post/images-carousel"
 import { DetailTooltip } from "@/components/post/detail-tooltip"
+import { ImageCarousel } from "@/components/post/images-carousel"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { categoriesTranslated } from "@/utils/categoryTranslation"
 import { formatPhoneNumber, formatToCurrency } from "@/utils/format-inputs"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
+import { Metadata } from "next"
 import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const id = params.slug
+
+  const post = await listSinglePost(id)
+
+  return {
+    title: post?.title,
+    description: post?.description,
+  }
+}
 
 const SingleHaven = async ({
   params: { slug },
