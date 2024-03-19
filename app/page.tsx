@@ -1,17 +1,17 @@
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
-import Link from "next/link"
+import { poppins } from "@/app/fonts/fonts"
 import img1 from "@/assets/1.jpg"
 import img2 from "@/assets/2.jpg"
 import img3 from "@/assets/3.jpg"
 import img4 from "@/assets/4.jpg"
-import { poppins } from "@/app/fonts/fonts"
 import { ImageCarousel } from "@/components/post/images-carousel"
+import { Button } from "@/components/ui/button"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function Home() {
   return (
     <div className="w-full flex-1 flex flex-col gap-4 container px-4">
-      <div className="flex flex-col items-center justify-center flex-grow-[.5] md:flex-grow-[2]">
+      <div className="flex flex-col items-center justify-center flex-grow-[.5] md:flex-grow-[2] ">
         <h1
           className={`text-[clamp(2.2rem,5vw,80px)] leading-[clamp(3rem,5vw,80px)]
           bg-gradient-to-r from-violet-500 to-pink-600 bg-clip-text text-transparent 

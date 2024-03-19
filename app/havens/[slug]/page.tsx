@@ -1,13 +1,21 @@
 import { listSinglePost } from "@/actions/posts/list-single-post"
+import BackButton from "@/components/back-button"
 import { DetailTooltip } from "@/components/post/detail-tooltip"
 import { ImageCarousel } from "@/components/post/images-carousel"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { categoriesTranslated } from "@/utils/categoryTranslation"
 import { formatPhoneNumber, formatToCurrency } from "@/utils/format-inputs"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
 import { Metadata } from "next"
+import Link from "next/link"
 import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
 
 export async function generateMetadata({
@@ -33,13 +41,34 @@ const SingleHaven = async ({
   const post = await listSinglePost(slug)
 
   if (!post) {
-    return "haven not found."
+    return (
+      <div className="flex-1 flex flex-col justify-center items-center w-full fade-in gap-4">
+        <Card className="max-w-md">
+          <CardHeader>
+            <CardTitle>Erro.</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-left">
+              Anuncio não encontrado ou ainda não foi aprovado para
+              visualização.
+            </p>
+          </CardContent>
+
+          <CardFooter>
+            <Button asChild>
+              <Link href="/havens">Voltar para anúncios</Link>
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+    )
   }
 
   return (
     <>
       <div className="flex justify-between w-full py-4 fade-in">
         <div className="flex gap-2 items-center ">
+          <BackButton />
           <Badge variant={post.category}>
             {categoriesTranslated[post.category]}
           </Badge>

@@ -8,10 +8,10 @@ const Layout = async ({
   modal: React.ReactNode
 }) => {
   return (
-    <>
+    <section>
       {children}
       {modal}
-    </>
+    </section>
   )
 }
 

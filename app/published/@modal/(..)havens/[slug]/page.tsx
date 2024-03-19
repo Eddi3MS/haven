@@ -31,7 +31,10 @@ const Page = ({ params: { slug } }: { params: { slug: string } }) => {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="p-0 bg-transparent border-none w-[min(90%,500px)]">
+      <DialogContent
+        className="p-0 bg-transparent border-none w-[min(90%,500px)]"
+        showClose={false}
+      >
         <Card className="w-full fade-in">
           <CardHeader>
             <div className="w-full mx-auto rounded-t-md overflow-hidden relative">
@@ -88,7 +91,7 @@ const Page = ({ params: { slug } }: { params: { slug: string } }) => {
               <p>Anunciante: {post.user.name}</p>
               <p>Contato: {formatPhoneNumber(post.user.phone)}</p>
             </div>
-            <div className="w-full flex justify-center">
+            <div className="w-full">
               <Button onClick={handleClose.bind(null, false)}>Fechar</Button>
             </div>
           </CardFooter>

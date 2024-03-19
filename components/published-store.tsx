@@ -6,16 +6,14 @@ import React from "react"
 
 const PublishedStore = ({
   published,
-  children,
 }: {
-  children: React.ReactNode
   published: SafePostWithUser[] | null
 }) => {
   usePublished.setState({
     published,
   })
 
-  return children
+  return null
 }
 
 export default PublishedStore
