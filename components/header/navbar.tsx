@@ -14,7 +14,7 @@ export const Navbar = async () => {
         <NavButton href="/havens" label="Imóveis" />
         <NavButton href="/create" label="Anunciar" />
         {isAdmin ? <NavButton href="/admin" label="Admin" /> : null}
-        {!!user ? <NavButton href="/settings" label="Settings" /> : null}
+        {!!user ? <NavButton href="/settings" label="Configurações" /> : null}
       </div>
 
       {!!user ? (

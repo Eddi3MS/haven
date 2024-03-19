@@ -76,169 +76,182 @@ const SettingsForm = ({
   }
 
   return (
-    <Card className="w-[min(600px,98%)] mt-8 mx-auto">
+    <Card className="w-full mt-8 mx-auto">
       <CardHeader>
-        <h2 className="text-2xl font-semibold text-center">Settings</h2>
+        <h2 className="text-2xl font-semibold text-center">Configurações</h2>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="John Doe"
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field: { onChange, value, ...rest } }) => (
-                  <FormItem>
-                    <FormLabel>Telefone</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...rest}
-                        onChange={({ target }) => {
-                          const value = removeNotNumbers(target.value)
-
-                          if (value.length > 11) {
-                            return
-                          }
-
-                          onChange(value)
-                        }}
-                        value={formatPhoneNumber(value)}
-                        placeholder="(37) 99999-9999"
-                        type="text"
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {!isOAuth && (
-                <>
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="john.doe@example.com"
-                            type="email"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field: { onChange, value, ...rest } }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...rest}
-                            value={value || ""}
-                            onChange={(e) => {
-                              let value = e.target.value
-                              if (!value) {
-                                return onChange(undefined)
-                              }
-
-                              onChange(value)
-                            }}
-                            placeholder="******"
-                            type="password"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="newPassword"
-                    render={({ field: { onChange, value, ...rest } }) => (
-                      <FormItem>
-                        <FormLabel>New Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...rest}
-                            value={value || ""}
-                            onChange={(e) => {
-                              let value = e.target.value
-                              if (!value) {
-                                return onChange(undefined)
-                              }
-
-                              onChange(value)
-                            }}
-                            placeholder="******"
-                            type="password"
-                            disabled={isPending}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="isTwoFactorEnabled"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                        <div className="space-y-0.5">
-                          <FormLabel>Two Factor Auth</FormLabel>
-                          <FormDescription>
-                            Habilitar autenticação de duas etapas?
-                          </FormDescription>
-                        </div>
-                        <FormControl>
-                          <Switch
-                            disabled={isPending}
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </>
+          <form
+            className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nome</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="John Doe"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
+            />
+
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field: { onChange, value, ...rest } }) => (
+                <FormItem>
+                  <FormLabel>Telefone</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...rest}
+                      onChange={({ target }) => {
+                        const value = removeNotNumbers(target.value)
+
+                        if (value.length > 11) {
+                          return
+                        }
+
+                        onChange(value)
+                      }}
+                      value={formatPhoneNumber(value)}
+                      placeholder="(37) 99999-9999"
+                      type="text"
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    O número que será exibido junto aos seus anúncios.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {!isOAuth && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>E-mail</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="john.doe@example.com"
+                          type="email"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="isTwoFactorEnabled"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                      <div className="space-y-0.5">
+                        <FormLabel>Two Factor Auth</FormLabel>
+                        <FormDescription>
+                          Habilitar autenticação de duas etapas?
+                        </FormDescription>
+                      </div>
+                      <FormControl>
+                        <Switch
+                          disabled={isPending}
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field: { onChange, value, ...rest } }) => (
+                    <FormItem>
+                      <FormLabel>Senha</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...rest}
+                          value={value || ""}
+                          onChange={(e) => {
+                            let value = e.target.value
+                            if (!value) {
+                              return onChange(undefined)
+                            }
+
+                            onChange(value)
+                          }}
+                          placeholder="******"
+                          type="password"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="newPassword"
+                  render={({ field: { onChange, value, ...rest } }) => (
+                    <FormItem>
+                      <FormLabel>Nova Senha</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...rest}
+                          value={value || ""}
+                          onChange={(e) => {
+                            let value = e.target.value
+                            if (!value) {
+                              return onChange(undefined)
+                            }
+
+                            onChange(value)
+                          }}
+                          placeholder="******"
+                          type="password"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
+
+            {!!feedbackType && (
+              <div className="md:col-span-2">
+                {feedbackType === "error" ? (
+                  <FormError message={feedback} />
+                ) : (
+                  <FormSuccess message={feedback} />
+                )}
+              </div>
+            )}
+
+            <div className="md:col-span-2 flex justify-end">
+              <Button
+                disabled={isPending || !form.formState.isDirty}
+                type="submit"
+              >
+                Atualizar
+              </Button>
             </div>
-
-            {feedbackType === "error" && <FormError message={feedback} />}
-            {feedbackType === "success" && <FormSuccess message={feedback} />}
-
-            <Button
-              disabled={isPending || !form.formState.isDirty}
-              type="submit"
-            >
-              Save
-            </Button>
           </form>
         </Form>
       </CardContent>

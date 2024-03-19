@@ -7,8 +7,8 @@ import { Header } from "@/components/header"
 import { inter } from "@/app/fonts/fonts"
 
 export const metadata: Metadata = {
-  title: "Haven - Imóveis",
-  description: "O lugar certo pra comprar ou alugar.",
+  title: "Haven Samonte - Imóveis",
+  description: "Encontre a casa dos seus sonhos, pra comprar ou alugar.",
 }
 
 export default async function RootLayout({

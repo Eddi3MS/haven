@@ -1,9 +1,5 @@
 import { listPostsPending } from "@/actions/posts/list-posts-pending"
-import PieChart from "@/components/pie-chart"
 import { PostsPendingList } from "@/components/post/posts-pending-list"
-
-/* force dynamic */
-export const revalidate = 0
 
 const AdminPage = async () => {
   const data = await listPostsPending()

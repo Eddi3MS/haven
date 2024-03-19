@@ -21,6 +21,8 @@ export const UserButton = ({
   isAdmin: boolean
 }) => {
   const [open, setOpen] = useState(false)
+
+  const handleClose = () => setOpen(false)
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger aria-label="abrir menu">
@@ -33,43 +35,40 @@ export const UserButton = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-20" align="end">
         <div className="block md:hidden">
-          <DropdownMenuItem onClick={() => setOpen(false)}>
+          <DropdownMenuItem onClick={handleClose}>
             <Link href="/havens" className="w-full">
               Imóveis
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(false)}>
+          <DropdownMenuItem onClick={handleClose}>
             <Link href="/create" className="w-full">
               Anunciar
             </Link>
           </DropdownMenuItem>
 
           {isAdmin ? (
-            <DropdownMenuItem onClick={() => setOpen(false)}>
+            <DropdownMenuItem onClick={handleClose}>
               <Link href="/admin" className="w-full">
                 Admin
               </Link>
             </DropdownMenuItem>
           ) : null}
 
-          <DropdownMenuItem onClick={() => setOpen(false)}>
+          <DropdownMenuItem onClick={handleClose}>
             <Link href="/settings" className="w-full">
-              Settings
+              Configurações
             </Link>
           </DropdownMenuItem>
         </div>
 
-        <DropdownMenuItem onClick={() => setOpen(false)}>
+        <DropdownMenuItem onClick={handleClose}>
           <Link href="/published" className="w-full">
-            Publicados
+            Meus anúncios
           </Link>
         </DropdownMenuItem>
 
         <LogoutButton>
-          <DropdownMenuItem
-            className="cursor-pointer"
-            onClick={() => setOpen(false)}
-          >
+          <DropdownMenuItem className="cursor-pointer" onClick={handleClose}>
             <ExitIcon className="h-4 w-4 mr-2" />
             Sair
           </DropdownMenuItem>

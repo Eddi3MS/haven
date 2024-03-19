@@ -11,7 +11,7 @@ import { ActionReturnType } from "../types"
 import { deleteCloudinaryImage } from "./delete-cloudinary-image"
 
 export const updatePost = async (
-  id: string,
+  postId: string,
   values: ServerValidationPostCreateType,
   updateImages: boolean = false
 ): Promise<ActionReturnType> => {
@@ -24,7 +24,7 @@ export const updatePost = async (
 
   const dbPost = await db.post.findUnique({
     where: {
-      id,
+      id: postId,
     },
     include: {
       images: true,
@@ -74,7 +74,7 @@ export const updatePost = async (
 
   await db.post.update({
     where: {
-      id,
+      id: postId,
     },
     data: {
       ...rest,
@@ -95,6 +95,8 @@ export const updatePost = async (
     },
   })
 
+  revalidatePath("/havens")
   revalidatePath("/admin")
+  revalidatePath(`/havens/${postId}`)
   return { success: "Anuncio atualizado!!" }
 }

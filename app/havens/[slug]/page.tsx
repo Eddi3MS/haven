@@ -27,9 +27,23 @@ export async function generateMetadata({
 
   const post = await listSinglePost(id)
 
+  if (!post)
+    return {
+      title: "Erro",
+      description: "Anúncio não encontrado.",
+    }
+
+  const image = generateCloudinaryImageURL(post.images[0].publicId)
+
   return {
     title: post?.title,
     description: post?.description,
+    twitter: {
+      images: [image],
+    },
+    openGraph: {
+      images: [image],
+    },
   }
 }
 
