@@ -41,6 +41,14 @@
 
 ![image](https://github.com/Eddi3MS/haven/assets/75024157/025873c9-44e2-48ea-bc52-f31d4e12c4dc)
 
+## E-Mails Enviados
+
+- E-mails de verificação de e-mail no registro (sem oauth) e troca de e-mail
+- E-mail no reset de senhas
+- E-mail de token quando verficação de 2 fatores esta ativa
+- E-mail de aprovação de anuncio com link para anuncio aprovado
+- E-mail de rejeição de anuncio, com mensagem explindo a razão
+
 ### Setup .env file
 
 ```js
