@@ -6,5 +6,5 @@ export const categoriesTranslated = {
 export const statusTranslated = {
   APPROVED: "APROVADO",
   REJECTED: "REJEITADO",
-  PENDING: "Aguardando Verificação",
+  PENDING: "PENDENTE",
 }

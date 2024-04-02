@@ -2,7 +2,6 @@
 
 import { usePublished } from "@/store/published"
 import { SafePostWithUser } from "@/types"
-import React from "react"
 
 const PublishedStore = ({
   published,

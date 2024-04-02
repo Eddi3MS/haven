@@ -1,4 +1,5 @@
 import { listPostsByUser } from "@/actions/posts/list-by-user"
+import { PostCard } from "@/components/post/post-card"
 import PostsList from "@/components/post/posts-list"
 import PublishedStore from "@/components/published-store"
 import { Metadata } from "next"
@@ -22,7 +23,16 @@ const Published = async ({
         <h1 className="text-2xl font-semibold text-center">Seus Anúncios</h1>
       </div>
 
-      <PostsList posts={data} showActions hasNextPage={hasNextPage} />
+      <PostsList
+        posts={data}
+        showActions
+        hasNextPage={hasNextPage}
+        keyExtractor={(post) => post.id}
+      >
+        {(item) => {
+          return <PostCard post={item} key={item.id} showActions />
+        }}
+      </PostsList>
     </>
   )
 }

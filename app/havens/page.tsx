@@ -1,9 +1,11 @@
 import { listPosts } from "@/actions/posts/list-posts"
 import { Filters } from "@/components/post/filter"
+import { PostCard } from "@/components/post/post-card"
 import PostsList from "@/components/post/posts-list"
 import { UrlSearchParamsType } from "@/schemas"
 import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
 import { Metadata } from "next"
+import Link from "next/link"
 
 export async function generateMetadata({
   searchParams,
@@ -47,7 +49,19 @@ const Havens = async ({
         <Filters searchParams={searchParams} />
       </div>
 
-      <PostsList posts={data.data} hasNextPage={data.hasNextPage} />
+      <PostsList
+        posts={data.data}
+        hasNextPage={data.hasNextPage}
+        keyExtractor={(post) => post.id}
+      >
+        {(item) => {
+          return (
+            <Link key={item.id} href={`/havens/${item.id}`} passHref>
+              <PostCard post={item} />
+            </Link>
+          )
+        }}
+      </PostsList>
     </>
   )
 }

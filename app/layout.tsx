@@ -9,6 +9,10 @@ import { inter } from "@/app/fonts/fonts"
 export const metadata: Metadata = {
   title: "Haven Samonte - Imóveis",
   description: "Encontre a casa dos seus sonhos, pra comprar ou alugar.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || ""),
+  alternates: {
+    canonical: "/",
+  },
 }
 
 export default async function RootLayout({
