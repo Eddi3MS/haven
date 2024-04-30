@@ -20,7 +20,7 @@ export const createPost = async (
 
   const user = await currentUser()
 
-  if (!user) {
+  if (!user || !user?.id) {
     return { error: "Faça login!" }
   }
 
