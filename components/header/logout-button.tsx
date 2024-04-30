@@ -1,6 +1,8 @@
 "use client"
 
 import { logout } from "@/actions/auth/logout"
+import { useSession } from "next-auth/react"
+
 import { useRouter } from "next/navigation"
 
 interface LogoutButtonProps {
@@ -9,8 +11,11 @@ interface LogoutButtonProps {
 
 export const LogoutButton = ({ children }: LogoutButtonProps) => {
   const router = useRouter()
+  const { update } = useSession()
   const onClick = async () => {
     await logout()
+    update()
+
     router.refresh()
   }
 
