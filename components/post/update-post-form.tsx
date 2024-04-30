@@ -8,11 +8,13 @@ import { uploadToCloudinary } from "@/utils/uploadToCloudinary"
 import { useRef, useState } from "react"
 import { toast } from "sonner"
 import PostForm from "./post-form"
+import { useRouter } from "next/navigation"
 
 const UpdatePostForm = ({ post }: { post: { data: PostType; id: string } }) => {
   const [loading, setLoading] = useState(false)
   const keyRef = useRef(1)
   const [data, setData] = useState<PostType>(post.data)
+  const router = useRouter()
 
   const onSubmit = async (values: PostType) => {
     try {
@@ -81,7 +83,7 @@ const UpdatePostForm = ({ post }: { post: { data: PostType; id: string } }) => {
       if (keyRef.current) keyRef.current++
       setData({ ...updatedData, variation: "ids" })
       toast.success(updateResponse.success)
-      return
+      router.push("/published")
     } catch (error: any) {
       toast.error(
         error?.message ||

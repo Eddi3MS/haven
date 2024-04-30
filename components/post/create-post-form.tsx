@@ -5,12 +5,14 @@ import { generateSignedUrl } from "@/actions/posts/generate-signed-url"
 import { PostType } from "@/schemas"
 import { deleteFromCloudinaryWithDeleteToken } from "@/utils/deleteFromCloudinaryWithDeleteToken"
 import { uploadToCloudinary } from "@/utils/uploadToCloudinary"
+import { useRouter } from "next/navigation"
 import { useRef, useState } from "react"
 import { toast } from "sonner"
 import PostForm from "./post-form"
 
 const CreatePostForm = () => {
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const keyRef = useRef(1)
 
   const onSubmit = async (values: PostType) => {
@@ -66,7 +68,7 @@ const CreatePostForm = () => {
 
       if (keyRef.current) keyRef.current++
       toast.success(createResponse.success)
-      return
+      router.push("/published")
     } catch (error: any) {
       toast.error(
         error?.message ||

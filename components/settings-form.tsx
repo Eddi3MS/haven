@@ -75,8 +75,6 @@ const SettingsForm = ({
     })
   }
 
-  console.log("aa", form.formState.errors)
-
   return (
     <Card className="w-full mt-8 mx-auto">
       <CardHeader>
