@@ -49,8 +49,8 @@ const SettingsForm = ({
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      password: "",
-      newPassword: "",
+      password: undefined,
+      newPassword: undefined,
       name: name ?? "",
       email: email ?? "",
       phone: phone ?? "",
@@ -75,6 +75,8 @@ const SettingsForm = ({
     })
   }
 
+  console.log("aa", form.formState.errors)
+
   return (
     <Card className="w-full mt-8 mx-auto">
       <CardHeader>
@@ -82,10 +84,7 @@ const SettingsForm = ({
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form
-            className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4"
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4">
             <FormField
               control={form.control}
               name="name"
@@ -248,6 +247,7 @@ const SettingsForm = ({
               <Button
                 disabled={isPending || !form.formState.isDirty}
                 type="submit"
+                onClick={form.handleSubmit(onSubmit)}
               >
                 Atualizar
               </Button>
