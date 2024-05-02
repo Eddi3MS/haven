@@ -83,17 +83,13 @@ const SingleHaven = async ({
       <div className="flex justify-between w-full py-4 fade-in">
         <div className="flex gap-2 items-center ">
           <BackButton />
-          <Badge variant={post.category}>
-            {categoriesTranslated[post.category]}
-          </Badge>
           <h1 className="text-2xl font-semibold  line-clamp-1 text-left">
             {post.title}
           </h1>
         </div>
-
-        <Button type="button" variant="cta">
-          {formatToCurrency(String(post.price))}
-        </Button>
+        <Badge variant={post.category}>
+          {categoriesTranslated[post.category]}
+        </Badge>
       </div>
 
       <Card className="w-full fade-in">
@@ -106,16 +102,15 @@ const SingleHaven = async ({
             />
           </div>
         </CardHeader>
-        <CardContent className="space-y-2">
+        <CardContent className="space-y-2 pt-0 md:pt-0">
           <div>
             <h2 className="text-lg font-semibold">{post.title}</h2>
             <p className="text-muted-foreground text-sm">
               {post.address}, {post.number} - {post.district}
             </p>
           </div>
-          <p>{post.description}</p>
 
-          <div className="flex w-full justify-between">
+          <div className="flex max-w-md gap-2">
             <DetailTooltip text="Quartos">
               <BiBed fontSize={16} />
               {post.bedroomCount}
@@ -133,14 +128,30 @@ const SingleHaven = async ({
               {post.builtArea}m²
             </DetailTooltip>
           </div>
-        </CardContent>
+          <p className="pb-2">{post.description}</p>
 
-        <CardFooter className="">
-          <div>
-            <p>Anunciante: {post.user.name}</p>
-            <p>Contato: {formatPhoneNumber(post.user.phone)}</p>
+          <hr />
+
+          <div className="flex flex-col md:flex-row items-stretch justify-between gap-4">
+            <p className="flex flex-col justify-between">
+              <span className="text-lg">Preço </span>
+              <span className="text-lg font-bold">
+                {formatToCurrency(String(post.price))}
+              </span>
+            </p>
+            <hr className="md:hidden" />
+
+            <div className="flex-col items-stretch min-w-[250px]">
+              <p className="flex justify-between text-lg">
+                <span>Anunciante: </span> <span>{post.user.name}</span>
+              </p>
+              <p className="flex justify-between text-lg">
+                <span>Contato: </span>
+                <span>{formatPhoneNumber(post.user.phone)}</span>
+              </p>
+            </div>
           </div>
-        </CardFooter>
+        </CardContent>
       </Card>
     </>
   )

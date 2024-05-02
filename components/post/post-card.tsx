@@ -40,7 +40,7 @@ export const PostCard = ({
           className="w-full rounded-t-md"
         />
         {showActions && (
-          <div className="absolute bottom-5 right-5 flex flex-col gap-2">
+          <div className="absolute bottom-5 right-5 md:bottom-7 md:right-7 flex flex-col gap-2">
             <Button
               size="icon"
               className="bg-blue-400 hover:bg-blue-500"
@@ -63,7 +63,7 @@ export const PostCard = ({
       </CardHeader>
 
       <Badge
-        className={cn("absolute top-5 left-5 z-10")}
+        className="absolute top-5 left-5 md:top-7 md:left-7 z-10"
         variant={post.category}
       >
         {categoriesTranslated[post.category]}
@@ -72,7 +72,7 @@ export const PostCard = ({
       {showActions ? (
         <Badge
           className={cn(
-            "absolute top-5 right-5 z-10",
+            "absolute top-5 right-5 md:top-7 md:right-7 z-10",
             post.status === "PENDING" && "bg-blue-600 hover:bg-blue-700",
             post.status === "APPROVED" && "bg-green-600 hover:bg-green-700",
             post.status === "REJECTED" && "bg-red-600 hover:bg-red-700"

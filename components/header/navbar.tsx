@@ -2,7 +2,7 @@ import { LoginButton } from "@/components/header/login-button"
 import { Button } from "@/components/ui/button"
 import { currentUser } from "@/lib/auth"
 import { NavButton } from "@/components/header/nav-button"
-import { UserButton } from "@/components/header/user-button"
+import { MenuMobile } from "@/components/header/menu-mobile"
 
 export const Navbar = async () => {
   const user = await currentUser()
@@ -17,15 +17,21 @@ export const Navbar = async () => {
         {!!user ? <NavButton href="/settings" label="Configurações" /> : null}
       </div>
 
-      {!!user ? (
-        <UserButton image={user.image ?? ""} isAdmin={isAdmin} />
-      ) : (
+      <div className="md:hidden">
+        <MenuMobile
+          image={user?.image ?? ""}
+          isAdmin={isAdmin}
+          hasUser={!!user}
+        />
+      </div>
+
+      <div className="hidden md:block">
         <LoginButton asChild>
           <Button variant="default" size="lg">
             Entrar
           </Button>
         </LoginButton>
-      )}
+      </div>
     </nav>
   )
 }
