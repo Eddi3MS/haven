@@ -31,19 +31,21 @@ export const MenuMobile = ({
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger aria-label="abrir menu">
-        {hasUser ? (
-          <Avatar>
-            <AvatarImage src={image} />
-            <AvatarFallback className="bg-sky-500">
-              <FaUser className="text-white" />
-            </AvatarFallback>
-          </Avatar>
-        ) : (
-          <HamburgerMenuIcon fontSize={40} fontWeight={700} />
-        )}
+        <div className={!hasUser ? "md:hidden" : ""}>
+          {hasUser ? (
+            <Avatar>
+              <AvatarImage src={image} />
+              <AvatarFallback className="bg-sky-500">
+                <FaUser className="text-white" />
+              </AvatarFallback>
+            </Avatar>
+          ) : (
+            <HamburgerMenuIcon fontSize={40} fontWeight={700} />
+          )}{" "}
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className={cn("w-20", !hasUser ? "text-center" : "")}
+        className={cn("w-20", !hasUser ? "text-center md:hidden" : "")}
         align="end"
         onClick={handleClose}
       >

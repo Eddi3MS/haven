@@ -17,21 +17,21 @@ export const Navbar = async () => {
         {!!user ? <NavButton href="/settings" label="Configurações" /> : null}
       </div>
 
-      <div className="md:hidden">
-        <MenuMobile
-          image={user?.image ?? ""}
-          isAdmin={isAdmin}
-          hasUser={!!user}
-        />
-      </div>
+      <MenuMobile
+        image={user?.image ?? ""}
+        isAdmin={isAdmin}
+        hasUser={!!user}
+      />
 
-      <div className="hidden md:block">
-        <LoginButton asChild>
-          <Button variant="default" size="lg">
-            Entrar
-          </Button>
-        </LoginButton>
-      </div>
+      {!user && (
+        <div className="hidden md:block">
+          <LoginButton asChild>
+            <Button variant="default" size="lg">
+              Entrar
+            </Button>
+          </LoginButton>
+        </div>
+      )}
     </nav>
   )
 }
