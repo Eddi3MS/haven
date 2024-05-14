@@ -18,40 +18,11 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { BiArea, BiBath, BiBed, BiHome } from "react-icons/bi"
 
-export async function generateMetadata({
-  params,
-}: {
+type Props = {
   params: { slug: string }
-}): Promise<Metadata> {
-  const id = params.slug
-
-  const post = await listSinglePost(id)
-
-  if (!post)
-    return {
-      title: "Erro",
-      description: "Anúncio não encontrado.",
-    }
-
-  const image = generateCloudinaryImageURL(post.images[0].publicId)
-
-  return {
-    title: post?.title,
-    description: post?.description,
-    twitter: {
-      images: [image],
-    },
-    openGraph: {
-      images: [image],
-    },
-  }
 }
 
-const SingleHaven = async ({
-  params: { slug },
-}: {
-  params: { slug: string }
-}) => {
+const SingleHaven = async ({ params: { slug } }: Props) => {
   const post = await listSinglePost(slug)
 
   if (!post) {

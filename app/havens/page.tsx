@@ -3,35 +3,11 @@ import { Filters } from "@/components/post/filter"
 import { PostCard } from "@/components/post/post-card"
 import PostsList from "@/components/post/posts-list"
 import { UrlSearchParamsType } from "@/schemas"
-import { generateCloudinaryImageURL } from "@/utils/generateCloudinaryImageURL"
-import { Metadata } from "next"
 import Link from "next/link"
 
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: UrlSearchParamsType
-}): Promise<Metadata> {
-  const { data } = await listPosts(searchParams)
-
-  if (!Array.isArray(data) || data.length === 0)
-    return {
-      title: "Imóveis - Haven SA",
-      description: "Nenhum imóvel encontrado.",
-    }
-
-  const image = generateCloudinaryImageURL(data[0].images[0].publicId)
-
-  return {
-    title: "Imóveis - Haven SA",
-    description: "O imóvel dos seus sonhos esta aqui.",
-    twitter: {
-      images: [image],
-    },
-    openGraph: {
-      images: [image],
-    },
-  }
+export const metadata = {
+  title: "Imóveis - Haven SA",
+  description: "O imóvel dos seus sonhos esta aqui.",
 }
 
 const Havens = async ({
