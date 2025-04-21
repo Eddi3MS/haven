@@ -76,7 +76,7 @@ const SettingsForm = ({
   }
 
   return (
-    <Card className="w-full mt-8 mx-auto">
+    <Card className="w-full mt-8 container mx-auto">
       <CardHeader>
         <h2 className="text-2xl font-semibold text-center">Configurações</h2>
       </CardHeader>

@@ -17,7 +17,7 @@ const Published = async ({
   const { data, hasNextPage } = await listPostsByUser(searchParams)
 
   return (
-    <>
+    <section className="container">
       <PublishedStore published={data} />
       <div className="flex justify-between w-full py-4">
         <h1 className="text-2xl font-semibold text-center">Seus Anúncios</h1>
@@ -33,7 +33,7 @@ const Published = async ({
           return <PostCard post={item} key={item.id} showActions />
         }}
       </PostsList>
-    </>
+    </section>
   )
 }
 

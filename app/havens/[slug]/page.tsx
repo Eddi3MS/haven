@@ -27,7 +27,7 @@ const SingleHaven = async ({ params: { slug } }: Props) => {
 
   if (!post) {
     return (
-      <div className="flex-1 flex flex-col justify-center items-center w-full fade-in gap-4">
+      <div className="container flex-1 flex flex-col justify-center items-center w-full fade-in gap-4">
         <Card className="max-w-md">
           <CardHeader>
             <CardTitle>Erro.</CardTitle>
@@ -50,7 +50,7 @@ const SingleHaven = async ({ params: { slug } }: Props) => {
   }
 
   return (
-    <>
+    <section className="container">
       <div className="flex justify-between w-full py-4 fade-in">
         <div className="flex gap-2 items-center ">
           <BackButton />
@@ -124,7 +124,7 @@ const SingleHaven = async ({ params: { slug } }: Props) => {
           </div>
         </CardContent>
       </Card>
-    </>
+    </section>
   )
 }
 

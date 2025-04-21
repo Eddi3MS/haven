@@ -3,7 +3,7 @@ import React from "react"
 
 const Loading = () => {
   return (
-    <>
+    <section className="container">
       <div className="flex justify-between w-full py-4 animate-pulse">
         <div className="flex gap-2 items-center">
           <div className="h-9 w-9 aspect-square bg-gray-300 rounded-md" />
@@ -56,7 +56,7 @@ const Loading = () => {
           </div>
         </CardContent>
       </Card>
-    </>
+    </section>
   )
 }
 

@@ -18,7 +18,7 @@ const Havens = async ({
   const data = await listPosts(searchParams)
 
   return (
-    <>
+    <section className="container">
       <div className="flex justify-between w-full py-4 fade-in">
         <h1 className="text-2xl font-semibold text-center">Imóveis</h1>
 
@@ -38,7 +38,7 @@ const Havens = async ({
           )
         }}
       </PostsList>
-    </>
+    </section>
   )
 }
 

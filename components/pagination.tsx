@@ -33,6 +33,10 @@ export const Pagination = ({ hasNextPage }: { hasNextPage: boolean }) => {
     router.push(pathname + "?" + updatedSearchParams.toString())
   }
 
+  if (!hasNextPage && currentPage === 1) {
+    return null
+  }
+
   return (
     <div className="flex gap-2 justify-center py-4 fade-in">
       <Button

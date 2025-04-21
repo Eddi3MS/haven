@@ -3,7 +3,7 @@ import React from "react"
 
 const Loading = () => {
   return (
-    <>
+    <section className="container">
       <div className="flex justify-between w-full py-4 animate-pulse">
         <div className="h-8 w-20 bg-gray-300" />
 
@@ -11,7 +11,7 @@ const Loading = () => {
       </div>
 
       <LoadingPostsList />
-    </>
+    </section>
   )
 }
 

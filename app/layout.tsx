@@ -28,7 +28,7 @@ export default async function RootLayout({
         <body className={`${inter.className} min-h-screen flex flex-col`}>
           <Toaster />
           <Header />
-          <main className="flex-1 w-full container mx-auto flex flex-col min-h-[calc(100svh-90px)] pb-4">
+          <main className="flex-1 w-full flex flex-col min-h-[calc(100svh-90px)]">
             {children}
           </main>
         </body>
