@@ -74,7 +74,7 @@ const PostForm = ({
   }
 
   return (
-    <>
+    <section className="container">
       <NoPhoneWarning />
       <Card className="mt-8 fade-in">
         <CardHeader>
@@ -489,7 +489,7 @@ const PostForm = ({
           </Form>
         </CardContent>
       </Card>
-    </>
+    </section>
   )
 }
 
