@@ -119,8 +119,8 @@ export default async function Home() {
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-start">
-                    <div className="bg-purple-100 p-2 rounded-full mr-3">
-                      <FaShieldAlt className="text-purple-600" size={16} />
+                    <div className="bg-blue-100 p-2 rounded-full mr-3">
+                      <FaShieldAlt className="text-blue-600" size={16} />
                     </div>
                     <div>
                       <h3 className="font-bold mb-1">Segurança</h3>
@@ -130,8 +130,8 @@ export default async function Home() {
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <div className="bg-purple-100 p-2 rounded-full mr-3">
-                      <FaStar className="text-purple-600" size={16} />
+                    <div className="bg-blue-100 p-2 rounded-full mr-3">
+                      <FaStar className="text-blue-600" size={16} />
                     </div>
                     <div>
                       <h3 className="font-bold mb-1">Qualidade</h3>
@@ -141,8 +141,8 @@ export default async function Home() {
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <div className="bg-purple-100 p-2 rounded-full mr-3">
-                      <FaClock className="text-purple-600" size={16} />
+                    <div className="bg-blue-100 p-2 rounded-full mr-3">
+                      <FaClock className="text-blue-600" size={16} />
                     </div>
                     <div>
                       <h3 className="font-bold mb-1">Agilidade</h3>
@@ -152,8 +152,8 @@ export default async function Home() {
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <div className="bg-purple-100 p-2 rounded-full mr-3">
-                      <FaMapMarkerAlt className="text-purple-600" size={16} />
+                    <div className="bg-blue-100 p-2 rounded-full mr-3">
+                      <FaMapMarkerAlt className="text-blue-600" size={16} />
                     </div>
                     <div>
                       <h3 className="font-bold mb-1">Localização</h3>
