@@ -101,7 +101,8 @@ export default function HomeSearch() {
 
       <Button
         size="xl"
-        className="bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600"
+        className="bg-gradient-to-r from-blue-800 to-blue-500 text-white hover:from-blue-900 hover:to-blue-600
+"
         asChild
       >
         <Link

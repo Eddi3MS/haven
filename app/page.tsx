@@ -89,7 +89,7 @@ export default async function Home() {
 
             <div className="text-center mt-10">
               <Link href="/havens">
-                <Button className="bg-white text-purple-600 border border-purple-600 hover:bg-purple-50">
+                <Button className="bg-white text-blue-700 border border-blue-700 hover:bg-blue-50">
                   Ver todos os imóveis
                 </Button>
               </Link>
@@ -179,41 +179,41 @@ export default async function Home() {
         </section>
 
         {/* How It Works */}
-        <section className="py-16 bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+        <section className="py-16 bg-blue-100 text-blue-900">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">
               Como Funciona
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg text-center">
-                <div className="bg-white text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-blue-500/10 backdrop-blur-sm p-6 rounded-lg text-center">
+                <div className="bg-white text-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <FaSearch size={28} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">1. Busque Imóveis</h3>
-                <p className="text-white/80">
+                <p className="text-gray-900">
                   Utilize nossos filtros avançados para encontrar o imóvel ideal
                   de acordo com suas necessidades e preferências.
                 </p>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg text-center">
-                <div className="bg-white text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-blue-500/10 backdrop-blur-sm p-6 rounded-lg text-center">
+                <div className="bg-white text-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <FaHome size={28} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">2. Anuncie Imóveis</h3>
-                <p className="text-white/80">
+                <p className="text-gray-900">
                   Cadastre seu imóvel de forma rápida e prática. Com poucos
                   passos, ele estará visível para milhares de interessados em
                   toda a cidade.
                 </p>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg text-center">
-                <div className="bg-white text-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-blue-500/10 backdrop-blur-sm p-6 rounded-lg text-center">
+                <div className="bg-white text-blue-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <FaBuilding size={28} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">3. Feche o Negócio</h3>
-                <p className="text-white/80">
+                <p className="text-gray-900">
                   Entre em contato diretamente com o anunciante e conclua a
                   negociação de forma simples, segura e sem intermediários.
                 </p>
@@ -221,7 +221,7 @@ export default async function Home() {
             </div>
             <div className="text-center mt-12">
               <Link href="/havens">
-                <Button className="bg-white text-purple-600 hover:bg-gray-100">
+                <Button className="bg-white text-blue-900 hover:bg-gray-50">
                   Comece sua busca agora
                 </Button>
               </Link>
@@ -237,9 +237,16 @@ export default async function Home() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="flex mb-4">
+                  <FaStar className="text-yellow-400" size={18} />
+                  <FaStar className="text-yellow-400" size={18} />
+                  <FaStar className="text-yellow-400" size={18} />
+                  <FaStar className="text-yellow-400" size={18} />
+                  <FaStar className="text-yellow-400" size={18} />
+                </div>
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-purple-600 font-bold">MS</span>
+                  <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-900 font-bold">MS</span>
                   </div>
                   <div>
                     <h3 className="font-bold">Maria Silva</h3>
@@ -250,19 +257,20 @@ export default async function Home() {
                   Aspernatur, accusantium numquam! Sequi ducimus assumenda dicta
                   quibusdam necessitatibus reprehenderit provident in!&quot;
                 </p>
-                <div className="flex mt-4">
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                {" "}
+                <div className="flex mb-4">
                   <FaStar className="text-yellow-400" size={18} />
                   <FaStar className="text-yellow-400" size={18} />
                   <FaStar className="text-yellow-400" size={18} />
                   <FaStar className="text-yellow-400" size={18} />
                   <FaStar className="text-yellow-400" size={18} />
                 </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-purple-600 font-bold">JR</span>
+                  <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-900 font-bold">JR</span>
                   </div>
                   <div>
                     <h3 className="font-bold">João Rodrigues</h3>
@@ -275,19 +283,19 @@ export default async function Home() {
                   dolores, odio provident reiciendis pariatur laboriosam natus
                   illo a!&quot;
                 </p>
-                <div className="flex mt-4">
+              </div>
+
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="flex mb-4">
                   <FaStar className="text-yellow-400" size={18} />
                   <FaStar className="text-yellow-400" size={18} />
                   <FaStar className="text-yellow-400" size={18} />
                   <FaStar className="text-yellow-400" size={18} />
                   <FaStar className="text-yellow-400" size={18} />
                 </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-purple-600 font-bold">CA</span>
+                  <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-900 font-bold">CA</span>
                   </div>
                   <div>
                     <h3 className="font-bold">Carla Almeida</h3>
@@ -298,20 +306,13 @@ export default async function Home() {
                   elit. Placeat provident optio, error soluta facere
                   sapiente?&quot;
                 </p>
-                <div className="flex mt-4">
-                  <FaStar className="text-yellow-400" size={18} />
-                  <FaStar className="text-yellow-400" size={18} />
-                  <FaStar className="text-yellow-400" size={18} />
-                  <FaStar className="text-yellow-400" size={18} />
-                  <FaStar className="text-yellow-400" size={18} />
-                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+        <section className="py-16 bg-gradient-to-r from-blue-800 to-blue-500 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">
               Pronto para encontrar seu imóvel ideal?
@@ -322,7 +323,7 @@ export default async function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/havens">
-                <Button className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-6 text-lg">
+                <Button className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-6 text-lg">
                   Buscar Imóveis
                 </Button>
               </Link>
@@ -399,7 +400,7 @@ export default async function Home() {
                   </div>
                   <Button
                     disabled
-                    className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600"
+                    className="w-full bg-gradient-to-r from-blue-800 to-blue-500 text-white hover:from-blue-900 hover:to-blue-600"
                   >
                     Enviar Mensagem
                   </Button>
@@ -413,7 +414,7 @@ export default async function Home() {
                   <div className="space-y-4">
                     <div className="flex items-start">
                       <FaMapMarkerAlt
-                        className="text-purple-600 mr-3 mt-1"
+                        className="text-blue-600 mr-3 mt-1"
                         size={18}
                       />
                       <div>
@@ -424,10 +425,7 @@ export default async function Home() {
                       </div>
                     </div>
                     <div className="flex items-start">
-                      <FaPhone
-                        className="text-purple-600 mr-3 mt-1"
-                        size={18}
-                      />
+                      <FaPhone className="text-blue-600 mr-3 mt-1" size={18} />
                       <div>
                         <h4 className="font-bold">Telefone</h4>
                         <p className="text-gray-600">(37) 1234-5678</p>
@@ -435,7 +433,7 @@ export default async function Home() {
                     </div>
                     <div className="flex items-start">
                       <IoLogoWhatsapp
-                        className="text-purple-600 mr-3 mt-1"
+                        className="text-blue-600 mr-3 mt-1"
                         size={18}
                       />
                       <div>
@@ -445,7 +443,7 @@ export default async function Home() {
                     </div>
                     <div className="flex items-start">
                       <FaEnvelope
-                        className="text-purple-600 mr-3 mt-1"
+                        className="text-blue-600 mr-3 mt-1"
                         size={18}
                       />
                       <div>
@@ -492,13 +490,13 @@ export default async function Home() {
                   seus sonhos.
                 </p>
                 <div className="flex space-x-4">
-                  <a href="#" className="text-white hover:text-purple-400">
+                  <a href="#" className="text-white hover:text-blue-400">
                     <FaFacebookF size={20} />
                   </a>
-                  <a href="#" className="text-white hover:text-purple-400">
+                  <a href="#" className="text-white hover:text-blue-400">
                     <FaInstagram size={20} />
                   </a>
-                  <a href="#" className="text-white hover:text-purple-400">
+                  <a href="#" className="text-white hover:text-blue-400">
                     <FaLinkedinIn size={20} />
                   </a>
                 </div>
@@ -577,9 +575,9 @@ export default async function Home() {
                   <Input
                     type="email"
                     placeholder="Seu email"
-                    className="p-2 w-full focus:outline-none rounded-r-none text-white"
+                    className="p-2 w-full focus:outline-none rounded-r-none text-white border-r-0"
                   />
-                  <Button className="bg-purple-600 hover:bg-purple-700 rounded-l-none">
+                  <Button className="bg-blue-600 hover:bg-blue-700 rounded-l-none">
                     Assinar
                   </Button>
                 </div>

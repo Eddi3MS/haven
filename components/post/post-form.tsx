@@ -472,8 +472,7 @@ const PostForm = ({
                 ) : null}
 
                 <Button
-                  className="w-full md:w-auto min-w-[110px]"
-                  variant="cta"
+                  className="w-full md:w-auto min-w-[110px] bg-gradient-to-r from-blue-800 to-blue-500 text-white hover:from-blue-900 hover:to-blue-600"
                   disabled={loading}
                 >
                   {loading ? (

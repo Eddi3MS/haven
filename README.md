@@ -1,53 +1,74 @@
 # Haven
 
-## Proposta
+## 🏡 Proposta
 
-- Encontrar imóveis para comprar ou alugar
-    - filtrar por tipo (venda | aluguel)
-    - filtrar pela quantidade de quartos, banheiros
-- Anunciar os seus imoveis
-    - formulario captando informações relevantes como:
-        - localização, area total, area construida, quartos, banheiros
-        - fotos do imovel: até 5.
-- Anuncio deve passar por aprovação do administrador para evitar problemas
-- Anuncio incluirá contato direto do vendedor (telefone)
+- **Busca de imóveis para compra ou aluguel**
 
-# Haven Imóveis
+  - Filtros disponíveis:
+    - Tipo: `venda` | `aluguel`
+    - Quantidade de quartos
+    - Quantidade de banheiros
 
-![image](https://github.com/Eddi3MS/haven/assets/75024157/7dda6b6f-2629-414a-9c65-3834af4d8465)
+- **Cadastro de novos imóveis**
 
-## Criar um anuncio:
+  - Formulário com os seguintes campos obrigatórios:
+    - Localização (endereço ou cidade/bairro)
+    - Área total (m²)
+    - Área construída (m²)
+    - Número de quartos
+    - Número de banheiros
+    - Upload de até 5 fotos
 
-![image](https://github.com/Eddi3MS/haven/assets/75024157/2184161d-0b06-4394-bca7-b04c727e9340)
+- **Moderação de anúncios**
 
-## Anuncios passam por avaliação
+  - Todos os anúncios devem ser aprovados manualmente por um administrador antes de serem exibidos publicamente
 
-![image](https://github.com/Eddi3MS/haven/assets/75024157/c540034e-7182-4616-8be8-c2f29867293c)
+- **Contato direto com o anunciante**
+  - Cada anúncio incluirá o número de telefone do proprietário ou responsável pelo imóvel, permitindo negociação direta
 
-## Após aprovados, anuncios sao dispostos em uma lista, podendo ser aplicados filtros para uma busca mais assertiva
+## 🧱 Tech Stack
 
-![image](https://github.com/Eddi3MS/haven/assets/75024157/2ebfbd7d-7f97-43f5-b132-c4374a3cdbb1)
-![image](https://github.com/Eddi3MS/haven/assets/75024157/6f691afe-66c6-48c8-aa32-1f426c091a5e)
+- **Next.js**  
+  Framework React full-stack com renderização SSR/SSG e otimizações de performance.
 
-## Entrando em um anuncio especifico, será disposto todos os dados e o telefone de contato do anunciante
+- **React**  
+  Biblioteca principal para construção da interface do usuário.
 
-![image](https://github.com/Eddi3MS/haven/assets/75024157/1d9d42ef-9518-4a8c-b1c7-08b4a3412f7c)
+- **Tailwind CSS**  
+  Estilização utilitária com animações (`tailwindcss-animate`), merge de classes (`tailwind-merge`) e condicionais (`clsx`).
 
-## Quem anuncia tem uma tela para editar, excluir ou visualizar seus anuncios
+- **Radix UI + Shadcn**  
+  Componentes acessíveis e low-level como Avatar, Dialog, Tooltip, Select, etc.
 
-![image](https://github.com/Eddi3MS/haven/assets/75024157/37e2bc75-5ad6-4a02-9c12-bb77c1977e58)
+- **React Hook Form + Zod**  
+  Gerenciamento de formulários leve e performático, e validação de tipagem.
 
-## Charts para o admin controlar dados dos anuncios
+- **NextAuth.js**  
+  Autenticação via OAuth (login social).
 
-![image](https://github.com/Eddi3MS/haven/assets/75024157/025873c9-44e2-48ea-bc52-f31d4e12c4dc)
+- **NeonDB (PostgreSQL)**  
+  Banco de dados relacional moderno baseado em Postgres, com suporte a branching e escalabilidade.
 
-## E-Mails Enviados
+- **Prisma ORM**  
+  ORM moderno e tipado com geração de queries SQL automáticas, migrations e integração com TypeScript.
 
-- E-mails de verificação de e-mail no registro (sem oauth) e troca de e-mail
-- E-mail no reset de senhas
-- E-mail de token quando verficação de 2 fatores esta ativa
-- E-mail de aprovação de anuncio com link para anuncio aprovado
-- E-mail de rejeição de anuncio, com mensagem explindo a razão
+- **Cloudinary**  
+  Plataforma de gerenciamento e entrega otimizada de imagens.
+
+- **Resend**  
+  API moderna para envio de emails transacionais.
+
+- **React Email**  
+  Framework para criar templates de e-mail com componentes React, estilizados com Tailwind.
+
+- **Zustand**  
+  Gerenciamento de estado global simples e performático.
+
+- **Chart.js + react-chartjs-2**  
+  Visualização de dados com gráficos responsivos.
+
+- **Embla Carousel**  
+  Slider/carrossel acessível e mobile-friendly.
 
 ### Setup .env file
 

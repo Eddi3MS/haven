@@ -246,6 +246,7 @@ const SettingsForm = ({
                 disabled={isPending || !form.formState.isDirty}
                 type="submit"
                 onClick={form.handleSubmit(onSubmit)}
+                className="bg-gradient-to-r from-blue-800 to-blue-500 text-white hover:from-blue-900 hover:to-blue-600"
               >
                 Atualizar
               </Button>
